@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>SpeekApp needs to access your photo library to save speeches you make</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>SpeekApp needs to access your photo library to search speeches you make</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>SpeekApp needs to access the microphone to record speeches you make</string>
+	<key>NSCameraUsageDescription</key>
+	<string>SpeekApp needs to access the camera to record speeches you make</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -41,8 +49,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
