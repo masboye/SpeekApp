@@ -16,6 +16,10 @@ class OnBoardViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.startButton.layer.cornerRadius = 15
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //self.becomeFirstResponder()
+    }
     @IBAction func startAction(_ sender: UIButton) {
         
         let alert = UIAlertController(title: "What's your Topic?", message: nil, preferredStyle: .alert)

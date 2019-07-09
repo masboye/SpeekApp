@@ -104,38 +104,38 @@ class FaceView: UIView {
             context.strokePath()
         }
         
-        if leftPupil != CGPoint.zero  {
-            
-            let maxLeftEye = leftEye.max { (point1, point2) -> Bool in
-                point2.y > point1.y
-            }
-            
-            let minLeftEye = leftEye.max { (point1, point2) -> Bool in
-                point2.y < point1.y
-            }
-            
-            context.addEllipse(in: CGRect(origin: leftPupil, size: CGSize(width: (maxLeftEye!.y - minLeftEye!.y) / 2 , height: (maxLeftEye!.y - minLeftEye!.y) / 3 )))
-            context.strokePath()
-        }
+//        if leftPupil != CGPoint.zero  {
+//
+//            let maxLeftEye = leftEye.max { (point1, point2) -> Bool in
+//                point2.y > point1.y
+//            }
+//
+//            let minLeftEye = leftEye.max { (point1, point2) -> Bool in
+//                point2.y < point1.y
+//            }
+//
+//            context.addEllipse(in: CGRect(origin: leftPupil, size: CGSize(width: (maxLeftEye!.y - minLeftEye!.y) / 2 , height: (maxLeftEye!.y - minLeftEye!.y) / 3 )))
+//            context.strokePath()
+//        }
         
         if !leftEyebrow.isEmpty {
             context.addLines(between: leftEyebrow)
             context.strokePath()
         }
         
-        if rightPupil != CGPoint.zero  {
-            
-            let maxLeftEye = rightEye.max { (point1, point2) -> Bool in
-                point2.y > point1.y
-            }
-            
-            let minLeftEye = rightEye.max { (point1, point2) -> Bool in
-                point2.y < point1.y
-            }
-            
-            context.addEllipse(in: CGRect(origin: rightPupil, size: CGSize(width: (maxLeftEye!.y - minLeftEye!.y) / 2 , height: (maxLeftEye!.y - minLeftEye!.y) / 3 )))
-            context.strokePath()
-        }
+//        if rightPupil != CGPoint.zero  {
+//            
+//            let maxLeftEye = rightEye.max { (point1, point2) -> Bool in
+//                point2.y > point1.y
+//            }
+//            
+//            let minLeftEye = rightEye.max { (point1, point2) -> Bool in
+//                point2.y < point1.y
+//            }
+//            
+//            context.addEllipse(in: CGRect(origin: rightPupil, size: CGSize(width: (maxLeftEye!.y - minLeftEye!.y) / 2 , height: (maxLeftEye!.y - minLeftEye!.y) / 3 )))
+//            context.strokePath()
+//        }
         
         if !rightEye.isEmpty {
             context.addLines(between: rightEye)

@@ -42,9 +42,14 @@ class CameraController:NSObject{
     var audioWriterInput: AVAssetWriterInput!
     var sessionAtSourceTime: CMTime?
     
+    //set layer for text showing time elapsed
+    var textLayer :CATextLayer?
     var layer: CALayer?
     
+    //set time for recording
     let recordTimer = RecordTimer(initValue: 0)
+    
+    
     
     func prepare(completionHandler:@escaping (Error?) -> Void){
         func createCaptureSession(){
@@ -117,6 +122,7 @@ class CameraController:NSObject{
             
         }
         
+        
         func configureFaceDetectOutput() throws {
             
             guard let captureSession = self.captureSession else {
@@ -160,24 +166,7 @@ class CameraController:NSObject{
         
         completionHandler(nil)
         
-        //error in the async operation it runs after the origional function ended
-        //        DispatchQueue(label: "prepare").async {
-        //            do {
-        //                createCaptureSession()
-        //                try configureCaptureDevices()
-        //                try configureDeviceInputs()
-        //                try configureDeviceOutput()
-        //            } catch{
-        //
-        //                DispatchQueue.main.async {
-        //                    completionHandler(error)
-        //                }
-        //                return
-        //            }
-        //            DispatchQueue.main.async {
-        //                completionHandler(nil)
-        //            }
-        //        }
+       
     }
     
     func displayPreview(on view:UIView) throws {
@@ -194,24 +183,15 @@ class CameraController:NSObject{
         self.previewLayer?.frame = view.frame
         view.layer.insertSublayer(self.previewLayer!, at: 0)
         
-        let textLayer = CATextLayer(layer: view)
-        textLayer.frame = view.frame
-        textLayer.string = "MC2 G17"
-        textLayer.fontSize = CGFloat(20.0)
+        textLayer = CATextLayer(layer: view)
+        textLayer?.frame = view.frame
+        textLayer?.string = "MC2 G17"
+        textLayer?.fontSize = CGFloat(20.0)
         
         layer = CALayer(layer: view)
-        layer?.addSublayer(textLayer)
+        layer?.addSublayer(textLayer!)
         layer?.frame = view.frame
         self.previewLayer?.addSublayer(layer!)
-        
-        
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (time) in
-            self.recordTimer.updateTimer()
-            textLayer.string = "\(self.recordTimer.getTime())"
-            DispatchQueue.main.async {
-                self.layer?.setNeedsDisplay()
-            }
-        }
         
         self.maxX = view.bounds.maxX
         self.maxY = view.bounds.maxY
@@ -221,6 +201,14 @@ class CameraController:NSObject{
         self.faceView.backgroundColor = UIColor.clear
         self.previewLayer?.addSublayer(faceView.layer)
         
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (time) in
+            self.recordTimer.updateTimer()
+            self.textLayer?.string = "\(self.recordTimer.getTime())"
+            
+            DispatchQueue.main.async {
+                self.layer?.setNeedsDisplay()
+            }
+        }
         
     }
     
@@ -306,7 +294,6 @@ extension CameraController{
     }
 }
 
-
 extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptureAudioDataOutputSampleBufferDelegate{
     
     func imageFromSampleBuffer(sampleBuffer: CMSampleBuffer) -> UIImage {
@@ -327,6 +314,58 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
         
         return resultImage
     }
+    func getFaceLandMarks(sampleBuffer: CMSampleBuffer, faceDetectOrientation: CGImagePropertyOrientation){
+        
+        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+            return
+        }
+        
+        let detectFaceRequest = VNDetectFaceLandmarksRequest(completionHandler: detectedFace)
+        
+        do {
+            try sequenceHandler.perform(
+                [detectFaceRequest],
+                on: imageBuffer,
+                orientation: faceDetectOrientation)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    func getFaceFeatures(sampleBuffer: CMSampleBuffer){
+        
+        let image = self.imageFromSampleBuffer(sampleBuffer: sampleBuffer)
+        let ciimage: CIImage! = CIImage(image: image)
+        
+        let detector: CIDetector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options:[CIDetectorAccuracy: CIDetectorAccuracyLow])!
+        
+        // fetch parameter list
+        let options = [CIDetectorSmile : true, CIDetectorEyeBlink:true]
+        
+        // detect face
+        let faces = detector.features(in: ciimage, options: options)
+        //print("\(faces.count)")
+        
+        for feature in faces as! [CIFaceFeature] {
+            
+            // check if you are smiling
+            if feature.hasSmile {
+                print("Smilling!!!")
+            }else{
+                //print("not smilling")
+            }
+            
+            
+            if feature.rightEyeClosed {
+                //print("Right Eye Closed")
+            }
+            
+            if feature.leftEyeClosed {
+                //("Left Eye Closed")
+            }
+        }
+        
+        
+    }
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
@@ -340,7 +379,6 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
         let writable = canWrite()
         
         
-        
         if output == self.faceDetectOutput{
             
             if writable,
@@ -349,44 +387,7 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                 sessionAtSourceTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
                 videoWriter.startSession(atSourceTime: sessionAtSourceTime!)
                 
-                print("Session Start")
-                
             }
-            
-            
-            let image = self.imageFromSampleBuffer(sampleBuffer: sampleBuffer)
-            let ciimage: CIImage! = CIImage(image: image)
-            
-            let detector: CIDetector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options:[CIDetectorAccuracy: CIDetectorAccuracyHigh])!
-            
-            // fetch parameter list
-            let options = [CIDetectorSmile : true, CIDetectorEyeBlink:true]
-            
-            // detect face
-            let faces = detector.features(in: ciimage, options: options)
-            //print("\(faces.count)")
-            
-            for feature in faces as! [CIFaceFeature] {
-                
-                // check if you are smiling
-                if feature.hasSmile {
-                    print("Smilling!!!")
-                }else{
-                    print("not smilling")
-                }
-                
-                
-                if feature.rightEyeClosed {
-                    print("Right Eye Closed")
-                }
-                
-                if feature.leftEyeClosed {
-                    ("Left Eye Closed")
-                }
-            }
-            
-            
-            
             
             switch UIDevice.current.orientation {
             case .landscapeRight:
@@ -419,46 +420,42 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                 //Make `.portrait` as default (should check will `.faceUp` and `.faceDown`)
             }
             
-            guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
-                return
-            }
-    
-            let detectFaceRequest = VNDetectFaceLandmarksRequest(completionHandler: detectedFace)
-            
-            do {
-                try sequenceHandler.perform(
-                    [detectFaceRequest],
-                    on: imageBuffer,
-                    orientation: faceDetectOrientation)
-            } catch {
-                print(error.localizedDescription)
-            }
-            
             if writable, isRecording{
-                //print("\(writable)")
+                
                 //write video
                 if videoWriterInput.isReadyForMoreMediaData {
                     //Write video buffer
                     //print("Video Recording \(videoWriter.status == .writing)")
-                    //sessionAtSourceTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
-                    //videoWriter.startSession(atSourceTime: sessionAtSourceTime!)
+                    
                     if videoWriter.status != .writing{
                         videoWriter.startWriting()
                     } else {
                         //Means ready to write down the file
+                        
                         videoWriterInput.append(sampleBuffer)
+                        
                     }
                 }
                 
             }
             
-        }else if writable, isRecording,
+            //test
+            
+            getFaceLandMarks(sampleBuffer: sampleBuffer, faceDetectOrientation: faceDetectOrientation)
+            getFaceFeatures(sampleBuffer: sampleBuffer)
+            //edn test
+            
+           }else if writable, isRecording,
             output == self.audioDataOutput,sessionAtSourceTime != nil,
             audioWriterInput.isReadyForMoreMediaData {
             //Write audio buffer
-            print("Audio Recording \(videoWriter.status == .writing)")
+            //print("Audio Recording \(videoWriter.status == .writing)")
+            
             audioWriterInput.append(sampleBuffer)
+            
         }
+        
+        
     }
     
 }
@@ -706,7 +703,6 @@ extension CameraController{
         
         guard isRecording else { return }
         //guard videoWriter.status.rawValue == 1 else { return }
-        print("Error --> \(videoWriter.error)")
         
         isRecording = false
         videoWriter.finishWriting { [weak self] in

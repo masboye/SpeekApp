@@ -21,13 +21,16 @@ class ScreenViewController: UIViewController {
     let cameraController = CameraController()
     var additionalWindows: [UIWindow] = []
     
+    
     @IBAction func recordButtonPressed(_ sender: UIButton) {
         
         if !self.recordButtonStatus {
             
             self.recordButton.setImage(UIImage(named: "stop record"), for: .normal)
             self.recordButtonStatus = true
-            self.stackButton.isHidden = true
+            //self.stackButton.isHidden = true
+            
+            self.stackButton.hideAnimated(in: self.stackButton)
             self.showStackStatus = false
             
             if #available(iOS 9.0, *) {
@@ -35,10 +38,11 @@ class ScreenViewController: UIViewController {
             } else {
                 AudioServicesPlaySystemSound(1108)
             }
-           
+            self.cameraController.start()
         }else{
             self.recordButtonStatus = false
             self.recordButton.setImage(UIImage(named: "start record"), for: .normal)
+            self.cameraController.stop()
            
         }
         
@@ -129,6 +133,14 @@ class ScreenViewController: UIViewController {
             
         }
         
+        do {
+            try cameraController.switchCamera()
+        }
+            
+        catch {
+            print(error)
+        }
+        
     }
     
     func configureAuxilliaryInterface(with: UIWindow){
@@ -154,6 +166,63 @@ class ScreenViewController: UIViewController {
        
         
     }
+    
+    override func viewDidLayoutSubviews() {
+       
+        //set the previewlayer and faceView so always the same size in any orinetation
+        cameraController.faceView.frame = cameraController.previewLayer!.frame
+        
+    }
+    
+    private func updatePreviewLayer(layer: AVCaptureConnection, orientation: AVCaptureVideoOrientation) {
+        
+        layer.videoOrientation = orientation
+        //check external screen
+        if UIScreen.screens.count > 1{
+            cameraController.previewLayer?.frame = UIScreen.screens.last!.bounds
+        }else{
+            cameraController.previewLayer?.frame = self.view.bounds
+            
+        }
+    }
+    
+    override func viewWillLayoutSubviews() {
+        
+        super.viewWillLayoutSubviews()
+        
+        if let connection =  self.cameraController.previewLayer?.connection  {
+            
+            let currentDevice: UIDevice = UIDevice.current
+            let orientation: UIDeviceOrientation = currentDevice.orientation
+            let previewLayerConnection : AVCaptureConnection = connection
+            
+            if previewLayerConnection.isVideoOrientationSupported {
+                
+                switch (orientation) {
+                case .portrait:
+                    updatePreviewLayer(layer: previewLayerConnection, orientation: .portrait)
+                    break
+                    
+                case .landscapeRight:
+                    updatePreviewLayer(layer: previewLayerConnection, orientation: .landscapeLeft)
+                    break
+                    
+                case .landscapeLeft:
+                    updatePreviewLayer(layer: previewLayerConnection, orientation: .landscapeRight)
+                    break
+                    
+                case .portraitUpsideDown:
+                    updatePreviewLayer(layer: previewLayerConnection, orientation: .portraitUpsideDown)
+                    break
+                    
+                default:
+                    updatePreviewLayer(layer: previewLayerConnection, orientation: .portrait)
+                    break
+                }
+            }
+        }
+    }
+    
     
 }
 

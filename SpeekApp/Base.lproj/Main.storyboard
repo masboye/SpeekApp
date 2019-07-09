@@ -22,19 +22,19 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="55" translatesAutoresizingMaskIntoConstraints="NO" id="XnF-1W-3NC">
-                                <rect key="frame" x="20" y="159" width="374" height="377"/>
+                                <rect key="frame" x="20" y="159" width="374" height="363"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="first" translatesAutoresizingMaskIntoConstraints="NO" id="IHf-n3-GTW">
-                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to SpeekApp." lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2B8-VS-NJJ">
-                                        <rect key="frame" x="0.0" y="85" width="307.5" height="122"/>
+                                        <rect key="frame" x="0.0" y="71" width="307.5" height="122"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="51"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Practice with your speech, review your previous videos and more" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vnu-jJ-pWN">
-                                        <rect key="frame" x="0.0" y="262" width="368.5" height="115"/>
+                                        <rect key="frame" x="0.0" y="248" width="368.5" height="115"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="32"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -42,10 +42,10 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nCZ-Gq-64A">
-                                <rect key="frame" x="139.5" y="744" width="135" height="49"/>
+                                <rect key="frame" x="119.5" y="744" width="175" height="49"/>
                                 <color key="backgroundColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="31"/>
-                                <state key="normal" title="Let's Start">
+                                <state key="normal" title="   Let's Start   ">
                                     <color key="titleColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </state>
                                 <connections>
@@ -122,11 +122,12 @@
                         <outlet property="preview" destination="1mJ-Ff-VLO" id="3a3-0z-m62"/>
                         <outlet property="recordButton" destination="TdW-pL-kPI" id="fej-fI-LZj"/>
                         <outlet property="stackButton" destination="3he-rY-zsp" id="nRx-Dv-AFq"/>
+                        <segue destination="49e-Tb-3d3" kind="show" identifier="onBoard" id="QJd-Bs-djY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fOL-z2-PHK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1813" y="-320"/>
+            <point key="canvasLocation" x="1754" y="-441"/>
         </scene>
         <!--Second View Controller-->
         <scene sceneID="wg7-f3-ORb">
