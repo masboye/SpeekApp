@@ -42,12 +42,15 @@ class CameraController:NSObject{
     var audioWriterInput: AVAssetWriterInput!
     var sessionAtSourceTime: CMTime?
     
-    //set layer for text showing time elapsed
-    var textLayer :CATextLayer?
-    var layer: CALayer?
     
     //set time for recording
     let recordTimer = RecordTimer(initValue: 0)
+    var isVideoStreaming = false
+    var isAudioStreaming = false
+    var isReadyToRecord = false
+    var label:UILabel?
+    var timerForRecording:Timer?
+   
     
     
     
@@ -183,16 +186,6 @@ class CameraController:NSObject{
         self.previewLayer?.frame = view.frame
         view.layer.insertSublayer(self.previewLayer!, at: 0)
         
-        textLayer = CATextLayer(layer: view)
-        textLayer?.frame = view.frame
-        textLayer?.string = "MC2 G17"
-        textLayer?.fontSize = CGFloat(20.0)
-        
-        layer = CALayer(layer: view)
-        layer?.addSublayer(textLayer!)
-        layer?.frame = view.frame
-        self.previewLayer?.addSublayer(layer!)
-        
         self.maxX = view.bounds.maxX
         self.maxY = view.bounds.maxY
         self.midY = view.bounds.midY
@@ -201,14 +194,12 @@ class CameraController:NSObject{
         self.faceView.backgroundColor = UIColor.clear
         self.previewLayer?.addSublayer(faceView.layer)
         
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (time) in
-            self.recordTimer.updateTimer()
-            self.textLayer?.string = "\(self.recordTimer.getTime())"
-            
-            DispatchQueue.main.async {
-                self.layer?.setNeedsDisplay()
-            }
-        }
+        label = UILabel(frame: CGRect(x: 0, y: -view.frame.height / 2 + 50, width: view.frame.width, height: view.frame.height))
+        label?.text = "Preparing Recording"
+        label?.font = UIFont(name: "Times new Roman", size: 25.0)
+        label?.textColor = .white
+        self.faceView.addSubview(label!)
+        
         
     }
     
@@ -378,6 +369,31 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
         
         let writable = canWrite()
         
+//        if output == self.faceDetectOutput{
+//            //print("VIDEO IS STREAMING")
+//            self.isVideoStreaming = true
+//        }else if output == self.audioDataOutput{
+//            //print("AUDIO IS STREAMING")
+//            self.isAudioStreaming = true
+//        }
+        
+        if self.isAudioStreaming, self.isVideoStreaming, !self.isReadyToRecord, isRecording{
+            self.isReadyToRecord = true
+            //print("Record is ready \(self.isReadyToRecord)-\(self.isAudioStreaming)-\(self.isVideoStreaming)")
+            //start the count down
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                //print("Timer fired!")
+                
+               self.timerForRecording = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (time) in
+                    self.recordTimer.updateTimer()
+                    DispatchQueue.main.async {
+                        self.label?.text = "\(self.recordTimer.getTime())"
+                        
+                    }
+                }
+            }
+            
+        }
         
         if output == self.faceDetectOutput{
             
@@ -420,12 +436,13 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                 //Make `.portrait` as default (should check will `.faceUp` and `.faceDown`)
             }
             
-            if writable, isRecording{
+            if writable, isRecording, isAudioStreaming{
                 
                 //write video
                 if videoWriterInput.isReadyForMoreMediaData {
                     //Write video buffer
                     //print("Video Recording \(videoWriter.status == .writing)")
+                    self.isVideoStreaming = true
                     
                     if videoWriter.status != .writing{
                         videoWriter.startWriting()
@@ -441,8 +458,11 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
             
             //test
             
+//
             getFaceLandMarks(sampleBuffer: sampleBuffer, faceDetectOrientation: faceDetectOrientation)
-            getFaceFeatures(sampleBuffer: sampleBuffer)
+            DispatchQueue.main.async {
+            self.getFaceFeatures(sampleBuffer: sampleBuffer)
+        }
             //edn test
             
            }else if writable, isRecording,
@@ -450,6 +470,7 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
             audioWriterInput.isReadyForMoreMediaData {
             //Write audio buffer
             //print("Audio Recording \(videoWriter.status == .writing)")
+            self.isAudioStreaming = true
             
             audioWriterInput.append(sampleBuffer)
             
@@ -619,7 +640,9 @@ extension CameraController{
                 faceView.clear()
                 return
         }
-        
+        //yaw -0.7 means turn left +0.7 means turn right 0 means head straight
+        //roll 2 head tilt left 0.5 head tilt right 1 means head straight
+        //print("Yaw = \(result.yaw)- Roll = \(result.roll)")
         updateFaceView(for: result)
         
     }
@@ -696,6 +719,10 @@ extension CameraController{
         //startWriting()
         setupWriter()
         
+        guard let timer = self.timerForRecording else {return}
+        timer.fire()
+        
+        
         
     }
     
@@ -713,7 +740,8 @@ extension CameraController{
             print("\(asset.duration.seconds)")
             UISaveVideoAtPathToSavedPhotosAlbum(asset.url.path, nil, nil, nil)
         }
-        //videoWriter.cancelWriting()
+        
+        self.timerForRecording?.invalidate()
     }
     
     func pause() {
