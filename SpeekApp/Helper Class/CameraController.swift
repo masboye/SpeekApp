@@ -51,7 +51,8 @@ class CameraController:NSObject{
     var label:UILabel?
     var timerForRecording:Timer?
    
-    
+    //set box for initialization
+    var initBox:UIView!
     
     
     func prepare(completionHandler:@escaping (Error?) -> Void){
@@ -369,14 +370,6 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
         
         let writable = canWrite()
         
-//        if output == self.faceDetectOutput{
-//            //print("VIDEO IS STREAMING")
-//            self.isVideoStreaming = true
-//        }else if output == self.audioDataOutput{
-//            //print("AUDIO IS STREAMING")
-//            self.isAudioStreaming = true
-//        }
-        
         if self.isAudioStreaming, self.isVideoStreaming, !self.isReadyToRecord, isRecording{
             self.isReadyToRecord = true
             //print("Record is ready \(self.isReadyToRecord)-\(self.isAudioStreaming)-\(self.isVideoStreaming)")
@@ -407,6 +400,7 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
             
             switch UIDevice.current.orientation {
             case .landscapeRight:
+                
                 connection.videoOrientation = .landscapeLeft
                 if self.currentCameraPosition == CameraPosition.front {
                     
@@ -456,14 +450,12 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                 
             }
             
-            //test
-            
-//
+           
             getFaceLandMarks(sampleBuffer: sampleBuffer, faceDetectOrientation: faceDetectOrientation)
             DispatchQueue.main.async {
             self.getFaceFeatures(sampleBuffer: sampleBuffer)
         }
-            //edn test
+            
             
            }else if writable, isRecording,
             output == self.audioDataOutput,sessionAtSourceTime != nil,
@@ -658,12 +650,14 @@ extension CameraController{
             //Add video input
             videoWriterInput = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: [
                 AVVideoCodecKey: AVVideoCodecType.h264,
-                AVVideoWidthKey: 720,
+                AVVideoWidthKey: 1280,
                 AVVideoHeightKey: 1280,
                 AVVideoCompressionPropertiesKey: [
                     AVVideoAverageBitRateKey: 2300000,
                 ],
                 ])
+            
+            
             videoWriterInput.expectsMediaDataInRealTime = true //Make sure we are exporting data at realtime
             if videoWriter.canAdd(videoWriterInput) {
                 videoWriter.add(videoWriterInput)
@@ -722,8 +716,6 @@ extension CameraController{
         guard let timer = self.timerForRecording else {return}
         timer.fire()
         
-        
-        
     }
     
     func stop() {
@@ -735,12 +727,14 @@ extension CameraController{
         videoWriter.finishWriting { [weak self] in
             self?.sessionAtSourceTime = nil
             guard let url = self?.videoWriter.outputURL else { return }
+            print("\(url)")
             let asset = AVURLAsset(url: url)
             //Do whatever you want with your asset here
-            print("\(asset.duration.seconds)")
+            //print("\(asset.duration.seconds)")
             UISaveVideoAtPathToSavedPhotosAlbum(asset.url.path, nil, nil, nil)
         }
-        
+        self.isReadyToRecord = false
+        self.recordTimer.resetTimer()
         self.timerForRecording?.invalidate()
     }
     

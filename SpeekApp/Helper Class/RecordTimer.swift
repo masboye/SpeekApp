@@ -25,6 +25,11 @@ class RecordTimer{
         
     }
     
+    func resetTimer() {
+        seconds = 0     //This will decrement(count down)the seconds.
+        
+    }
+    
     func getTime() -> String {
         
         let time = TimeInterval(seconds)
