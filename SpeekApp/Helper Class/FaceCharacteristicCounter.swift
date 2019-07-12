@@ -98,7 +98,7 @@ struct FaceCharacteristicCounter {
                 switch newValue{
                 case .turnLeft:
                     if isFirstTurnLeft{
-                        print("First time turn left")
+                        //print("First time turn left")
                         lastTurnLeftTime = Date()
                         isFirstTurnLeft = false
                     }else{
@@ -106,7 +106,7 @@ struct FaceCharacteristicCounter {
                         
                         turnLeftAccumulation += calendar.compare(currentTime, to: lastTurnLeftTime, toGranularity: .second).rawValue
                         lastTurnLeftTime = currentTime
-                        print("turnLeftAccumulation \(turnLeftAccumulation)")
+                        //print("turnLeftAccumulation \(turnLeftAccumulation)")
                     }
                 
                 default:

@@ -56,21 +56,9 @@ class ScreenViewController: UIViewController {
     }
     var topic:String = ""
     
-//    @objc func rotated() {
-//
-//        //self.viewWillLayoutSubviews()
-//        print("layout change")
-//        DispatchQueue.main.async {
-//            self.preview.setNeedsLayout()
-//        }
-//
-//    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
-
         // Do any additional setup after loading the view.
         let screenTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.screenTap(_:)))
         self.preview.addGestureRecognizer(screenTapGesture)
