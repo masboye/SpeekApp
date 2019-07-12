@@ -14,6 +14,7 @@ struct FaceCharacteristicCounter {
     private var smileStatus = FaceCharacteristic.notSmilling
     var isFirstTimeSmile = true
     
+    //calendar for time operation
     var calendar = Calendar.current
     
     var smilePerimeter: FaceCharacteristic {
