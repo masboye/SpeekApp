@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct FaceCharacteristicCounter {
     private var lastSmileTime = Date()
     private var smileAccumulation = 0
