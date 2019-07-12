@@ -33,11 +33,11 @@ class ScreenViewController: UIViewController {
             self.stackButton.hideAnimated(in: self.stackButton)
             self.showStackStatus = false
             
-            if #available(iOS 9.0, *) {
-                AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1108), nil)
-            } else {
-                AudioServicesPlaySystemSound(1108)
-            }
+//            if #available(iOS 9.0, *) {
+//                AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1108), nil)
+//            } else {
+//                AudioServicesPlaySystemSound(1108)
+//            }
             self.cameraController.start()
         }else{
             self.recordButtonStatus = false
@@ -184,7 +184,7 @@ class ScreenViewController: UIViewController {
        
         //set the previewlayer and faceView so always the same size in any orinetation
         
-        cameraController.faceView.frame = cameraController.previewLayer!.frame
+        cameraController.faceView?.frame = cameraController.previewLayer!.frame
         
     }
     

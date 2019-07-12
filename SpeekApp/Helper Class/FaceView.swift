@@ -42,6 +42,8 @@ class FaceView: UIView {
     var rightPupil:CGPoint = CGPoint.zero
     var allLandmarks: [CGPoint] = []
     var boundingBox = CGRect.zero
+    var isInitBoxShow = true
+    var isShowingFace = true
     
     func clear() {
         leftEye = []
@@ -65,6 +67,16 @@ class FaceView: UIView {
         }
     }
     
+    func isAllFaceLandmarksAvaialable() -> Bool{
+        
+        if leftEye.isEmpty, rightEye.isEmpty, nose.isEmpty, leftEyebrow.isEmpty
+            ,rightEyebrow.isEmpty, outerLips.isEmpty, innerLips.isEmpty, faceContour.isEmpty{
+            return false
+        }
+        
+        return true
+    }
+    
     override func draw(_ rect: CGRect) {
         
         // 1
@@ -80,94 +92,111 @@ class FaceView: UIView {
             context.restoreGState()
         }
         
+        
         // 4
-        context.addRect(boundingBox)
+        //context.addRect(boundingBox)
         
         // 5
-        UIColor.red.setStroke()
+        //UIColor.red.setStroke()
         
         // 6
-        context.strokePath()
+        //context.strokePath()
         
+        if isInitBoxShow{
+            
+            let xPosition = self.frame.width
+            let yPosition = self.frame.height
+            
+            let initUserFace = CGRect(x: xPosition / 4, y: yPosition / 3, width: xPosition / 2, height: yPosition / 2)
+            context.addRect(initUserFace)
+            UIColor.red.setStroke()
+            context.setLineWidth(10.0)
+            context.strokePath()
+            
+        }
         // 1
         UIColor.white.setStroke()
+        context.setLineWidth(2.0)
         
-        if !leftEye.isEmpty {
-            // 2
-            //print("left eye \(leftEye)")
-            context.addLines(between: leftEye)
+        if isShowingFace{
             
-            // 3
-            context.closePath()
+            if !leftEye.isEmpty {
+                // 2
+                //print("left eye \(leftEye)")
+                context.addLines(between: leftEye)
+                
+                // 3
+                context.closePath()
+                
+                // 4
+                context.strokePath()
+            }
             
-            // 4
-            context.strokePath()
-        }
-        
-//        if leftPupil != CGPoint.zero  {
-//
-//            let maxLeftEye = leftEye.max { (point1, point2) -> Bool in
-//                point2.y > point1.y
-//            }
-//
-//            let minLeftEye = leftEye.max { (point1, point2) -> Bool in
-//                point2.y < point1.y
-//            }
-//
-//            context.addEllipse(in: CGRect(origin: leftPupil, size: CGSize(width: (maxLeftEye!.y - minLeftEye!.y) / 2 , height: (maxLeftEye!.y - minLeftEye!.y) / 3 )))
-//            context.strokePath()
-//        }
-        
-        if !leftEyebrow.isEmpty {
-            context.addLines(between: leftEyebrow)
-            context.strokePath()
-        }
-        
-//        if rightPupil != CGPoint.zero  {
-//            
-//            let maxLeftEye = rightEye.max { (point1, point2) -> Bool in
-//                point2.y > point1.y
-//            }
-//            
-//            let minLeftEye = rightEye.max { (point1, point2) -> Bool in
-//                point2.y < point1.y
-//            }
-//            
-//            context.addEllipse(in: CGRect(origin: rightPupil, size: CGSize(width: (maxLeftEye!.y - minLeftEye!.y) / 2 , height: (maxLeftEye!.y - minLeftEye!.y) / 3 )))
-//            context.strokePath()
-//        }
-        
-        if !rightEye.isEmpty {
-            context.addLines(between: rightEye)
-            context.closePath()
-            context.strokePath()
-        }
-        
-        if !rightEyebrow.isEmpty {
-            context.addLines(between: rightEyebrow)
-            context.strokePath()
-        }
-        
-        if !nose.isEmpty {
-            context.addLines(between: nose)
-            context.strokePath()
-        }
-        
-        if !outerLips.isEmpty {
-            context.addLines(between: outerLips)
-            context.closePath()
-            context.strokePath()
-        }
-        
-        if !innerLips.isEmpty {
-            context.addLines(between: innerLips)
-            context.closePath()
-            context.strokePath()
-        }
-        
-        if !faceContour.isEmpty {
-            context.addLines(between: faceContour)
-            context.strokePath()
+            //        if leftPupil != CGPoint.zero  {
+            //
+            //            let maxLeftEye = leftEye.max { (point1, point2) -> Bool in
+            //                point2.y > point1.y
+            //            }
+            //
+            //            let minLeftEye = leftEye.max { (point1, point2) -> Bool in
+            //                point2.y < point1.y
+            //            }
+            //
+            //            context.addEllipse(in: CGRect(origin: leftPupil, size: CGSize(width: (maxLeftEye!.y - minLeftEye!.y) / 2 , height: (maxLeftEye!.y - minLeftEye!.y) / 3 )))
+            //            context.strokePath()
+            //        }
+            
+            if !leftEyebrow.isEmpty {
+                context.addLines(between: leftEyebrow)
+                context.strokePath()
+            }
+            
+            //        if rightPupil != CGPoint.zero  {
+            //
+            //            let maxLeftEye = rightEye.max { (point1, point2) -> Bool in
+            //                point2.y > point1.y
+            //            }
+            //
+            //            let minLeftEye = rightEye.max { (point1, point2) -> Bool in
+            //                point2.y < point1.y
+            //            }
+            //
+            //            context.addEllipse(in: CGRect(origin: rightPupil, size: CGSize(width: (maxLeftEye!.y - minLeftEye!.y) / 2 , height: (maxLeftEye!.y - minLeftEye!.y) / 3 )))
+            //            context.strokePath()
+            //        }
+            
+            if !rightEye.isEmpty {
+                context.addLines(between: rightEye)
+                context.closePath()
+                context.strokePath()
+            }
+            
+            if !rightEyebrow.isEmpty {
+                context.addLines(between: rightEyebrow)
+                context.strokePath()
+            }
+            
+            if !nose.isEmpty {
+                context.addLines(between: nose)
+                context.strokePath()
+            }
+            
+            if !outerLips.isEmpty {
+                context.addLines(between: outerLips)
+                context.closePath()
+                context.strokePath()
+            }
+            
+            if !innerLips.isEmpty {
+                context.addLines(between: innerLips)
+                context.closePath()
+                context.strokePath()
+            }
+            
+            if !faceContour.isEmpty {
+                context.addLines(between: faceContour)
+                context.strokePath()
+            }
         }
         
         

@@ -11,6 +11,7 @@ import AVFoundation
 import UIKit
 import Vision
 
+
 class CameraController:NSObject{
     
     var captureSession:AVCaptureSession?
@@ -50,10 +51,16 @@ class CameraController:NSObject{
     var isReadyToRecord = false
     var label:UILabel?
     var timerForRecording:Timer?
+    var labelNotification:UILabel?
+    var labelCountDown:UILabel?
    
     //set box for initialization
     var initBox:UIView!
     
+    
+    
+    //set face characteristic counter
+    var faceCharacteristicCounter = FaceCharacteristicCounter()
     
     func prepare(completionHandler:@escaping (Error?) -> Void){
         func createCaptureSession(){
@@ -196,10 +203,25 @@ class CameraController:NSObject{
         self.previewLayer?.addSublayer(faceView.layer)
         
         label = UILabel(frame: CGRect(x: 0, y: -view.frame.height / 2 + 50, width: view.frame.width, height: view.frame.height))
-        label?.text = "Preparing Recording"
+        label?.text = ""
         label?.font = UIFont(name: "Times new Roman", size: 25.0)
         label?.textColor = .white
         self.faceView.addSubview(label!)
+        
+        //test
+        labelNotification = UILabel(frame: CGRect(x: 0, y: -view.frame.height / 2 + 90, width: view.frame.width, height: view.frame.height))
+        labelNotification?.text = "Please put your face inside the box"
+        labelNotification?.font = UIFont(name: "Times new Roman", size: 25.0)
+        labelNotification?.textColor = .white
+        self.faceView.addSubview(labelNotification!)
+        
+        labelCountDown = UILabel(frame: CGRect(x: 150, y: -view.frame.height / 4 , width: view.frame.width, height: view.frame.height))
+        labelCountDown?.text = ""
+        labelCountDown?.font = UIFont(name: "Times new Roman", size: 150.0)
+        labelCountDown?.textColor = .white
+        self.faceView.addSubview(labelCountDown!)
+        
+        //end test
         
         
     }
@@ -341,19 +363,23 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
             
             // check if you are smiling
             if feature.hasSmile {
-                print("Smilling!!!")
+                self.faceCharacteristicCounter.smilePerimeter = FaceCharacteristic.smilling
             }else{
-                //print("not smilling")
+                self.faceCharacteristicCounter.smilePerimeter = FaceCharacteristic.notSmilling
             }
             
             
-            if feature.rightEyeClosed {
-                //print("Right Eye Closed")
+            if feature.rightEyeClosed  && feature.leftEyeClosed{
+                
+                self.faceCharacteristicCounter.eyesPerimeter = FaceCharacteristic.eyesClosed
+                //print("Eyes Closed -\(feature.rightEyeClosed)-\(feature.leftEyeClosed)")
+                
+            } else{
+                self.faceCharacteristicCounter.eyesPerimeter = FaceCharacteristic.eyesOpen
+                //print("Eyes Open -\(feature.rightEyeClosed)-\(feature.leftEyeClosed)")
             }
             
-            if feature.leftEyeClosed {
-                //("Left Eye Closed")
-            }
+
         }
         
         
@@ -370,22 +396,51 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
         
         let writable = canWrite()
         
+        //running the time counter
         if self.isAudioStreaming, self.isVideoStreaming, !self.isReadyToRecord, isRecording{
             self.isReadyToRecord = true
             //print("Record is ready \(self.isReadyToRecord)-\(self.isAudioStreaming)-\(self.isVideoStreaming)")
             //start the count down
+            
+           let countDownTimer = CountDownTimer(initValue: 3)
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                //print("Timer fired!")
                 
                self.timerForRecording = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (time) in
                     self.recordTimer.updateTimer()
+                    countDownTimer.updateTimer()
+               
                     DispatchQueue.main.async {
                         self.label?.text = "\(self.recordTimer.getTime())"
+                        self.labelNotification?.isHidden = true
+                        if countDownTimer.getCounter() > 0 {
+                            if #available(iOS 9.0, *) {
+                                AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1108), nil)
+                            } else {
+                                AudioServicesPlaySystemSound(1108)
+                            }
+                            
+                            self.labelCountDown?.text = "\(countDownTimer.getCounter())"
+                        }else{
+                            self.labelCountDown?.text = ""
+                        }
+                        
                         
                     }
                 }
             }
             
+            faceView.isShowingFace = false
+            
+        }
+       
+        if faceView != nil, self.faceView.isAllFaceLandmarksAvaialable(){
+            
+            DispatchQueue.main.async {
+                self.labelNotification?.text = "Press Button to Start Practice"
+                
+            }
+            faceView.isInitBoxShow = false
         }
         
         if output == self.faceDetectOutput{
@@ -629,12 +684,55 @@ extension CameraController{
             let result = results.first
             else {
                 
-                faceView.clear()
+                //faceView.clear()
                 return
         }
         //yaw -0.7 means turn left +0.7 means turn right 0 means head straight
+        //yaw.boolValue false means turn right yaw.boolValue true means turn left
         //roll 2 head tilt left 0.5 head tilt right 1 means head straight
-        //print("Yaw = \(result.yaw)- Roll = \(result.roll)")
+        //- Roll = \(result.roll)
+        //print("Yaw = \(result.yaw?.boolValue)")
+        
+        //test
+        
+      
+        
+        guard let yaw = result.yaw?.doubleValue else { return  }
+        
+        //turn left
+        if yaw < -0.7 {
+            self.faceCharacteristicCounter.turnLeftPerimeter = FaceCharacteristic.turnLeft
+            self.faceCharacteristicCounter.turnRightPerimeter = FaceCharacteristic.turnLeft
+            self.faceCharacteristicCounter.straightPerimeter = FaceCharacteristic.turnLeft
+        }
+        
+        //turn right
+        if yaw > 0.7 {
+            self.faceCharacteristicCounter.turnLeftPerimeter = FaceCharacteristic.turnRight
+            self.faceCharacteristicCounter.turnRightPerimeter = FaceCharacteristic.turnRight
+            self.faceCharacteristicCounter.straightPerimeter = FaceCharacteristic.turnRight
+        }
+        
+        //straight
+        if yaw == 0.0 {
+            self.faceCharacteristicCounter.turnLeftPerimeter = FaceCharacteristic.straight
+            self.faceCharacteristicCounter.turnRightPerimeter = FaceCharacteristic.straight
+            self.faceCharacteristicCounter.straightPerimeter = FaceCharacteristic.straight
+        }
+        
+//        if turn {
+//            //turn left
+//            print("\(result.yaw)")
+//            self.faceCharacteristicCounter.turnLeftPerimeter = FaceCharacteristic.turnLeft
+//            self.faceCharacteristicCounter.turnRightPerimeter = FaceCharacteristic.turnLeft
+//        }else{
+//            //turn right
+//            print("\(result.yaw)")
+//            self.faceCharacteristicCounter.turnLeftPerimeter = FaceCharacteristic.turnRight
+//            self.faceCharacteristicCounter.turnRightPerimeter = FaceCharacteristic.turnRight
+//        }
+        
+        //end test
         updateFaceView(for: result)
         
     }
@@ -693,11 +791,12 @@ extension CameraController{
     //video file location method
     func videoFileLocation() -> URL {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString
-        let videoOutputUrl = URL(fileURLWithPath: documentsPath.appendingPathComponent("videoFile")).appendingPathExtension("mov")
+        let videoOutputUrl = URL(fileURLWithPath: documentsPath.appendingPathComponent("videoFile")).appendingPathExtension("mp4")
         do {
             if FileManager.default.fileExists(atPath: videoOutputUrl.path) {
-                try FileManager.default.removeItem(at: videoOutputUrl)
                 
+                try FileManager.default.removeItem(at: videoOutputUrl)
+                print("File Deleted")
             }
         } catch {
             print(error)
@@ -715,7 +814,7 @@ extension CameraController{
         
         guard let timer = self.timerForRecording else {return}
         timer.fire()
-        
+       
     }
     
     func stop() {
@@ -727,11 +826,11 @@ extension CameraController{
         videoWriter.finishWriting { [weak self] in
             self?.sessionAtSourceTime = nil
             guard let url = self?.videoWriter.outputURL else { return }
-            print("\(url)")
             let asset = AVURLAsset(url: url)
             //Do whatever you want with your asset here
-            //print("\(asset.duration.seconds)")
+            //print("\(asset.url)")
             UISaveVideoAtPathToSavedPhotosAlbum(asset.url.path, nil, nil, nil)
+            
         }
         self.isReadyToRecord = false
         self.recordTimer.resetTimer()

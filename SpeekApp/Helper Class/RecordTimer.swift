@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import UIKit
+
 
 class RecordTimer{
     
@@ -37,6 +37,10 @@ class RecordTimer{
         let minutes = Int(time) / 60 % 60
         let seconds = Int(time) % 60
         return String(format:"%02i:%02i:%02i", hours, minutes, seconds)
+    }
+    
+    func getCounter() -> Int{
+        return seconds
     }
     
 }
