@@ -49,7 +49,7 @@ class CameraController:NSObject{
     var isVideoStreaming = false
     var isAudioStreaming = false
     var isReadyToRecord = false
-    var label:UILabel?
+    //var label:UILabel?
     var timerForRecording:Timer?
     var labelNotification:UILabel?
     var labelCountDown:UILabel?
@@ -60,6 +60,8 @@ class CameraController:NSObject{
     //test
     var imageLayer: CALayer!
     var textTimer:CATextLayer!
+    var textNotification:CATextLayer!
+    var showNotification = false
     //end test
     
     
@@ -206,27 +208,27 @@ class CameraController:NSObject{
         self.faceView.backgroundColor = UIColor.clear
         self.previewLayer?.addSublayer(faceView.layer)
         
-        label = UILabel(frame: CGRect(x: 0, y: -view.frame.height / 2 + 50, width: view.frame.width, height: view.frame.height))
-        label?.text = ""
-        label?.font = UIFont(name: "Times new Roman", size: 25.0)
-        label?.textColor = .black
-        self.faceView.addSubview(label!)
-        
+//        label = UILabel(frame: CGRect(x: 0, y: -view.frame.height / 2 + 50, width: view.frame.width, height: view.frame.height))
+//        label?.text = ""
+//        label?.font = UIFont(name: "Times new Roman", size: 25.0)
+//        label?.textColor = .black
+//        self.faceView.addSubview(label!)
+//
         
         labelNotification = UILabel(frame: CGRect(x: 0, y: -view.frame.height / 2 + 30, width: view.frame.width, height: view.frame.height))
         labelNotification?.text = "Please put your face inside the box"
-        labelNotification?.font = UIFont(name: "Times new Roman", size: 25.0)
+        labelNotification?.font = UIFont(name: "TimesNewRomanPSMT", size: 25.0)
         labelNotification?.textColor = .black
         self.faceView.addSubview(labelNotification!)
         
         labelCountDown = UILabel(frame: CGRect(x: 150, y: -view.frame.height / 4 , width: view.frame.width, height: view.frame.height))
         labelCountDown?.text = ""
-        labelCountDown?.font = UIFont(name: "Times new Roman", size: 150.0)
+        labelCountDown?.font = UIFont(name: "TimesNewRomanPSMT", size: 150.0)
         labelCountDown?.textColor = .black
         self.faceView.addSubview(labelCountDown!)
         
         
-        //test
+        
         
         imageLayer = CALayer()
         imageLayer.frame = view.bounds
@@ -236,20 +238,23 @@ class CameraController:NSObject{
         
         textTimer = CATextLayer()
         textTimer.frame = view.bounds
-        textTimer.string = "test"
+        //textTimer.string = "test"
         textTimer.font = CTFontCreateWithName("Times New Roman" as CFString, 150.0, nil)
         textTimer.foregroundColor = UIColor.black.cgColor
         textTimer.isWrapped = true
-        textTimer.alignmentMode = .center
+        textTimer.alignmentMode = .left
         imageLayer.addSublayer(textTimer)
-        //view.layer.add
         
-//        let imageLayer = CAScrollLayer()
-//        imageLayer.frame = view.bounds
-//        imageLayer.contents = UIImage(named: "808808")?.cgImage
-//        imageLayer.contentsGravity = .resizeAspect
-//        view.layer.insertSublayer(imageLayer, at: 0)
-        //end test
+        textNotification = CATextLayer()
+        textNotification.frame = view.bounds
+        //textNotification.string = "test"
+        textNotification.font = CTFontCreateWithName("Times New Roman" as CFString, 150.0, nil)
+        textNotification.foregroundColor = UIColor.red.cgColor
+        textNotification.isWrapped = true
+        textNotification.alignmentMode = .center
+        
+        
+        imageLayer.addSublayer(textNotification)
         
         
     }
@@ -392,22 +397,25 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
             // check if you are smiling
             if feature.hasSmile {
                 self.faceCharacteristicCounter.smilePerimeter = FaceCharacteristic.smilling
+                self.faceCharacteristicCounter.notSmilePerimeter = FaceCharacteristic.smilling
             }else{
                 self.faceCharacteristicCounter.smilePerimeter = FaceCharacteristic.notSmilling
+                self.faceCharacteristicCounter.notSmilePerimeter = FaceCharacteristic.notSmilling
             }
             
             
             if feature.rightEyeClosed  && feature.leftEyeClosed{
-                
+                //print("closed")
                 self.faceCharacteristicCounter.eyesPerimeter = FaceCharacteristic.eyesClosed
                 //print("Eyes Closed -\(feature.rightEyeClosed)-\(feature.leftEyeClosed)")
-                
+
             } else{
+                //print("OPen")
                 self.faceCharacteristicCounter.eyesPerimeter = FaceCharacteristic.eyesOpen
                 //print("Eyes Open -\(feature.rightEyeClosed)-\(feature.leftEyeClosed)")
             }
             
-
+            
         }
         
         
@@ -432,17 +440,86 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
             
            let countDownTimer = CountDownTimer(initValue: 3)
            
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 
                self.timerForRecording = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (time) in
                     self.recordTimer.updateTimer()
                     countDownTimer.updateTimer()
                
                     DispatchQueue.main.async {
-                        self.label?.text = "\(self.recordTimer.getTime())"
+                        //self.label?.text = "\(self.recordTimer.getTime())"
+                        
+                        self.textTimer.isHidden = self.showNotification
                         self.textTimer.string = "\(self.recordTimer.getTime())"
+                        
+                        self.textNotification.isHidden = !self.showNotification
+                        
                         self.labelNotification?.isHidden = true
+                        
+                        if self.faceCharacteristicCounter.lastNotSmilling > 10 {
+                            
+                            if #available(iOS 9.0, *) {
+                                AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1117), nil)
+                            } else {
+                                AudioServicesPlaySystemSound(1117)
+                            }
+                            
+                            self.showNotification = true
+                            self.textNotification.string = "It's been a while since your last smile"
+                            
+                            
+                            
+                        }else if self.faceCharacteristicCounter.lastEyesClosed > 1 {
+                            
+                            if #available(iOS 9.0, *) {
+                                AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1117), nil)
+                            } else {
+                                AudioServicesPlaySystemSound(1117)
+                            }
+                            
+                            self.showNotification = true
+                            self.textNotification.string = "Eye Contact Please"
+                            self.faceCharacteristicCounter.lastEyesClosed = 0
+                            
+                            
+                        } else if self.faceCharacteristicCounter.lastStraight > 20 {
+                            
+                            if #available(iOS 9.0, *) {
+                                AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1117), nil)
+                            } else {
+                                AudioServicesPlaySystemSound(1117)
+                            }
+                            
+                            self.showNotification = true
+                            self.textNotification.string = "Focus on your side also please"
+                            
+                        } else if self.faceCharacteristicCounter.lastTurnLeft > 20 {
+                            
+                            if #available(iOS 9.0, *) {
+                                AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1117), nil)
+                            } else {
+                                AudioServicesPlaySystemSound(1117)
+                            }
+                            
+                            self.showNotification = true
+                            self.textNotification.string = "Focus on your center/right side also please"
+                            
+                        } else if self.faceCharacteristicCounter.lastTurnRight > 20 {
+                            
+                            if #available(iOS 9.0, *) {
+                                AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1117), nil)
+                            } else {
+                                AudioServicesPlaySystemSound(1117)
+                            }
+                            
+                            self.showNotification = true
+                            self.textNotification.string = "Focus on your center/left side also please"
+                            
+                        } else{
+                            self.showNotification = false
+                            
+                        }
+                        
                         if countDownTimer.getCounter() >= 0 {
                             if #available(iOS 9.0, *) {
                                 AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1117), nil)
@@ -451,13 +528,22 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                             }
                             
                             self.labelCountDown?.text = "\(countDownTimer.getCounter())"
-                            self.label?.isHidden = true
+                            //self.label?.isHidden = true
                             
                         }else{
                             self.labelCountDown?.text = ""
                             self.labelCountDown?.isHidden = true
-                            self.previewLayer?.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-                            self.label?.text = ""
+                            
+                            guard let orientation = self.previewLayer?.connection?.videoOrientation.rawValue else {return}
+                            
+                            if orientation == 1 {
+                                self.previewLayer?.frame = CGRect(x: 0, y: (self.previewLayer?.frame.height)!  * 7, width: 100, height: 100)
+                            }else{
+                                self.previewLayer?.frame = CGRect(x: 0, y: (self.previewLayer?.frame.height)!  * 3, width: 100, height: 100)
+                            }
+                           
+                            
+                            //self.label?.text = ""
                         }
                         
                         
@@ -542,6 +628,7 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
             
            
             getFaceLandMarks(sampleBuffer: sampleBuffer, faceDetectOrientation: faceDetectOrientation)
+            
             DispatchQueue.main.async {
             self.getFaceFeatures(sampleBuffer: sampleBuffer)
         }
@@ -631,6 +718,7 @@ extension CameraController{
                 faceView.leftEye = leftEye
             }else{
                 faceView.leftEye = [CGPoint.zero]
+                self.faceCharacteristicCounter.eyesPerimeter = FaceCharacteristic.eyesClosed
             }
         }
         
@@ -642,6 +730,7 @@ extension CameraController{
                 faceView.rightEye = rightEye
             }else{
                 faceView.rightEye = [CGPoint.zero]
+                self.faceCharacteristicCounter.eyesPerimeter = FaceCharacteristic.eyesClosed
             }
             
         }
@@ -755,17 +844,7 @@ extension CameraController{
             self.faceCharacteristicCounter.straightPerimeter = FaceCharacteristic.straight
         }
         
-//        if turn {
-//            //turn left
-//            print("\(result.yaw)")
-//            self.faceCharacteristicCounter.turnLeftPerimeter = FaceCharacteristic.turnLeft
-//            self.faceCharacteristicCounter.turnRightPerimeter = FaceCharacteristic.turnLeft
-//        }else{
-//            //turn right
-//            print("\(result.yaw)")
-//            self.faceCharacteristicCounter.turnLeftPerimeter = FaceCharacteristic.turnRight
-//            self.faceCharacteristicCounter.turnRightPerimeter = FaceCharacteristic.turnRight
-//        }
+
         
         //end test
         updateFaceView(for: result)
@@ -872,7 +951,7 @@ extension CameraController{
         self.timerForRecording?.invalidate()
         self.labelNotification?.isHidden = false
         self.labelCountDown?.isHidden = false
-        self.label?.isHidden = false
+        //self.label?.isHidden = false
     }
     
     func pause() {

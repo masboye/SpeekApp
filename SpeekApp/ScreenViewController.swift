@@ -175,6 +175,7 @@ class ScreenViewController: UIViewController {
         cameraController.faceView?.frame = cameraController.previewLayer!.frame
         cameraController.imageLayer?.frame = cameraController.previewLayer!.frame
         cameraController.textTimer?.frame = cameraController.previewLayer!.frame
+        cameraController.textNotification?.frame = cameraController.previewLayer!.frame
         
     }
     
