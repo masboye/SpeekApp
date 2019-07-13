@@ -57,6 +57,10 @@ class CameraController:NSObject{
     //set box for initialization
     var initBox:UIView!
     
+    //test
+    var imageLayer: CALayer!
+    var textTimer:CATextLayer!
+    //end test
     
     
     //set face characteristic counter
@@ -208,11 +212,11 @@ class CameraController:NSObject{
         label?.textColor = .black
         self.faceView.addSubview(label!)
         
-        //test
-        labelNotification = UILabel(frame: CGRect(x: 0, y: -view.frame.height / 2 + 90, width: view.frame.width, height: view.frame.height))
+        
+        labelNotification = UILabel(frame: CGRect(x: 0, y: -view.frame.height / 2 + 30, width: view.frame.width, height: view.frame.height))
         labelNotification?.text = "Please put your face inside the box"
         labelNotification?.font = UIFont(name: "Times new Roman", size: 25.0)
-        labelNotification?.textColor = .white
+        labelNotification?.textColor = .black
         self.faceView.addSubview(labelNotification!)
         
         labelCountDown = UILabel(frame: CGRect(x: 150, y: -view.frame.height / 4 , width: view.frame.width, height: view.frame.height))
@@ -221,6 +225,30 @@ class CameraController:NSObject{
         labelCountDown?.textColor = .black
         self.faceView.addSubview(labelCountDown!)
         
+        
+        //test
+        
+        imageLayer = CALayer()
+        imageLayer.frame = view.bounds
+        imageLayer.contents = UIImage(named: "808808")?.cgImage
+        imageLayer.contentsGravity = .resize
+        view.layer.insertSublayer(imageLayer , at: 0)
+        
+        textTimer = CATextLayer()
+        textTimer.frame = view.bounds
+        textTimer.string = "test"
+        textTimer.font = CTFontCreateWithName("Times New Roman" as CFString, 150.0, nil)
+        textTimer.foregroundColor = UIColor.black.cgColor
+        textTimer.isWrapped = true
+        textTimer.alignmentMode = .center
+        imageLayer.addSublayer(textTimer)
+        //view.layer.add
+        
+//        let imageLayer = CAScrollLayer()
+//        imageLayer.frame = view.bounds
+//        imageLayer.contents = UIImage(named: "808808")?.cgImage
+//        imageLayer.contentsGravity = .resizeAspect
+//        view.layer.insertSublayer(imageLayer, at: 0)
         //end test
         
         
@@ -403,6 +431,7 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
             //start the count down
             
            let countDownTimer = CountDownTimer(initValue: 3)
+           
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 
@@ -412,8 +441,9 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                
                     DispatchQueue.main.async {
                         self.label?.text = "\(self.recordTimer.getTime())"
+                        self.textTimer.string = "\(self.recordTimer.getTime())"
                         self.labelNotification?.isHidden = true
-                        if countDownTimer.getCounter() > 0 {
+                        if countDownTimer.getCounter() >= 0 {
                             if #available(iOS 9.0, *) {
                                 AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1117), nil)
                             } else {
@@ -421,9 +451,13 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                             }
                             
                             self.labelCountDown?.text = "\(countDownTimer.getCounter())"
+                            self.label?.isHidden = true
+                            
                         }else{
                             self.labelCountDown?.text = ""
+                            self.labelCountDown?.isHidden = true
                             self.previewLayer?.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+                            self.label?.text = ""
                         }
                         
                         
@@ -836,6 +870,9 @@ extension CameraController{
         self.isReadyToRecord = false
         self.recordTimer.resetTimer()
         self.timerForRecording?.invalidate()
+        self.labelNotification?.isHidden = false
+        self.labelCountDown?.isHidden = false
+        self.label?.isHidden = false
     }
     
     func pause() {

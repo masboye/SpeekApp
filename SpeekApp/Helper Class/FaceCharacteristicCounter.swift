@@ -134,7 +134,7 @@ struct FaceCharacteristicCounter {
                 switch newValue{
                 case .turnRight:
                     if isFirstTurnRight{
-                        print("First time turn right")
+                        //print("First time turn right")
                         lastTurnRightTime = Date()
                         isFirstTurnRight = false
                     }else{
@@ -142,7 +142,7 @@ struct FaceCharacteristicCounter {
                         
                         turnRightAccumulation += calendar.compare(currentTime, to: lastTurnRightTime, toGranularity: .second).rawValue
                         lastTurnRightTime = currentTime
-                        print("turnRightAccumulation \(turnRightAccumulation)")
+                        //print("turnRightAccumulation \(turnRightAccumulation)")
                     }
                     
                 default:
@@ -170,7 +170,7 @@ struct FaceCharacteristicCounter {
                 switch newValue{
                 case .straight:
                     if isFirstStraight{
-                        print("First time Straight")
+                        //print("First time Straight")
                         lastStraightTime = Date()
                         isFirstStraight = false
                     }else{
@@ -178,7 +178,7 @@ struct FaceCharacteristicCounter {
                         
                         straightAccumulation += calendar.compare(currentTime, to: lastStraightTime, toGranularity: .second).rawValue
                         lastStraightTime = currentTime
-                        print("straightAccumulation \(straightAccumulation)")
+                        //print("straightAccumulation \(straightAccumulation)")
                     }
                     
                 default:

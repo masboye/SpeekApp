@@ -173,6 +173,8 @@ class ScreenViewController: UIViewController {
         //set the previewlayer and faceView so always the same size in any orinetation
         
         cameraController.faceView?.frame = cameraController.previewLayer!.frame
+        cameraController.imageLayer?.frame = cameraController.previewLayer!.frame
+        cameraController.textTimer?.frame = cameraController.previewLayer!.frame
         
     }
     
