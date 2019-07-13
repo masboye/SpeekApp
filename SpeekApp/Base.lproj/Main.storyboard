@@ -87,49 +87,29 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1mJ-Ff-VLO">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="3he-rY-zsp">
-                                        <rect key="frame" x="0.0" y="735" width="414" height="63"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TdW-pL-kPI">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="63"/>
-                                                <state key="normal" image="start record"/>
-                                                <connections>
-                                                    <action selector="recordButtonPressed:" destination="IjK-he-JE6" eventType="touchUpInside" id="zl9-nZ-Ztj"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
                                 <color key="backgroundColor" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
-                                <constraints>
-                                    <constraint firstItem="3he-rY-zsp" firstAttribute="leading" secondItem="1mJ-Ff-VLO" secondAttribute="leading" id="i0U-qJ-ucg"/>
-                                    <constraint firstAttribute="bottom" secondItem="3he-rY-zsp" secondAttribute="bottom" constant="20" id="qjf-9o-vPx"/>
-                                    <constraint firstAttribute="trailing" secondItem="3he-rY-zsp" secondAttribute="trailing" id="yhw-qS-udU"/>
-                                </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="uhN-Pb-vaf">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="3he-rY-zsp">
                                 <rect key="frame" x="0.0" y="779" width="414" height="63"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gNe-qB-uva">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TdW-pL-kPI">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="63"/>
                                         <state key="normal" image="start record"/>
                                         <connections>
-                                            <action selector="recordButtonPressed:" destination="IjK-he-JE6" eventType="touchUpInside" id="AfH-3f-V8M"/>
+                                            <action selector="recordButtonPressed:" destination="IjK-he-JE6" eventType="touchUpInside" id="zl9-nZ-Ztj"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.43392541880000002" green="1" blue="0.2707488354" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="1mJ-Ff-VLO" firstAttribute="top" secondItem="EOf-cw-2n9" secondAttribute="top" id="1Xr-0l-XlJ"/>
-                            <constraint firstItem="uhN-Pb-vaf" firstAttribute="leading" secondItem="EOf-cw-2n9" secondAttribute="leading" id="8AX-II-fV9"/>
+                            <constraint firstItem="EOf-cw-2n9" firstAttribute="bottom" secondItem="3he-rY-zsp" secondAttribute="bottom" constant="20" id="Jg4-cJ-iKe"/>
                             <constraint firstItem="1mJ-Ff-VLO" firstAttribute="leading" secondItem="EOf-cw-2n9" secondAttribute="leading" id="JzU-KQ-s19"/>
-                            <constraint firstItem="EOf-cw-2n9" firstAttribute="trailing" secondItem="uhN-Pb-vaf" secondAttribute="trailing" id="Rj1-Qq-8eS"/>
+                            <constraint firstItem="3he-rY-zsp" firstAttribute="leading" secondItem="EOf-cw-2n9" secondAttribute="leading" id="TVW-4o-k0E"/>
+                            <constraint firstItem="EOf-cw-2n9" firstAttribute="trailing" secondItem="3he-rY-zsp" secondAttribute="trailing" id="awO-OO-Nho"/>
                             <constraint firstItem="EOf-cw-2n9" firstAttribute="bottom" secondItem="1mJ-Ff-VLO" secondAttribute="bottom" id="smQ-tx-hO2"/>
-                            <constraint firstItem="EOf-cw-2n9" firstAttribute="bottom" secondItem="uhN-Pb-vaf" secondAttribute="bottom" constant="20" id="uuf-19-eGm"/>
                             <constraint firstItem="EOf-cw-2n9" firstAttribute="trailing" secondItem="1mJ-Ff-VLO" secondAttribute="trailing" id="vgA-Xw-yMF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EOf-cw-2n9"/>

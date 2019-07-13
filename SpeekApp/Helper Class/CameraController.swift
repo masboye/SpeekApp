@@ -205,7 +205,7 @@ class CameraController:NSObject{
         label = UILabel(frame: CGRect(x: 0, y: -view.frame.height / 2 + 50, width: view.frame.width, height: view.frame.height))
         label?.text = ""
         label?.font = UIFont(name: "Times new Roman", size: 25.0)
-        label?.textColor = .white
+        label?.textColor = .black
         self.faceView.addSubview(label!)
         
         //test
@@ -218,7 +218,7 @@ class CameraController:NSObject{
         labelCountDown = UILabel(frame: CGRect(x: 150, y: -view.frame.height / 4 , width: view.frame.width, height: view.frame.height))
         labelCountDown?.text = ""
         labelCountDown?.font = UIFont(name: "Times new Roman", size: 150.0)
-        labelCountDown?.textColor = .white
+        labelCountDown?.textColor = .black
         self.faceView.addSubview(labelCountDown!)
         
         //end test
@@ -415,14 +415,15 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                         self.labelNotification?.isHidden = true
                         if countDownTimer.getCounter() > 0 {
                             if #available(iOS 9.0, *) {
-                                AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1108), nil)
+                                AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1117), nil)
                             } else {
-                                AudioServicesPlaySystemSound(1108)
+                                AudioServicesPlaySystemSound(1117)
                             }
                             
                             self.labelCountDown?.text = "\(countDownTimer.getCounter())"
                         }else{
                             self.labelCountDown?.text = ""
+                            self.previewLayer?.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
                         }
                         
                         
