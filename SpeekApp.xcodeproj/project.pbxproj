@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		92AE665722DB995C00D64C66 /* SpeekApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92AE665522DB995C00D64C66 /* SpeekApp.xcdatamodeld */; };
 		EF33934F22D339520055C989 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF33934E22D339520055C989 /* UIViewExtension.swift */; };
 		EF90986A22D6E6EB00B526DF /* CountDownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF90986922D6E6EB00B526DF /* CountDownTimer.swift */; };
 		EF91F6D122D7368600C3F5E8 /* FaceCharacteristicCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF91F6D022D7368600C3F5E8 /* FaceCharacteristicCounter.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		92AE665622DB995C00D64C66 /* SpeekApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SpeekApp.xcdatamodel; sourceTree = "<group>"; };
 		EF33934E22D339520055C989 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		EF90986922D6E6EB00B526DF /* CountDownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownTimer.swift; sourceTree = "<group>"; };
 		EF91F6D022D7368600C3F5E8 /* FaceCharacteristicCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceCharacteristicCounter.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 				EF9F66A822D2EF31009711AF /* OnBoardViewController.swift */,
 				EF9F66AA22D2EF31009711AF /* SecondViewController.swift */,
 				EF9F66AC22D2EF31009711AF /* Main.storyboard */,
+				92AE665522DB995C00D64C66 /* SpeekApp.xcdatamodeld */,
 				EF9F66AF22D2EF33009711AF /* Assets.xcassets */,
 				EF9F66B122D2EF33009711AF /* LaunchScreen.storyboard */,
 				EF9F66B422D2EF33009711AF /* Info.plist */,
@@ -176,6 +179,7 @@
 				EF9F66C222D309CA009711AF /* RecordTimer.swift in Sources */,
 				EF90986A22D6E6EB00B526DF /* CountDownTimer.swift in Sources */,
 				EF9F66A722D2EF31009711AF /* AppDelegate.swift in Sources */,
+				92AE665722DB995C00D64C66 /* SpeekApp.xcdatamodeld in Sources */,
 				EF9F66A922D2EF31009711AF /* OnBoardViewController.swift in Sources */,
 				EF9F66C422D30BD7009711AF /* CoreGraphicsExtension.swift in Sources */,
 				EF33934F22D339520055C989 /* UIViewExtension.swift in Sources */,
@@ -380,6 +384,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		92AE665522DB995C00D64C66 /* SpeekApp.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				92AE665622DB995C00D64C66 /* SpeekApp.xcdatamodel */,
+			);
+			currentVersion = 92AE665622DB995C00D64C66 /* SpeekApp.xcdatamodel */;
+			path = SpeekApp.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = EF9F669B22D2EF31009711AF /* Project object */;
 }
