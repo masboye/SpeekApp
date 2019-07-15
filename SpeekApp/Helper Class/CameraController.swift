@@ -426,10 +426,7 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
-        guard output != nil,
-            sampleBuffer != nil,
-            connection != nil,
-            CMSampleBufferDataIsReady(sampleBuffer) else { return }
+        guard CMSampleBufferDataIsReady(sampleBuffer) else { return }
         
         var faceDetectOrientation:CGImagePropertyOrientation = .leftMirrored
         
