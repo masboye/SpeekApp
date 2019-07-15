@@ -139,7 +139,7 @@ struct FaceCharacteristicCounter {
                             guard let maxDate = eyesClosedTimeArray.max() else { return  }
                             guard let minDate = eyesClosedTimeArray.min() else { return  }
                             let second = Calendar.current.dateComponents([.second], from: minDate, to: maxDate).second
-                            print("the seconds = \(second)")
+                            //print("the seconds = \(second)")
                             lastEyesClosedAccumulation = second ?? 0
                             eyesClosedTimeArray.removeAll()
                         }
@@ -308,7 +308,6 @@ struct FaceCharacteristicCounter {
             }
         }
     }
-    
     
 }
 

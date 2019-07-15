@@ -28,16 +28,11 @@ class ScreenViewController: UIViewController {
             
             self.recordButton.setImage(UIImage(named: "stop record"), for: .normal)
             self.recordButtonStatus = true
-            //self.stackButton.isHidden = true
             
             self.stackButton.hideAnimated(in: self.stackButton)
             self.showStackStatus = false
             
-//            if #available(iOS 9.0, *) {
-//                AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1108), nil)
-//            } else {
-//                AudioServicesPlaySystemSound(1108)
-//            }
+
             self.cameraController.start()
         }else{
             self.recordButtonStatus = false
@@ -52,6 +47,7 @@ class ScreenViewController: UIViewController {
         
         self.stackButton.isHidden = self.showStackStatus
         self.showStackStatus.toggle()
+        self.stackButton.layer.zPosition = 1.0
         
     }
     var topic:String = ""
@@ -61,7 +57,7 @@ class ScreenViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         let screenTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.screenTap(_:)))
-        self.preview.addGestureRecognizer(screenTapGesture)
+        view.addGestureRecognizer(screenTapGesture)
         
         func configureCameraController(){
             cameraController.prepare{ error in
@@ -144,6 +140,7 @@ class ScreenViewController: UIViewController {
         
     }
     
+    
     func configureAuxilliaryInterface(with: UIWindow){
        
         // You must show the window explicitly.
@@ -161,7 +158,8 @@ class ScreenViewController: UIViewController {
     func resetAuxilliaryInterface(window: UIWindow){
         
         
-        self.view.addSubview(self.preview)
+        //self.view.addSubview(self.preview)
+        self.view.addSubview(window)
         self.preview.updateConstraintsIfNeeded()
         
        

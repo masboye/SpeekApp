@@ -208,13 +208,6 @@ class CameraController:NSObject{
         self.faceView.backgroundColor = UIColor.clear
         self.previewLayer?.addSublayer(faceView.layer)
         
-//        label = UILabel(frame: CGRect(x: 0, y: -view.frame.height / 2 + 50, width: view.frame.width, height: view.frame.height))
-//        label?.text = ""
-//        label?.font = UIFont(name: "Times new Roman", size: 25.0)
-//        label?.textColor = .black
-//        self.faceView.addSubview(label!)
-//
-        
         labelNotification = UILabel(frame: CGRect(x: 0, y: -view.frame.height / 2 + 30, width: view.frame.width, height: view.frame.height))
         labelNotification?.text = "Please put your face inside the box"
         labelNotification?.font = UIFont(name: "TimesNewRomanPSMT", size: 25.0)
@@ -227,9 +220,6 @@ class CameraController:NSObject{
         labelCountDown?.textColor = .black
         self.faceView.addSubview(labelCountDown!)
         
-        
-        
-        
         imageLayer = CALayer()
         imageLayer.frame = view.bounds
         imageLayer.contents = UIImage(named: "808808")?.cgImage
@@ -239,7 +229,7 @@ class CameraController:NSObject{
         textTimer = CATextLayer()
         textTimer.frame = view.bounds
         //textTimer.string = "test"
-        textTimer.font = CTFontCreateWithName("Times New Roman" as CFString, 150.0, nil)
+        textTimer.font = CTFontCreateWithName("TimesNewRomanPSMT" as CFString, 150.0, nil)
         textTimer.foregroundColor = UIColor.black.cgColor
         textTimer.isWrapped = true
         textTimer.alignmentMode = .left
@@ -247,12 +237,10 @@ class CameraController:NSObject{
         
         textNotification = CATextLayer()
         textNotification.frame = view.bounds
-        //textNotification.string = "test"
-        textNotification.font = CTFontCreateWithName("Times New Roman" as CFString, 150.0, nil)
+        textNotification.font = CTFontCreateWithName("TimesNewRomanPSMT" as CFString, 300.0, nil)
         textNotification.foregroundColor = UIColor.red.cgColor
         textNotification.isWrapped = true
         textNotification.alignmentMode = .center
-        
         
         imageLayer.addSublayer(textNotification)
         
@@ -361,6 +349,7 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
         
         return resultImage
     }
+    
     func getFaceLandMarks(sampleBuffer: CMSampleBuffer, faceDetectOrientation: CGImagePropertyOrientation){
         
         guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
@@ -378,6 +367,7 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
             print(error.localizedDescription)
         }
     }
+    
     func getFaceFeatures(sampleBuffer: CMSampleBuffer){
         
         let image = self.imageFromSampleBuffer(sampleBuffer: sampleBuffer)
@@ -405,12 +395,10 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
             
             
             if feature.rightEyeClosed  && feature.leftEyeClosed{
-                //print("closed")
                 self.faceCharacteristicCounter.eyesPerimeter = FaceCharacteristic.eyesClosed
                 //print("Eyes Closed -\(feature.rightEyeClosed)-\(feature.leftEyeClosed)")
 
             } else{
-                //print("OPen")
                 self.faceCharacteristicCounter.eyesPerimeter = FaceCharacteristic.eyesOpen
                 //print("Eyes Open -\(feature.rightEyeClosed)-\(feature.leftEyeClosed)")
             }
@@ -447,13 +435,10 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                     countDownTimer.updateTimer()
                
                     DispatchQueue.main.async {
-                        //self.label?.text = "\(self.recordTimer.getTime())"
                         
                         self.textTimer.isHidden = self.showNotification
                         self.textTimer.string = "\(self.recordTimer.getTime())"
-                        
                         self.textNotification.isHidden = !self.showNotification
-                        
                         self.labelNotification?.isHidden = true
                         
                         if self.faceCharacteristicCounter.lastNotSmilling > 10 {
@@ -465,9 +450,7 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                             }
                             
                             self.showNotification = true
-                            self.textNotification.string = "It's been a while since your last smile"
-                            
-                            
+                            self.textNotification.string = "Smile Please"
                             
                         }else if self.faceCharacteristicCounter.lastEyesClosed > 1 {
                             
@@ -491,7 +474,7 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                             }
                             
                             self.showNotification = true
-                            self.textNotification.string = "Focus on your side also please"
+                            self.textNotification.string = "Focus On Your Side Please"
                             
                         } else if self.faceCharacteristicCounter.lastTurnLeft > 20 {
                             
@@ -502,7 +485,7 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                             }
                             
                             self.showNotification = true
-                            self.textNotification.string = "Focus on your center/right side also please"
+                            self.textNotification.string = "Focus On Other Side Please"
                             
                         } else if self.faceCharacteristicCounter.lastTurnRight > 20 {
                             
@@ -513,7 +496,7 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                             }
                             
                             self.showNotification = true
-                            self.textNotification.string = "Focus on your center/left side also please"
+                            self.textNotification.string = "Focus On Other Side Please"
                             
                         } else{
                             self.showNotification = false
@@ -528,7 +511,6 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                             }
                             
                             self.labelCountDown?.text = "\(countDownTimer.getCounter())"
-                            //self.label?.isHidden = true
                             
                         }else{
                             self.labelCountDown?.text = ""
@@ -536,14 +518,19 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                             
                             guard let orientation = self.previewLayer?.connection?.videoOrientation.rawValue else {return}
                             
-                            if orientation == 1 {
-                                self.previewLayer?.frame = CGRect(x: 0, y: (self.previewLayer?.frame.height)!  * 7, width: 100, height: 100)
+                            if UIScreen.screens.count > 1 {
+                              
+                                    self.previewLayer?.frame = CGRect(x: 0, y: (self.previewLayer?.frame.height)!  * 3, width: UIScreen.screens.last!.bounds.height / 4  , height: UIScreen.screens.last!.bounds.height / 4)
+                                
                             }else{
-                                self.previewLayer?.frame = CGRect(x: 0, y: (self.previewLayer?.frame.height)!  * 3, width: 100, height: 100)
+                                
+                                if orientation == 1 {
+                                    self.previewLayer?.frame = CGRect(x: 0, y: (self.previewLayer?.frame.height)!  * 7, width: 100, height: 100)
+                                }else{
+                                    self.previewLayer?.frame = CGRect(x: 0, y: (self.previewLayer?.frame.height)!  * 3, width: 100, height: 100)
+                                }
                             }
                            
-                            
-                            //self.label?.text = ""
                         }
                         
                         
@@ -626,11 +613,16 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                 
             }
             
-           
-            getFaceLandMarks(sampleBuffer: sampleBuffer, faceDetectOrientation: faceDetectOrientation)
+            if !isRecording{
+                getFaceLandMarks(sampleBuffer: sampleBuffer, faceDetectOrientation: faceDetectOrientation)
+            }
+            
             
             DispatchQueue.main.async {
             self.getFaceFeatures(sampleBuffer: sampleBuffer)
+                if self.isRecording{
+                    self.getFaceLandMarks(sampleBuffer: sampleBuffer, faceDetectOrientation: faceDetectOrientation)
+                }
         }
             
             
@@ -824,14 +816,14 @@ extension CameraController{
         guard let yaw = result.yaw?.doubleValue else { return  }
         
         //turn left
-        if yaw < -0.7 {
+        if yaw < -0.4 {
             self.faceCharacteristicCounter.turnLeftPerimeter = FaceCharacteristic.turnLeft
             self.faceCharacteristicCounter.turnRightPerimeter = FaceCharacteristic.turnLeft
             self.faceCharacteristicCounter.straightPerimeter = FaceCharacteristic.turnLeft
         }
         
         //turn right
-        if yaw > 0.7 {
+        if yaw > 0.4 {
             self.faceCharacteristicCounter.turnLeftPerimeter = FaceCharacteristic.turnRight
             self.faceCharacteristicCounter.turnRightPerimeter = FaceCharacteristic.turnRight
             self.faceCharacteristicCounter.straightPerimeter = FaceCharacteristic.turnRight
@@ -844,9 +836,6 @@ extension CameraController{
             self.faceCharacteristicCounter.straightPerimeter = FaceCharacteristic.straight
         }
         
-
-        
-        //end test
         updateFaceView(for: result)
         
     }
@@ -863,7 +852,7 @@ extension CameraController{
             videoWriterInput = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: [
                 AVVideoCodecKey: AVVideoCodecType.h264,
                 AVVideoWidthKey: 1280,
-                AVVideoHeightKey: 1280,
+                AVVideoHeightKey: 780,
                 AVVideoCompressionPropertiesKey: [
                     AVVideoAverageBitRateKey: 2300000,
                 ],
