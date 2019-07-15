@@ -49,7 +49,6 @@ class CameraController:NSObject{
     var isVideoStreaming = false
     var isAudioStreaming = false
     var isReadyToRecord = false
-    //var label:UILabel?
     var timerForRecording:Timer?
     var labelNotification:UILabel?
     var labelCountDown:UILabel?
@@ -57,13 +56,14 @@ class CameraController:NSObject{
     //set box for initialization
     var initBox:UIView!
     
-    //test
+    //set vars for notification
     var imageLayer: CALayer!
     var textTimer:CATextLayer!
     var textNotification:CATextLayer!
     var showNotification = false
-    //end test
-    
+    var notificationOpaqueLeftLayer: CALayer!
+    var notificationOpaqueRightLayer: CALayer!
+    var notificationOpaqueCenterLayer: CALayer!
     
     //set face characteristic counter
     var faceCharacteristicCounter = FaceCharacteristicCounter()
@@ -208,14 +208,13 @@ class CameraController:NSObject{
         self.faceView.backgroundColor = UIColor.clear
         self.previewLayer?.addSublayer(faceView.layer)
         
-        labelNotification = UILabel(frame: CGRect(x: 0, y: -view.frame.height / 2 + 30, width: view.frame.width, height: view.frame.height))
-        labelNotification?.text = "Please put your face inside the box"
+        labelNotification = UILabel(frame: CGRect(x: 0, y: 30, width: 400, height: 50))
+        labelNotification?.text = "Please Put Your Face In The Box"
         labelNotification?.font = UIFont(name: "TimesNewRomanPSMT", size: 25.0)
         labelNotification?.textColor = .black
         self.faceView.addSubview(labelNotification!)
         
-        labelCountDown = UILabel(frame: CGRect(x: 150, y: -view.frame.height / 4 , width: view.frame.width, height: view.frame.height))
-        labelCountDown?.text = ""
+        labelCountDown = UILabel(frame: CGRect(x: 0, y: view.frame.height / 4, width: 150, height: 150))
         labelCountDown?.font = UIFont(name: "TimesNewRomanPSMT", size: 150.0)
         labelCountDown?.textColor = .black
         self.faceView.addSubview(labelCountDown!)
@@ -227,8 +226,7 @@ class CameraController:NSObject{
         view.layer.insertSublayer(imageLayer , at: 0)
         
         textTimer = CATextLayer()
-        textTimer.frame = view.bounds
-        //textTimer.string = "test"
+        textTimer.frame = CGRect(x: 0, y: 30, width: 400, height: 50)
         textTimer.font = CTFontCreateWithName("TimesNewRomanPSMT" as CFString, 150.0, nil)
         textTimer.foregroundColor = UIColor.black.cgColor
         textTimer.isWrapped = true
@@ -236,13 +234,30 @@ class CameraController:NSObject{
         imageLayer.addSublayer(textTimer)
         
         textNotification = CATextLayer()
-        textNotification.frame = view.bounds
+        textNotification.frame = CGRect(x: 0, y: 30, width: 400, height: 50)
         textNotification.font = CTFontCreateWithName("TimesNewRomanPSMT" as CFString, 300.0, nil)
         textNotification.foregroundColor = UIColor.red.cgColor
         textNotification.isWrapped = true
         textNotification.alignmentMode = .center
         
         imageLayer.addSublayer(textNotification)
+        
+        
+        notificationOpaqueLeftLayer = CALayer()
+        notificationOpaqueLeftLayer.backgroundColor = UIColor.red.cgColor
+        notificationOpaqueLeftLayer.opacity = 0.3
+        imageLayer.insertSublayer(notificationOpaqueLeftLayer, at: 2)
+        
+        notificationOpaqueRightLayer = CALayer()
+        notificationOpaqueRightLayer.backgroundColor = UIColor.red.cgColor
+        notificationOpaqueRightLayer.opacity = 0.3
+        imageLayer.insertSublayer(notificationOpaqueRightLayer, at: 2)
+        
+        notificationOpaqueCenterLayer = CALayer()
+        notificationOpaqueCenterLayer.backgroundColor = UIColor.red.cgColor
+        notificationOpaqueCenterLayer.opacity = 0.3
+        imageLayer.insertSublayer(notificationOpaqueCenterLayer, at: 2)
+        
         
         
     }
@@ -423,7 +438,7 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
         //running the time counter
         if self.isAudioStreaming, self.isVideoStreaming, !self.isReadyToRecord, isRecording{
             self.isReadyToRecord = true
-            //print("Record is ready \(self.isReadyToRecord)-\(self.isAudioStreaming)-\(self.isVideoStreaming)")
+            
             //start the count down
             
            let countDownTimer = CountDownTimer(initValue: 3)
@@ -474,7 +489,14 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                             }
                             
                             self.showNotification = true
-                            self.textNotification.string = "Focus On Your Side Please"
+                            self.textNotification.string = "Focus On Other Side Please"
+                            
+                            self.notificationOpaqueLeftLayer.isHidden = false
+                            self.notificationOpaqueLeftLayer.frame = CGRect(x: 0, y: 0, width: (UIScreen.screens.last?.bounds.height)! / 3, height: self.imageLayer.frame.height)
+                            
+                            self.notificationOpaqueRightLayer.isHidden = false
+                            self.notificationOpaqueRightLayer.frame = CGRect(x: (UIScreen.screens.last?.bounds.width)! - (UIScreen.screens.last?.bounds.height)! / 3, y: 0, width: (UIScreen.screens.last?.bounds.height)! / 3, height: (UIScreen.screens.last?.bounds.height)!)
+                            
                             
                         } else if self.faceCharacteristicCounter.lastTurnLeft > 20 {
                             
@@ -486,6 +508,11 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                             
                             self.showNotification = true
                             self.textNotification.string = "Focus On Other Side Please"
+                            self.notificationOpaqueRightLayer.isHidden = false
+                            self.notificationOpaqueRightLayer.frame = CGRect(x: (UIScreen.screens.last?.bounds.width)! - (UIScreen.screens.last?.bounds.height)! / 3, y: 0, width: (UIScreen.screens.last?.bounds.height)! / 3, height: (UIScreen.screens.last?.bounds.height)!)
+                            
+                            self.notificationOpaqueCenterLayer.isHidden = false
+                            self.notificationOpaqueCenterLayer.frame = CGRect(x: (UIScreen.screens.last?.bounds.width)! / 3 , y: 0, width: (UIScreen.screens.last?.bounds.height)! / 2, height: (UIScreen.screens.last?.bounds.height)!)
                             
                         } else if self.faceCharacteristicCounter.lastTurnRight > 20 {
                             
@@ -497,9 +524,17 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                             
                             self.showNotification = true
                             self.textNotification.string = "Focus On Other Side Please"
+                            self.notificationOpaqueLeftLayer.isHidden = false
+                            self.notificationOpaqueLeftLayer.frame = CGRect(x: 0, y: 0, width: (UIScreen.screens.last?.bounds.height)! / 3, height: self.imageLayer.frame.height)
+                            
+                            self.notificationOpaqueCenterLayer.isHidden = false
+                            self.notificationOpaqueCenterLayer.frame = CGRect(x: (UIScreen.screens.last?.bounds.width)! / 3 , y: 0, width: (UIScreen.screens.last?.bounds.height)! / 2, height: (UIScreen.screens.last?.bounds.height)!)
                             
                         } else{
                             self.showNotification = false
+                            self.notificationOpaqueLeftLayer.isHidden = true
+                            self.notificationOpaqueCenterLayer.isHidden = true
+                            self.notificationOpaqueRightLayer.isHidden = true
                             
                         }
                         
@@ -598,7 +633,7 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                 //write video
                 if videoWriterInput.isReadyForMoreMediaData {
                     //Write video buffer
-                    //print("Video Recording \(videoWriter.status == .writing)")
+                   
                     self.isVideoStreaming = true
                     
                     if videoWriter.status != .writing{
@@ -630,7 +665,7 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
             output == self.audioDataOutput,sessionAtSourceTime != nil,
             audioWriterInput.isReadyForMoreMediaData {
             //Write audio buffer
-            //print("Audio Recording \(videoWriter.status == .writing)")
+           
             self.isAudioStreaming = true
             
             audioWriterInput.append(sampleBuffer)
@@ -648,7 +683,7 @@ extension CameraController{
         
         let origin = self.previewLayer!.layerPointConverted(fromCaptureDevicePoint: rect.origin)
         let size = self.previewLayer!.layerPointConverted(fromCaptureDevicePoint: rect.size.cgPoint)
-        //print("\(size)")
+        
         return CGRect(origin: origin, size: size.cgSize)
     }
     
@@ -676,7 +711,6 @@ extension CameraController{
         let box = result.boundingBox
         faceView.boundingBox = convert(rect: box)
         
-        //print("\(self.previewLayer?.layerPointConverted(fromCaptureDevicePoint: result.boundingBox.origin))")
         guard let landmarks = result.landmarks else {
             return
         }
@@ -806,24 +840,19 @@ extension CameraController{
         //yaw -0.7 means turn left +0.7 means turn right 0 means head straight
         //yaw.boolValue false means turn right yaw.boolValue true means turn left
         //roll 2 head tilt left 0.5 head tilt right 1 means head straight
-        //- Roll = \(result.roll)
-        //print("Yaw = \(result.yaw?.boolValue)")
         
-        //test
-        
-      
         
         guard let yaw = result.yaw?.doubleValue else { return  }
         
         //turn left
-        if yaw < -0.4 {
+        if yaw < -0.3 {
             self.faceCharacteristicCounter.turnLeftPerimeter = FaceCharacteristic.turnLeft
             self.faceCharacteristicCounter.turnRightPerimeter = FaceCharacteristic.turnLeft
             self.faceCharacteristicCounter.straightPerimeter = FaceCharacteristic.turnLeft
         }
         
         //turn right
-        if yaw > 0.4 {
+        if yaw > 0.3 {
             self.faceCharacteristicCounter.turnLeftPerimeter = FaceCharacteristic.turnRight
             self.faceCharacteristicCounter.turnRightPerimeter = FaceCharacteristic.turnRight
             self.faceCharacteristicCounter.straightPerimeter = FaceCharacteristic.turnRight
@@ -940,7 +969,7 @@ extension CameraController{
         self.timerForRecording?.invalidate()
         self.labelNotification?.isHidden = false
         self.labelCountDown?.isHidden = false
-        //self.label?.isHidden = false
+        
     }
     
     func pause() {
