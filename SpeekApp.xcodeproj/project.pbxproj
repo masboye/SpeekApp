@@ -10,6 +10,8 @@
 		10975DCA22DC210D00EBC64A /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10975DC922DC210D00EBC64A /* Onboarding.storyboard */; };
 		10975DCC22DC212900EBC64A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10975DCB22DC212900EBC64A /* OnboardingViewController.swift */; };
 		92AE665722DB995C00D64C66 /* SpeekApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92AE665522DB995C00D64C66 /* SpeekApp.xcdatamodeld */; };
+		92AE665922DC355500D64C66 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE665822DC355500D64C66 /* HistoryTableViewController.swift */; };
+		92AE665B22DC35CC00D64C66 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE665A22DC35CC00D64C66 /* History.swift */; };
 		EF33934F22D339520055C989 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF33934E22D339520055C989 /* UIViewExtension.swift */; };
 		EF90986A22D6E6EB00B526DF /* CountDownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF90986922D6E6EB00B526DF /* CountDownTimer.swift */; };
 		EF91F6D122D7368600C3F5E8 /* FaceCharacteristicCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF91F6D022D7368600C3F5E8 /* FaceCharacteristicCounter.swift */; };
@@ -30,6 +32,8 @@
 		10975DC922DC210D00EBC64A /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		10975DCB22DC212900EBC64A /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		92AE665622DB995C00D64C66 /* SpeekApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SpeekApp.xcdatamodel; sourceTree = "<group>"; };
+		92AE665822DC355500D64C66 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
+		92AE665A22DC35CC00D64C66 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		EF33934E22D339520055C989 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		EF90986922D6E6EB00B526DF /* CountDownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownTimer.swift; sourceTree = "<group>"; };
 		EF91F6D022D7368600C3F5E8 /* FaceCharacteristicCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceCharacteristicCounter.swift; sourceTree = "<group>"; };
@@ -92,6 +96,8 @@
 				EF9F66A822D2EF31009711AF /* OnBoardViewController.swift */,
 				EF9F66AA22D2EF31009711AF /* SecondViewController.swift */,
 				EF9F66AC22D2EF31009711AF /* Main.storyboard */,
+				92AE665822DC355500D64C66 /* HistoryTableViewController.swift */,
+				92AE665A22DC35CC00D64C66 /* History.swift */,
 				10975DCD22DC213100EBC64A /* Onboarding */,
 				92AE665522DB995C00D64C66 /* SpeekApp.xcdatamodeld */,
 				EF9F66AF22D2EF33009711AF /* Assets.xcassets */,
@@ -192,10 +198,12 @@
 				EF9F66BB22D2F5D2009711AF /* ScreenViewController.swift in Sources */,
 				EF91F6D122D7368600C3F5E8 /* FaceCharacteristicCounter.swift in Sources */,
 				EF9F66AB22D2EF31009711AF /* SecondViewController.swift in Sources */,
+				92AE665922DC355500D64C66 /* HistoryTableViewController.swift in Sources */,
 				EF9F66C222D309CA009711AF /* RecordTimer.swift in Sources */,
 				EF90986A22D6E6EB00B526DF /* CountDownTimer.swift in Sources */,
 				EF9F66A722D2EF31009711AF /* AppDelegate.swift in Sources */,
 				92AE665722DB995C00D64C66 /* SpeekApp.xcdatamodeld in Sources */,
+				92AE665B22DC35CC00D64C66 /* History.swift in Sources */,
 				EF9F66A922D2EF31009711AF /* OnBoardViewController.swift in Sources */,
 				EF9F66C422D30BD7009711AF /* CoreGraphicsExtension.swift in Sources */,
 				EF33934F22D339520055C989 /* UIViewExtension.swift in Sources */,
@@ -347,7 +355,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NP7PUX36AY;
+				DEVELOPMENT_TEAM = WPQ9HAVPNV;
 				INFOPLIST_FILE = SpeekApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -365,7 +373,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NP7PUX36AY;
+				DEVELOPMENT_TEAM = WPQ9HAVPNV;
 				INFOPLIST_FILE = SpeekApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
