@@ -8,6 +8,18 @@
 
 import UIKit
 
+extension UIViewController{
+    func HideKbd() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DismissKbd))
+        
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func DismissKbd() {
+        view.endEditing(true)
+    }
+}
+
 class HistoryTableViewController: UITableViewController, UISearchBarDelegate {
     
     
@@ -15,7 +27,7 @@ class HistoryTableViewController: UITableViewController, UISearchBarDelegate {
     var passedData:History?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.HideKbd()
         //filteredData = mainData
     }
 

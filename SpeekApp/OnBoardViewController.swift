@@ -8,6 +8,20 @@
 
 import UIKit
 
+
+extension UIViewController{
+    func HideKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DismissKeyboard))
+        
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func DismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
+
 class OnBoardViewController: UIViewController {
     
     @IBOutlet weak var startButton: UIButton!
@@ -16,10 +30,12 @@ class OnBoardViewController: UIViewController {
     @IBAction func rstBtn(_ sender: UIButton) {
         topicFld.text = ""
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.startButton.layer.cornerRadius = 15
+        self.startButton.layer.cornerRadius = 10
+        self.HideKeyboard()
     }
     
     override func viewDidAppear(_ animated: Bool) {
