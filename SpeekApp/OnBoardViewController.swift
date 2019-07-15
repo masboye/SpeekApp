@@ -43,24 +43,29 @@ class OnBoardViewController: UIViewController {
     }
     @IBAction func startAction(_ sender: UIButton) {
         
-        //        let alert = UIAlertController(title: "What's your Topic?", message: nil, preferredStyle: .alert)
-        //        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        //
-        //        alert.addTextField(configurationHandler: { textField in
-        //            textField.placeholder = "Input your topic here..."
-        //        })
-        //
-        //        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-        //
-        //            if let name = alert.textFields?.first?.text {
-        //                self.performSegue(withIdentifier: "recordScreen", sender: name)
-        //            }
-        //        }))
+        if topicFld.text! ==  "" {
+            let alert = UIAlertController(title: "Fill your topic please", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+        }
+        else{
+            self.performSegue(withIdentifier: "recordScreen", sender: self)
+        }
+//
+//        let alert = UIAlertController(title: "What's your Topic?", message: nil, preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+//
+//        alert.addTextField(configurationHandler: { textField in
+//            textField.placeholder = "Input your topic here..."
+//        })
+//
+//        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+//
+//            if let name = alert.textFields?.first?.text {
+//                self.performSegue(withIdentifier: "recordScreen", sender: name)
+//            }
+//        }))
         
-        self.performSegue(withIdentifier: "recordScreen", sender: self)
-        
-        
-        //self.present(alert, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
