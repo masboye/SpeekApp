@@ -9,9 +9,6 @@
 /* Begin PBXBuildFile section */
 		10975DCA22DC210D00EBC64A /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10975DC922DC210D00EBC64A /* Onboarding.storyboard */; };
 		10975DCC22DC212900EBC64A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10975DCB22DC212900EBC64A /* OnboardingViewController.swift */; };
-		10975DD322DC43EA00EBC64A /* practiceSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = 10975DD222DC43EA00EBC64A /* practiceSymbol.png */; };
-		10975DDA22DC455800EBC64A /* historySymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = 10975DD922DC455800EBC64A /* historySymbol.png */; };
-		10975DDC22DC455F00EBC64A /* appleTVSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = 10975DDB22DC455F00EBC64A /* appleTVSymbol.png */; };
 		92AE665722DB995C00D64C66 /* SpeekApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92AE665522DB995C00D64C66 /* SpeekApp.xcdatamodeld */; };
 		92AE665922DC355500D64C66 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE665822DC355500D64C66 /* HistoryTableViewController.swift */; };
 		92AE665B22DC35CC00D64C66 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE665A22DC35CC00D64C66 /* History.swift */; };
@@ -37,9 +34,6 @@
 		10975DCE22DC426800EBC64A /* SF-Pro-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Semibold.otf"; sourceTree = "<group>"; };
 		10975DD022DC42C000EBC64A /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
 		10975DD122DC439100EBC64A /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
-		10975DD222DC43EA00EBC64A /* practiceSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = practiceSymbol.png; sourceTree = "<group>"; };
-		10975DD922DC455800EBC64A /* historySymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = historySymbol.png; sourceTree = "<group>"; };
-		10975DDB22DC455F00EBC64A /* appleTVSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appleTVSymbol.png; sourceTree = "<group>"; };
 		92AE665622DB995C00D64C66 /* SpeekApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SpeekApp.xcdatamodel; sourceTree = "<group>"; };
 		92AE665822DC355500D64C66 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		92AE665A22DC35CC00D64C66 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
@@ -91,22 +85,11 @@
 			name = Font;
 			sourceTree = "<group>";
 		};
-		10975DD422DC43F900EBC64A /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				10975DDB22DC455F00EBC64A /* appleTVSymbol.png */,
-				10975DD922DC455800EBC64A /* historySymbol.png */,
-				10975DD222DC43EA00EBC64A /* practiceSymbol.png */,
-			);
-			path = Assets;
-			sourceTree = "<group>";
-		};
 		EF9F669A22D2EF31009711AF = {
 			isa = PBXGroup;
 			children = (
 				EF9F66A522D2EF31009711AF /* SpeekApp */,
 				EF9F66A422D2EF31009711AF /* Products */,
-				10975DD422DC43F900EBC64A /* Assets */,
 				10975DCF22DC427C00EBC64A /* Font */,
 			);
 			sourceTree = "<group>";
@@ -211,10 +194,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10975DD322DC43EA00EBC64A /* practiceSymbol.png in Resources */,
 				EF9F66B322D2EF33009711AF /* LaunchScreen.storyboard in Resources */,
-				10975DDA22DC455800EBC64A /* historySymbol.png in Resources */,
-				10975DDC22DC455F00EBC64A /* appleTVSymbol.png in Resources */,
 				EF9F66B022D2EF33009711AF /* Assets.xcassets in Resources */,
 				EF9F66AE22D2EF31009711AF /* Main.storyboard in Resources */,
 				10975DCA22DC210D00EBC64A /* Onboarding.storyboard in Resources */,
