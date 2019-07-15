@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10975DCA22DC210D00EBC64A /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10975DC922DC210D00EBC64A /* Onboarding.storyboard */; };
+		10975DCC22DC212900EBC64A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10975DCB22DC212900EBC64A /* OnboardingViewController.swift */; };
 		92AE665722DB995C00D64C66 /* SpeekApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92AE665522DB995C00D64C66 /* SpeekApp.xcdatamodeld */; };
 		EF33934F22D339520055C989 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF33934E22D339520055C989 /* UIViewExtension.swift */; };
 		EF90986A22D6E6EB00B526DF /* CountDownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF90986922D6E6EB00B526DF /* CountDownTimer.swift */; };
@@ -25,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		10975DC922DC210D00EBC64A /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
+		10975DCB22DC212900EBC64A /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		92AE665622DB995C00D64C66 /* SpeekApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SpeekApp.xcdatamodel; sourceTree = "<group>"; };
 		EF33934E22D339520055C989 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		EF90986922D6E6EB00B526DF /* CountDownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownTimer.swift; sourceTree = "<group>"; };
@@ -55,6 +59,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		10975DCD22DC213100EBC64A /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				10975DC922DC210D00EBC64A /* Onboarding.storyboard */,
+				10975DCB22DC212900EBC64A /* OnboardingViewController.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		EF9F669A22D2EF31009711AF = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +92,7 @@
 				EF9F66A822D2EF31009711AF /* OnBoardViewController.swift */,
 				EF9F66AA22D2EF31009711AF /* SecondViewController.swift */,
 				EF9F66AC22D2EF31009711AF /* Main.storyboard */,
+				10975DCD22DC213100EBC64A /* Onboarding */,
 				92AE665522DB995C00D64C66 /* SpeekApp.xcdatamodeld */,
 				EF9F66AF22D2EF33009711AF /* Assets.xcassets */,
 				EF9F66B122D2EF33009711AF /* LaunchScreen.storyboard */,
@@ -163,6 +177,7 @@
 				EF9F66B322D2EF33009711AF /* LaunchScreen.storyboard in Resources */,
 				EF9F66B022D2EF33009711AF /* Assets.xcassets in Resources */,
 				EF9F66AE22D2EF31009711AF /* Main.storyboard in Resources */,
+				10975DCA22DC210D00EBC64A /* Onboarding.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +188,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10975DCC22DC212900EBC64A /* OnboardingViewController.swift in Sources */,
 				EF9F66BB22D2F5D2009711AF /* ScreenViewController.swift in Sources */,
 				EF91F6D122D7368600C3F5E8 /* FaceCharacteristicCounter.swift in Sources */,
 				EF9F66AB22D2EF31009711AF /* SecondViewController.swift in Sources */,
