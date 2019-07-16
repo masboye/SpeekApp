@@ -65,6 +65,7 @@ class CameraController:NSObject{
     private var notificationOpaqueLeftLayer: CALayer!
     private var notificationOpaqueRightLayer: CALayer!
     private var notificationOpaqueCenterLayer: CALayer!
+    private var notificationOpaqueUpLayer: CALayer!
     
     //set face characteristic counter
     private var faceCharacteristicCounter = FaceCharacteristicCounter()
@@ -225,6 +226,7 @@ class CameraController:NSObject{
         imageLayer.contents = UIImage(named: "808808")?.cgImage
         imageLayer.contentsGravity = .resize
         view.layer.insertSublayer(imageLayer , at: 0)
+        imageLayer.rasterizationScale = UIScreen.main.scale
         
         textTimer = CATextLayer()
         textTimer.frame = CGRect(x: 0, y: 30, width: 400, height: 50)
@@ -232,34 +234,42 @@ class CameraController:NSObject{
         textTimer.foregroundColor = UIColor.black.cgColor
         textTimer.isWrapped = true
         textTimer.alignmentMode = .left
+        textTimer.contentsScale = UIScreen.main.scale
         imageLayer.addSublayer(textTimer)
         
         textNotification = CATextLayer()
         textNotification.frame = CGRect(x: 0, y: 30, width: 400, height: 50)
         textNotification.font = CTFontCreateWithName("TimesNewRomanPSMT" as CFString, 300.0, nil)
-        textNotification.foregroundColor = UIColor.red.cgColor
+        textNotification.foregroundColor = UIColor.white.cgColor
         textNotification.isWrapped = true
         textNotification.alignmentMode = .center
+        textNotification.contentsScale = UIScreen.main.scale
         
         imageLayer.addSublayer(textNotification)
-        
         
         notificationOpaqueLeftLayer = CALayer()
         notificationOpaqueLeftLayer.backgroundColor = UIColor.red.cgColor
         notificationOpaqueLeftLayer.opacity = 0.3
+        notificationOpaqueLeftLayer.rasterizationScale = UIScreen.main.scale
         imageLayer.insertSublayer(notificationOpaqueLeftLayer, at: 2)
         
         notificationOpaqueRightLayer = CALayer()
         notificationOpaqueRightLayer.backgroundColor = UIColor.red.cgColor
         notificationOpaqueRightLayer.opacity = 0.3
+        notificationOpaqueRightLayer.rasterizationScale = UIScreen.main.scale
         imageLayer.insertSublayer(notificationOpaqueRightLayer, at: 2)
         
         notificationOpaqueCenterLayer = CALayer()
         notificationOpaqueCenterLayer.backgroundColor = UIColor.red.cgColor
         notificationOpaqueCenterLayer.opacity = 0.3
+        notificationOpaqueCenterLayer.rasterizationScale = UIScreen.main.scale
         imageLayer.insertSublayer(notificationOpaqueCenterLayer, at: 2)
         
-        
+        notificationOpaqueUpLayer = CALayer()
+        notificationOpaqueUpLayer.backgroundColor = UIColor.red.cgColor
+        notificationOpaqueUpLayer.opacity = 0.3
+        notificationOpaqueUpLayer.rasterizationScale = UIScreen.main.scale
+        imageLayer.insertSublayer(notificationOpaqueUpLayer, at: 2)
         
     }
     
@@ -456,6 +466,7 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                         self.textNotification.isHidden = !self.showNotification
                         self.labelNotification?.isHidden = true
                         
+                        
                         if self.faceCharacteristicCounter.lastNotSmilling > 10 {
                             
                             if #available(iOS 9.0, *) {
@@ -466,6 +477,8 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                             
                             self.showNotification = true
                             self.textNotification.string = "Smile Please"
+                            self.notificationOpaqueUpLayer.isHidden = false
+                            self.notificationOpaqueUpLayer.frame = CGRect(x: 0, y: 0, width: (UIScreen.screens.last?.bounds.width)!, height: 75)
                             
                         }else if self.faceCharacteristicCounter.lastEyesClosed > 1 {
                             
@@ -478,6 +491,8 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                             self.showNotification = true
                             self.textNotification.string = "Eye Contact Please"
                             self.faceCharacteristicCounter.lastEyesClosed = 0
+                            self.notificationOpaqueUpLayer.isHidden = false
+                            self.notificationOpaqueUpLayer.frame = CGRect(x: 0, y: 0, width: (UIScreen.screens.last?.bounds.width)!, height: 75)
                             
                             
                         } else if self.faceCharacteristicCounter.lastStraight > 20 {
@@ -490,6 +505,8 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                             
                             self.showNotification = true
                             self.textNotification.string = "Focus On Other Side Please"
+                            self.notificationOpaqueUpLayer.isHidden = false
+                            self.notificationOpaqueUpLayer.frame = CGRect(x: 0, y: 0, width: (UIScreen.screens.last?.bounds.width)!, height: 75)
                             
                             self.notificationOpaqueLeftLayer.isHidden = false
                             self.notificationOpaqueLeftLayer.frame = CGRect(x: 0, y: 0, width: (UIScreen.screens.last?.bounds.height)! / 3, height: self.imageLayer.frame.height)
@@ -508,6 +525,9 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                             
                             self.showNotification = true
                             self.textNotification.string = "Focus On Other Side Please"
+                            self.notificationOpaqueUpLayer.isHidden = false
+                            self.notificationOpaqueUpLayer.frame = CGRect(x: 0, y: 0, width: (UIScreen.screens.last?.bounds.width)!, height: 75)
+                            
                             self.notificationOpaqueRightLayer.isHidden = false
                             self.notificationOpaqueRightLayer.frame = CGRect(x: (UIScreen.screens.last?.bounds.width)! - (UIScreen.screens.last?.bounds.height)! / 3, y: 0, width: (UIScreen.screens.last?.bounds.height)! / 3, height: (UIScreen.screens.last?.bounds.height)!)
                             
@@ -524,6 +544,9 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                             
                             self.showNotification = true
                             self.textNotification.string = "Focus On Other Side Please"
+                            self.notificationOpaqueUpLayer.isHidden = false
+                            self.notificationOpaqueUpLayer.frame = CGRect(x: 0, y: 0, width: (UIScreen.screens.last?.bounds.width)!, height: 75)
+                            
                             self.notificationOpaqueLeftLayer.isHidden = false
                             self.notificationOpaqueLeftLayer.frame = CGRect(x: 0, y: 0, width: (UIScreen.screens.last?.bounds.height)! / 3, height: self.imageLayer.frame.height)
                             
@@ -535,6 +558,7 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                             self.notificationOpaqueLeftLayer.isHidden = true
                             self.notificationOpaqueCenterLayer.isHidden = true
                             self.notificationOpaqueRightLayer.isHidden = true
+                            self.notificationOpaqueUpLayer.isHidden = true
                             
                         }
                         
