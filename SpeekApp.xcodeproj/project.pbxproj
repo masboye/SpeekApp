@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		10975DCA22DC210D00EBC64A /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10975DC922DC210D00EBC64A /* Onboarding.storyboard */; };
 		10975DCC22DC212900EBC64A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10975DCB22DC212900EBC64A /* OnboardingViewController.swift */; };
+		10AB5FAD22DD6DFE00CC6729 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB5FAC22DD6DFE00CC6729 /* CoreDataHelper.swift */; };
+		10AB5FAF22DD766E00CC6729 /* TopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB5FAE22DD766E00CC6729 /* TopicModel.swift */; };
+		10AB5FB122DD785B00CC6729 /* RecordingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB5FB022DD785B00CC6729 /* RecordingModel.swift */; };
+		10AB5FB322DD790D00CC6729 /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB5FB222DD790D00CC6729 /* VideoModel.swift */; };
 		92AE665722DB995C00D64C66 /* SpeekApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92AE665522DB995C00D64C66 /* SpeekApp.xcdatamodeld */; };
 		92AE665922DC355500D64C66 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE665822DC355500D64C66 /* HistoryTableViewController.swift */; };
 		92AE665B22DC35CC00D64C66 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE665A22DC35CC00D64C66 /* History.swift */; };
@@ -34,6 +38,10 @@
 		10975DCE22DC426800EBC64A /* SF-Pro-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Semibold.otf"; sourceTree = "<group>"; };
 		10975DD022DC42C000EBC64A /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
 		10975DD122DC439100EBC64A /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
+		10AB5FAC22DD6DFE00CC6729 /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
+		10AB5FAE22DD766E00CC6729 /* TopicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicModel.swift; sourceTree = "<group>"; };
+		10AB5FB022DD785B00CC6729 /* RecordingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingModel.swift; sourceTree = "<group>"; };
+		10AB5FB222DD790D00CC6729 /* VideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoModel.swift; sourceTree = "<group>"; };
 		92AE665622DB995C00D64C66 /* SpeekApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SpeekApp.xcdatamodel; sourceTree = "<group>"; };
 		92AE665822DC355500D64C66 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		92AE665A22DC35CC00D64C66 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
@@ -132,6 +140,10 @@
 				EF33934E22D339520055C989 /* UIViewExtension.swift */,
 				EF90986922D6E6EB00B526DF /* CountDownTimer.swift */,
 				EF91F6D022D7368600C3F5E8 /* FaceCharacteristicCounter.swift */,
+				10AB5FAC22DD6DFE00CC6729 /* CoreDataHelper.swift */,
+				10AB5FAE22DD766E00CC6729 /* TopicModel.swift */,
+				10AB5FB022DD785B00CC6729 /* RecordingModel.swift */,
+				10AB5FB222DD790D00CC6729 /* VideoModel.swift */,
 			);
 			path = "Helper Class";
 			sourceTree = "<group>";
@@ -212,11 +224,15 @@
 				EF9F66BB22D2F5D2009711AF /* ScreenViewController.swift in Sources */,
 				EF91F6D122D7368600C3F5E8 /* FaceCharacteristicCounter.swift in Sources */,
 				EF9F66AB22D2EF31009711AF /* SecondViewController.swift in Sources */,
+				10AB5FAD22DD6DFE00CC6729 /* CoreDataHelper.swift in Sources */,
 				92AE665922DC355500D64C66 /* HistoryTableViewController.swift in Sources */,
 				EF9F66C222D309CA009711AF /* RecordTimer.swift in Sources */,
 				EF90986A22D6E6EB00B526DF /* CountDownTimer.swift in Sources */,
 				EF9F66A722D2EF31009711AF /* AppDelegate.swift in Sources */,
+				10AB5FAF22DD766E00CC6729 /* TopicModel.swift in Sources */,
 				92AE665722DB995C00D64C66 /* SpeekApp.xcdatamodeld in Sources */,
+				10AB5FB322DD790D00CC6729 /* VideoModel.swift in Sources */,
+				10AB5FB122DD785B00CC6729 /* RecordingModel.swift in Sources */,
 				92AE665B22DC35CC00D64C66 /* History.swift in Sources */,
 				EF9F66A922D2EF31009711AF /* OnBoardViewController.swift in Sources */,
 				EF9F66C422D30BD7009711AF /* CoreGraphicsExtension.swift in Sources */,

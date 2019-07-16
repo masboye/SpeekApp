@@ -39,15 +39,37 @@ class OnBoardViewController: UIViewController {
     }
     @IBAction func startAction(_ sender: UIButton) {
         
-        if topicFld.text! ==  "" {
-            let alert = UIAlertController(title: "Fill your topic please", message: nil, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            self.present(alert, animated: true)
-        }
-        else{
-            self.performSegue(withIdentifier: "recordScreen", sender: self)
-        }
+//        if topicFld.text! ==  "" {
+//            let alert = UIAlertController(title: "Fill your topic please", message: nil, preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+//            self.present(alert, animated: true)
+//        }
+//        else{
+//            self.performSegue(withIdentifier: "recordScreen", sender: self)
+//        }
         
+        
+        
+        let date = Date()
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "dd.MM.yyyy"
+        let a =  dateformatter.string(from: date)
+        print(a)
+
+
+        let modelCore = CoreDataHelper()
+        let topicModel = TopicModel(title: "qaaa", recording: RecordingModel(title: "ord5", date: dateformatter.date(from: a)!, video: VideoModel(title: "ing", filePath: "ba", eyeContactLost: 2, attention: 3, smileDuration: 3)))
+
+        do {
+           try modelCore.saveTopic(topicModel: topicModel)
+            print("SSSSSS")
+        }
+        catch {
+            print("AAAAAA")
+        }
+
+       
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
