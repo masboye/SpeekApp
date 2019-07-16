@@ -18,7 +18,7 @@ class ScreenViewController: UIViewController {
     var recordButtonStatus = false
     var showStackStatus = true
     
-    let cameraController = CameraController()
+    var cameraController :CameraController!
     var additionalWindows: [UIWindow] = []
     
     
@@ -55,6 +55,9 @@ class ScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        //init camera controller
+        self.cameraController = CameraController(topic: topic)
         // Do any additional setup after loading the view.
         let screenTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.screenTap(_:)))
         view.addGestureRecognizer(screenTapGesture)
@@ -160,7 +163,7 @@ class ScreenViewController: UIViewController {
         
         //self.view.addSubview(self.preview)
         self.view.addSubview(window)
-        self.preview.updateConstraintsIfNeeded()
+        //self.preview.updateConstraintsIfNeeded()
         
        
         

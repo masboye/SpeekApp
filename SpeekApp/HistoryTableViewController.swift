@@ -16,6 +16,9 @@ class HistoryTableViewController: UITableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        for x in 1...10{
+            filteredData?.append(History(title: "title \(x)", topic: "topic \(x)", date: Date()))
+        }
         //filteredData = mainData
     }
 
@@ -27,7 +30,7 @@ class HistoryTableViewController: UITableViewController, UISearchBarDelegate {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // TODO: Fetch Data from Core Data
-        return 0
+        return filteredData?.count ?? 0
     }
     
     

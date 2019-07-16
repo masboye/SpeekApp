@@ -323,6 +323,10 @@ class CameraController:NSObject{
         capturedSession.commitConfiguration()
     }
     
+    private var topic:String
+    init(topic: String) {
+        self.topic = topic
+    }
 }
 
 
@@ -946,6 +950,26 @@ extension CameraController{
        
     }
     
+    func saveVideoInDirectory(from: URL) {
+        let fileManager = FileManager.default
+        let path = (NSSearchPathForDirectoriesInDomains(.moviesDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("SpeekApp")
+        if !fileManager.fileExists(atPath: path) {
+            try! fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+        }
+        let url = NSURL(string: path)
+    
+        guard let moviePath = url!.appendingPathComponent("\(self.topic)\(Int.random(in: 1...1000))") else { return }
+        
+        do {
+            try fileManager.copyItem(at: from, to: moviePath)
+            
+            // no error was thrown
+        } catch {
+            // an error was thrown
+            print(error)
+        }
+    }
+    
     func stop() {
         
         guard isRecording else { return }
@@ -957,8 +981,9 @@ extension CameraController{
             guard let url = self?.videoWriter.outputURL else { return }
             let asset = AVURLAsset(url: url)
             //Do whatever you want with your asset here
-            //print("\(asset.url)")
-            UISaveVideoAtPathToSavedPhotosAlbum(asset.url.path, nil, nil, nil)
+            
+            //UISaveVideoAtPathToSavedPhotosAlbum(asset.url.path, nil, nil, nil)
+            self!.saveVideoInDirectory(from: asset.url)
             
         }
         self.isReadyToRecord = false
