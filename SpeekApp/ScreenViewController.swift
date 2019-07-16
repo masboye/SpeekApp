@@ -32,8 +32,8 @@ class ScreenViewController: UIViewController {
             self.stackButton.hideAnimated(in: self.stackButton)
             self.showStackStatus = false
             
-
             self.cameraController.start()
+            
         }else{
             self.recordButtonStatus = false
             self.recordButton.setImage(UIImage(named: "start record"), for: .normal)
@@ -86,14 +86,12 @@ class ScreenViewController: UIViewController {
                                                     // Get the new screen information.
                                                     let newScreen = notification.object as! UIScreen
                                                     let screenDimensions = newScreen.bounds
-                                                    //print("\(screenDimensions)-\(self.view.bounds)")
+                                                   
                                                     // Configure a window for the screen.
                                                     let newWindow = UIWindow(frame: screenDimensions)
                                                     newWindow.screen = newScreen
                                                     
                                                     self.configureAuxilliaryInterface(with: newWindow)
-                                                    
-                                                    
                                                     
                                                     print("connect-\(self.additionalWindows.count)")
             }
@@ -160,12 +158,8 @@ class ScreenViewController: UIViewController {
     
     func resetAuxilliaryInterface(window: UIWindow){
         
-        
-        //self.view.addSubview(self.preview)
         self.view.addSubview(window)
         //self.preview.updateConstraintsIfNeeded()
-        
-       
         
     }
     
