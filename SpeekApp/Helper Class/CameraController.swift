@@ -14,59 +14,60 @@ import Vision
 
 class CameraController:NSObject{
     
-    var captureSession:AVCaptureSession?
-    var frontCamera:AVCaptureDevice?
-    var rearCamera:AVCaptureDevice?
-    
-    var currentCameraPosition: CameraPosition?
-    var frontCameraInput: AVCaptureDeviceInput?
-    var rearCameraInput: AVCaptureDeviceInput?
-    
     var previewLayer:AVCaptureVideoPreviewLayer?
-    var flashMode = AVCaptureDevice.FlashMode.off
+    var faceView: FaceView!
     
-    var sequenceHandler = VNSequenceRequestHandler()
-    let dataOutputQueue = DispatchQueue(
+    private var captureSession:AVCaptureSession?
+    private var frontCamera:AVCaptureDevice?
+    private var rearCamera:AVCaptureDevice?
+    
+    private var currentCameraPosition: CameraPosition?
+    private var frontCameraInput: AVCaptureDeviceInput?
+    private var rearCameraInput: AVCaptureDeviceInput?
+    
+    private var flashMode = AVCaptureDevice.FlashMode.off
+    private var sequenceHandler = VNSequenceRequestHandler()
+    private let dataOutputQueue = DispatchQueue(
         label: "data queue",
         qos: .userInitiated,
         attributes: [],
         autoreleaseFrequency: .workItem)
-    var maxX: CGFloat = 0.0
-    var midY: CGFloat = 0.0
-    var maxY: CGFloat = 0.0
-    var faceView: FaceView!
-    var faceDetectOutput: AVCaptureVideoDataOutput?
-    var audioDataOutput : AVCaptureAudioDataOutput?
-    var isRecording = false
-    var videoWriter: AVAssetWriter!
-    var videoWriterInput: AVAssetWriterInput!
-    var audioWriterInput: AVAssetWriterInput!
-    var sessionAtSourceTime: CMTime?
+    private var maxX: CGFloat = 0.0
+    private var midY: CGFloat = 0.0
+    private var maxY: CGFloat = 0.0
+    
+    private var faceDetectOutput: AVCaptureVideoDataOutput?
+    private var audioDataOutput : AVCaptureAudioDataOutput?
+    private var isRecording = false
+    private var videoWriter: AVAssetWriter!
+    private var videoWriterInput: AVAssetWriterInput!
+    private var audioWriterInput: AVAssetWriterInput!
+    private var sessionAtSourceTime: CMTime?
     
     
     //set time for recording
-    let recordTimer = RecordTimer(initValue: 0)
-    var isVideoStreaming = false
-    var isAudioStreaming = false
-    var isReadyToRecord = false
-    var timerForRecording:Timer?
-    var labelNotification:UILabel?
-    var labelCountDown:UILabel?
+    private let recordTimer = RecordTimer(initValue: 0)
+    private var isVideoStreaming = false
+    private var isAudioStreaming = false
+    private var isReadyToRecord = false
+    private var timerForRecording:Timer?
+    private var labelNotification:UILabel?
+    private var labelCountDown:UILabel?
    
     //set box for initialization
-    var initBox:UIView!
+    private var initBox:UIView!
     
     //set vars for notification
     var imageLayer: CALayer!
     var textTimer:CATextLayer!
     var textNotification:CATextLayer!
-    var showNotification = false
-    var notificationOpaqueLeftLayer: CALayer!
-    var notificationOpaqueRightLayer: CALayer!
-    var notificationOpaqueCenterLayer: CALayer!
+    private var showNotification = false
+    private var notificationOpaqueLeftLayer: CALayer!
+    private var notificationOpaqueRightLayer: CALayer!
+    private var notificationOpaqueCenterLayer: CALayer!
     
     //set face characteristic counter
-    var faceCharacteristicCounter = FaceCharacteristicCounter()
+    private var faceCharacteristicCounter = FaceCharacteristicCounter()
     
     func prepare(completionHandler:@escaping (Error?) -> Void){
         func createCaptureSession(){
@@ -399,7 +400,6 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
         
         // detect face
         let faces = detector.features(in: ciimage, options: options)
-        //print("\(faces.count)")
         
         for feature in faces as! [CIFaceFeature] {
             
@@ -415,11 +415,10 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
             
             if feature.rightEyeClosed  && feature.leftEyeClosed{
                 self.faceCharacteristicCounter.eyesPerimeter = FaceCharacteristic.eyesClosed
-                //print("Eyes Closed -\(feature.rightEyeClosed)-\(feature.leftEyeClosed)")
-
+           
             } else{
                 self.faceCharacteristicCounter.eyesPerimeter = FaceCharacteristic.eyesOpen
-                //print("Eyes Open -\(feature.rightEyeClosed)-\(feature.leftEyeClosed)")
+           
             }
             
             
@@ -442,7 +441,7 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
             
             //start the count down
             
-           let countDownTimer = CountDownTimer(initValue: 3)
+        let countDownTimer = CountDownTimer(initValue: 3)
            
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 
@@ -835,6 +834,7 @@ extension CameraController{
             let result = results.first
             else {
                 
+                //do not erase this comment 15-07-2019 boye
                 //faceView.clear()
                 return
         }
@@ -903,7 +903,7 @@ extension CameraController{
                 ])
             audioWriterInput.expectsMediaDataInRealTime = true
             if videoWriter.canAdd(audioWriterInput) {
-                //print("ADD AUDIO")
+                
                 videoWriter.add(audioWriterInput)
             }
             
@@ -929,7 +929,7 @@ extension CameraController{
             if FileManager.default.fileExists(atPath: videoOutputUrl.path) {
                 
                 try FileManager.default.removeItem(at: videoOutputUrl)
-                print("File Deleted")
+                
             }
         } catch {
             print(error)
