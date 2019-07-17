@@ -18,7 +18,7 @@
         <!--Practice-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController storyboardIdentifier="HomeView" id="9pv-A4-QxB" customClass="OnBoardViewController" customModule="SpeekApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9pv-A4-QxB" customClass="OnBoardViewController" customModule="SpeekApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -140,7 +140,7 @@
         <scene sceneID="o5S-gQ-OkH">
             <objects>
                 <navigationController id="CnL-ZR-txF" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Recording" image="recordingsTabBarActive" id="DNf-8M-uko"/>
+                    <tabBarItem key="tabBarItem" title="Recording" image="recordTabBarActive" id="DNf-8M-uko"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Q2a-yO-DWg">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -199,6 +199,8 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="History" id="Bic-dx-pSg"/>
                     <connections>
+                        <outlet property="historyTable" destination="Hv8-eH-7uE" id="0uT-zV-KOy"/>
+                        <outlet property="searchBar" destination="xtS-0u-Crd" id="h8w-vg-6qG"/>
                         <segue destination="mIn-Jy-l4P" kind="show" id="wIR-6X-aG0"/>
                     </connections>
                 </tableViewController>
@@ -224,7 +226,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="HomeView" id="49e-Tb-3d3" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -262,7 +264,7 @@
     <resources>
         <image name="Mr.Speek" width="519" height="519"/>
         <image name="practiceTabBarDisable" width="23" height="22"/>
-        <image name="recordingsTabBarActive" width="28" height="22"/>
+        <image name="recordTabBarActive" width="22" height="22"/>
         <image name="start record" width="63" height="63"/>
     </resources>
 </document>

@@ -15,6 +15,13 @@ class VideoModel {
     var attention: Int64
     var smileDuration: Int64
     
+    init() {
+        self.title = ""
+        self.filePath = ""
+        self.eyeContactLost = 0
+        self.attention = 0
+        self.smileDuration = 0
+    }
     init(title: String, filePath: String, eyeContactLost: Int64, attention: Int64, smileDuration: Int64) {
         self.title = title
         self.filePath = filePath
