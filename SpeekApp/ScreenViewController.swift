@@ -38,6 +38,7 @@ class ScreenViewController: UIViewController {
             self.recordButtonStatus = false
             self.recordButton.setImage(UIImage(named: "start record"), for: .normal)
             self.cameraController.stop()
+            performSegue(withIdentifier: "showResult", sender: self)
            
         }
         
@@ -46,7 +47,7 @@ class ScreenViewController: UIViewController {
     @objc func screenTap( _ recognizer : UITapGestureRecognizer){
         
         self.stackButton.isHidden = self.showStackStatus
-        self.navigationController?.isNavigationBarHidden = self.showStackStatus
+        //self.navigationController?.isNavigationBarHidden = self.showStackStatus
         self.showStackStatus.toggle()
         self.stackButton.layer.zPosition = 1.0
         

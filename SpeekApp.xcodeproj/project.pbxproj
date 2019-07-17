@@ -17,6 +17,7 @@
 		92AE665922DC355500D64C66 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE665822DC355500D64C66 /* HistoryTableViewController.swift */; };
 		92AE665B22DC35CC00D64C66 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE665A22DC35CC00D64C66 /* History.swift */; };
 		EF33934F22D339520055C989 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF33934E22D339520055C989 /* UIViewExtension.swift */; };
+		EF3C744F22DEDB77009363B2 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C744E22DEDB77009363B2 /* ResultViewController.swift */; };
 		EF90986A22D6E6EB00B526DF /* CountDownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF90986922D6E6EB00B526DF /* CountDownTimer.swift */; };
 		EF91F6D122D7368600C3F5E8 /* FaceCharacteristicCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF91F6D022D7368600C3F5E8 /* FaceCharacteristicCounter.swift */; };
 		EF9F66A722D2EF31009711AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9F66A622D2EF31009711AF /* AppDelegate.swift */; };
@@ -45,6 +46,7 @@
 		92AE665822DC355500D64C66 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		92AE665A22DC35CC00D64C66 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		EF33934E22D339520055C989 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		EF3C744E22DEDB77009363B2 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		EF90986922D6E6EB00B526DF /* CountDownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownTimer.swift; sourceTree = "<group>"; };
 		EF91F6D022D7368600C3F5E8 /* FaceCharacteristicCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceCharacteristicCounter.swift; sourceTree = "<group>"; };
 		EF9F66A322D2EF31009711AF /* SpeekApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeekApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +125,7 @@
 				EF9F66B122D2EF33009711AF /* LaunchScreen.storyboard */,
 				EF9F66B422D2EF33009711AF /* Info.plist */,
 				EF9F66BA22D2F5D2009711AF /* ScreenViewController.swift */,
+				EF3C744E22DEDB77009363B2 /* ResultViewController.swift */,
 			);
 			path = SpeekApp;
 			sourceTree = "<group>";
@@ -218,9 +221,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				10975DCC22DC212900EBC64A /* OnboardingViewController.swift in Sources */,
+				EF3C744F22DEDB77009363B2 /* ResultViewController.swift in Sources */,
 				EF9F66BB22D2F5D2009711AF /* ScreenViewController.swift in Sources */,
 				EF91F6D122D7368600C3F5E8 /* FaceCharacteristicCounter.swift in Sources */,
-				EF9F66AB22D2EF31009711AF /* SecondViewController.swift in Sources */,
 				10AB5FAD22DD6DFE00CC6729 /* CoreDataHelper.swift in Sources */,
 				92AE665922DC355500D64C66 /* HistoryTableViewController.swift in Sources */,
 				EF9F66C222D309CA009711AF /* RecordTimer.swift in Sources */,
