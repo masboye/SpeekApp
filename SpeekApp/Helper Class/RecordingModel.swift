@@ -14,6 +14,12 @@ class RecordingModel{
     var title: String
     var video: VideoModel
     
+    init() {
+        self.date = Date()
+        self.title = ""
+        self.video = VideoModel()
+    }
+    
     init(title: String, date: Date, video: VideoModel) {
         self.title = title
         self.date = date

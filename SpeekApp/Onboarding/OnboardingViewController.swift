@@ -17,7 +17,7 @@ class OnboardingViewController: UIViewController {
     
     @IBAction func startedBtn(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let homeView = storyboard.instantiateViewController(withIdentifier: "HomeView") as! OnBoardViewController
+        let homeView = storyboard.instantiateViewController(withIdentifier: "HomeView") as! UITabBarController
         self.present(homeView, animated: true, completion: nil)
     }
     override func viewDidLoad() {

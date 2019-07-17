@@ -58,15 +58,20 @@ class OnBoardViewController: UIViewController {
 
 
         let modelCore = CoreDataHelper()
-        let topicModel = TopicModel(title: "qaaa", recording: RecordingModel(title: "ord5", date: dateformatter.date(from: a)!, video: VideoModel(title: "ing", filePath: "ba", eyeContactLost: 2, attention: 3, smileDuration: 3)))
+        let topicModel = TopicModel(title: "cc", recording: RecordingModel(title: "pro", date: dateformatter.date(from: a)!, video: VideoModel(title: "ing", filePath: "ba", eyeContactLost: 2, attention: 3, smileDuration: 3)))
 
-        do {
-           try modelCore.saveTopic(topicModel: topicModel)
-            self.performSegue(withIdentifier: "recordScreen", sender: self)
+        modelCore.saveTopic(topicModel: topicModel)
+        let asd:[Topic] = modelCore.fetch(entityName: "Topic")
+        
+        for waw in asd {
+            let aaa = waw.topicToRec?.allObjects
+            print(waw.title)
+            let arrayy:[Recording] = aaa as! [Recording]
+            for asw in arrayy {
+                print(asw.title)
+            }
         }
-        catch {
-            print("AAAAAA")
-        }
+        
 
        
 

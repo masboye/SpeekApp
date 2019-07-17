@@ -12,6 +12,11 @@ class TopicModel {
     var title: String
     var recording: RecordingModel
     
+    init() {
+        self.title = ""
+        self.recording = RecordingModel()
+    }
+    
     init(title: String, recording: RecordingModel) {
         self.title = title
         self.recording = recording
