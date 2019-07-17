@@ -36,7 +36,6 @@ class ResultViewController: UIViewController {
         let player = AVPlayer(url: url)
         let playerViewController = AVPlayerViewController()
         playerViewController.player = player
-        
         present(playerViewController, animated: true) {
             player.play()
         }
