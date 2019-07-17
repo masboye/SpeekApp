@@ -8,13 +8,30 @@
 
 import UIKit
 
-class OnBoardViewController: UIViewController {
 
+extension UIViewController{
+    func HideKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DismissKeyboard))
+        
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func DismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
+
+class OnBoardViewController: UIViewController {
+    
     @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var topicFld: UITextField!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.startButton.layer.cornerRadius = 15
+        self.startButton.layer.cornerRadius = 10
+        self.HideKeyboard()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -22,21 +39,37 @@ class OnBoardViewController: UIViewController {
     }
     @IBAction func startAction(_ sender: UIButton) {
         
-        let alert = UIAlertController(title: "What's your Topic?", message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+//        if topicFld.text! ==  "" {
+//            let alert = UIAlertController(title: "Fill your topic please", message: nil, preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+//            self.present(alert, animated: true)
+//        }
+//        else{
+//            self.performSegue(withIdentifier: "recordScreen", sender: self)
+//        }
         
-        alert.addTextField(configurationHandler: { textField in
-            textField.placeholder = "Input your topic here..."
-        })
         
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            
-            if let name = alert.textFields?.first?.text {
-                self.performSegue(withIdentifier: "recordScreen", sender: name)
-            }
-        }))
         
-        self.present(alert, animated: true)
+        let date = Date()
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "dd.MM.yyyy"
+        let a =  dateformatter.string(from: date)
+        print(a)
+
+
+        let modelCore = CoreDataHelper()
+        let topicModel = TopicModel(title: "qaaa", recording: RecordingModel(title: "ord5", date: dateformatter.date(from: a)!, video: VideoModel(title: "ing", filePath: "ba", eyeContactLost: 2, attention: 3, smileDuration: 3)))
+
+        do {
+           try modelCore.saveTopic(topicModel: topicModel)
+            print("SSSSSS")
+        }
+        catch {
+            print("AAAAAA")
+        }
+
+       
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
