@@ -167,7 +167,7 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="1pW-25-YJ5" detailTextLabel="wmo-mO-m6Y" style="IBUITableViewCellStyleSubtitle" id="LpS-UF-VNI">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="historyCell" textLabel="1pW-25-YJ5" detailTextLabel="wmo-mO-m6Y" style="IBUITableViewCellStyleSubtitle" id="LpS-UF-VNI">
                                 <rect key="frame" x="0.0" y="72" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LpS-UF-VNI" id="1C8-FR-k3J">
@@ -242,7 +242,6 @@
         <!--Practice-->
         <scene sceneID="nHt-NN-rVl">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ag8-of-fjd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="a9y-qB-yqa" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Practice" image="practiceTabBarDisable" id="acW-dT-cKf"/>
                     <toolbarItems/>
@@ -255,6 +254,7 @@
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="rootViewController" id="dUg-uO-92Z"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ag8-of-fjd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-775.36231884057975" y="-253.125"/>
         </scene>

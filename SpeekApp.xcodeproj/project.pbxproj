@@ -116,7 +116,6 @@
 				EF9F66A822D2EF31009711AF /* OnBoardViewController.swift */,
 				EF9F66AC22D2EF31009711AF /* Main.storyboard */,
 				92AE665822DC355500D64C66 /* HistoryTableViewController.swift */,
-				92AE665A22DC35CC00D64C66 /* History.swift */,
 				10975DCD22DC213100EBC64A /* Onboarding */,
 				92AE665522DB995C00D64C66 /* SpeekApp.xcdatamodeld */,
 				EF9F66AF22D2EF33009711AF /* Assets.xcassets */,
@@ -139,6 +138,7 @@
 				EF91F6D022D7368600C3F5E8 /* FaceCharacteristicCounter.swift */,
 				10AB5FAC22DD6DFE00CC6729 /* CoreDataHelper.swift */,
 				10AB5FAE22DD766E00CC6729 /* TopicModel.swift */,
+				92AE665A22DC35CC00D64C66 /* History.swift */,
 				10AB5FB022DD785B00CC6729 /* RecordingModel.swift */,
 				10AB5FB222DD790D00CC6729 /* VideoModel.swift */,
 			);
@@ -220,7 +220,6 @@
 				10975DCC22DC212900EBC64A /* OnboardingViewController.swift in Sources */,
 				EF9F66BB22D2F5D2009711AF /* ScreenViewController.swift in Sources */,
 				EF91F6D122D7368600C3F5E8 /* FaceCharacteristicCounter.swift in Sources */,
-				EF9F66AB22D2EF31009711AF /* SecondViewController.swift in Sources */,
 				10AB5FAD22DD6DFE00CC6729 /* CoreDataHelper.swift in Sources */,
 				92AE665922DC355500D64C66 /* HistoryTableViewController.swift in Sources */,
 				EF9F66C222D309CA009711AF /* RecordTimer.swift in Sources */,

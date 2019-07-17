@@ -39,7 +39,19 @@ class HistoryTableViewController: UITableViewController, UISearchBarDelegate {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // TODO: Fetch Data from Core Data
-        return filteredData?.count ?? 0
+        var cdh: CoreDataHelper = CoreDataHelper()
+        var records: [Topic] = cdh.fetch(entityName: "Topic")
+        
+        return records.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "historyCell")
+        var cdh: CoreDataHelper = CoreDataHelper()
+        var records: [Topic] = cdh.fetch(entityName: "Topic")
+       
+        //cell?.textLabel?.text = records[indexPath.row].topicToRec.
+        return cell!
     }
     
     

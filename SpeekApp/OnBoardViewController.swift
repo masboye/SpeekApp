@@ -58,14 +58,13 @@ class OnBoardViewController: UIViewController {
 
 
         let modelCore = CoreDataHelper()
-        let topicModel = TopicModel(title: "qaaa", recording: RecordingModel(title: "ord5", date: dateformatter.date(from: a)!, video: VideoModel(title: "ing", filePath: "ba", eyeContactLost: 2, attention: 3, smileDuration: 3)))
+//        let topicModel = TopicModel(title: "qaaa", recording: RecordingModel(title: "ord5", date: dateformatter.date(from: a)!, video: VideoModel(title: "ing", filePath: "ba", eyeContactLost: 2, attention: 3, smileDuration: 3)))
 
-        do {
-           try modelCore.saveTopic(topicModel: topicModel)
-            print("SSSSSS")
-        }
-        catch {
-            print("AAAAAA")
+        let asd:[Topic] = modelCore.fetch(entityName: "Topic")
+        
+        for waw in asd {
+            let qq = waw.topicToRec?.value(forKey: "title")
+            print(qq as? String)
         }
 
        
