@@ -107,7 +107,7 @@ class FaceView: UIView {
             let xPosition = self.frame.width
             let yPosition = self.frame.height
             
-            let initUserFace = CGRect(x: xPosition / 4, y: yPosition / 3, width: xPosition / 2, height: yPosition / 2)
+            let initUserFace = CGRect(x: xPosition / 4, y: yPosition / 4, width: xPosition / 3, height: yPosition / 2)
             context.addRect(initUserFace)
             UIColor.red.setStroke()
             context.setLineWidth(10.0)

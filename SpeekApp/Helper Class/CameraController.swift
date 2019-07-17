@@ -53,9 +53,6 @@ class CameraController:NSObject{
     private var timerForRecording:Timer?
     private var labelNotification:UILabel?
     private var labelCountDown:UILabel?
-   
-    //set box for initialization
-    private var initBox:UIView!
     
     //set vars for notification
     var imageLayer: CALayer!
@@ -216,7 +213,7 @@ class CameraController:NSObject{
         labelNotification?.textColor = .black
         self.faceView.addSubview(labelNotification!)
         
-        labelCountDown = UILabel(frame: CGRect(x: 0, y: view.frame.height / 4, width: 150, height: 150))
+        labelCountDown = UILabel(frame: CGRect(x: view.frame.height / 2, y: view.frame.width / 2 - 75, width: 150, height: 150))
         labelCountDown?.font = UIFont(name: "TimesNewRomanPSMT", size: 150.0)
         labelCountDown?.textColor = .black
         self.faceView.addSubview(labelCountDown!)

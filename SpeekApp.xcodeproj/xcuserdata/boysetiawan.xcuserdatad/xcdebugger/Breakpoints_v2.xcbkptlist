@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SpeekApp/Helper Class/CameraController.swift"
-            timestampString = "585019642.133909"
+            timestampString = "585021513.079726"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "968"
-            endingLineNumber = "968"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "966"
+            endingLineNumber = "966"
+            landmarkName = "start()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -26,13 +26,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SpeekApp/Helper Class/CameraController.swift"
-            timestampString = "585019642.133976"
+            timestampString = "585021513.080284"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "456"
-            endingLineNumber = "456"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "454"
+            endingLineNumber = "454"
+            landmarkName = "captureOutput(_:didOutput:from:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
