@@ -289,7 +289,7 @@
         <scene sceneID="o5S-gQ-OkH">
             <objects>
                 <navigationController id="CnL-ZR-txF" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Recording" image="recordTabBarActive" id="DNf-8M-uko"/>
+                    <tabBarItem key="tabBarItem" title="Recording" image="RecordTabBarBaruDisable" id="DNf-8M-uko"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Q2a-yO-DWg">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -562,9 +562,9 @@
     </scenes>
     <resources>
         <image name="Mr.Speek" width="519" height="519"/>
+        <image name="RecordTabBarBaruDisable" width="22" height="22"/>
         <image name="play" width="60" height="60"/>
         <image name="practiceTabBarDisable" width="23" height="22"/>
-        <image name="recordTabBarActive" width="22" height="22"/>
         <image name="start record" width="63" height="63"/>
     </resources>
 </document>
