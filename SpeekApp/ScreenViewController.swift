@@ -46,29 +46,38 @@ class ScreenViewController: UIViewController {
     @objc func screenTap( _ recognizer : UITapGestureRecognizer){
         
         self.stackButton.isHidden = self.showStackStatus
+        self.navigationController?.isNavigationBarHidden = self.showStackStatus
         self.showStackStatus.toggle()
         self.stackButton.layer.zPosition = 1.0
         
     }
     var topic:String = ""
     
+    func configureCameraController(){
+        cameraController.prepare{ error in
+            if let error = error{
+                print(error)
+            }
+        }
+        try? self.cameraController.displayPreview(on: self.preview)
+        
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tabBarController?.tabBar.isHidden = true
+        self.navigationController?.isNavigationBarHidden = true
         
         //init camera controller
         self.cameraController = CameraController(topic: topic)
+        
         // Do any additional setup after loading the view.
         let screenTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.screenTap(_:)))
         view.addGestureRecognizer(screenTapGesture)
         
-        func configureCameraController(){
-            cameraController.prepare{ error in
-                if let error = error{
-                    print(error)
-                }
-            }
-            try? self.cameraController.displayPreview(on: self.preview)
+        func configureExternalMonitor(){
             
             NotificationCenter.default.addObserver(forName: UIScreen.modeDidChangeNotification, object: nil, queue: nil) { (notification) in
                 //
@@ -86,7 +95,7 @@ class ScreenViewController: UIViewController {
                                                     // Get the new screen information.
                                                     let newScreen = notification.object as! UIScreen
                                                     let screenDimensions = newScreen.bounds
-                                                   
+                                                    
                                                     // Configure a window for the screen.
                                                     let newWindow = UIWindow(frame: screenDimensions)
                                                     newWindow.screen = newScreen
@@ -113,11 +122,10 @@ class ScreenViewController: UIViewController {
                                                     }
                                                     print("disconnect-\(self.additionalWindows.count)")
             }
-            
-            
         }
         
         configureCameraController()
+        configureExternalMonitor()
         
         //anticipate external screen already available
         if UIScreen.screens.count > 1{
@@ -225,11 +233,17 @@ class ScreenViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.landscapeRight, andRotateTo: UIInterfaceOrientation.landscapeRight)
+        
+        //self.cameraController.restartDisplayPreview()
+        //configureCameraController()
     }
     
     override func viewWillDisappear(_ animated : Bool) {
         super.viewWillDisappear(animated)
         AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
+        
+        self.cameraController.stopDisplayPreview()
+        
     }
     
     

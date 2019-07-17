@@ -138,7 +138,6 @@ class CameraController:NSObject{
             
         }
         
-        
         func configureFaceDetectOutput() throws {
             
             guard let captureSession = self.captureSession else {
@@ -175,6 +174,7 @@ class CameraController:NSObject{
             try configureAudioDetectOutput()
             self.captureSession?.commitConfiguration()
             self.captureSession?.startRunning()
+            
         }catch{
             completionHandler(error)
             return
@@ -183,6 +183,15 @@ class CameraController:NSObject{
         completionHandler(nil)
         
        
+    }
+    
+    func stopDisplayPreview(){
+        self.captureSession?.stopRunning()
+        faceCharacteristicCounter.resetCalculation()
+        faceCharacteristicCounter.isCalculating = false
+        guard let timer = self.timerForRecording else {return}
+        timer.invalidate()
+        
     }
     
     func displayPreview(on view:UIView) throws {
@@ -194,7 +203,6 @@ class CameraController:NSObject{
         self.previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         self.previewLayer?.videoGravity = .resizeAspectFill
         self.previewLayer?.connection?.videoOrientation = .portrait
-        
         
         self.previewLayer?.frame = view.frame
         view.layer.insertSublayer(self.previewLayer!, at: 0)
@@ -462,7 +470,6 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
                         self.textTimer.string = "\(self.recordTimer.getTime())"
                         self.textNotification.isHidden = !self.showNotification
                         self.labelNotification?.isHidden = true
-                        
                         
                         if self.faceCharacteristicCounter.lastNotSmilling > 10 {
                             
@@ -969,7 +976,7 @@ extension CameraController{
         guard let timer = self.timerForRecording else {return}
         timer.fire()
         
-        faceCharacteristicCounter = FaceCharacteristicCounter()
+        //faceCharacteristicCounter = FaceCharacteristicCounter()
        
     }
     

@@ -62,7 +62,7 @@ class OnBoardViewController: UIViewController {
 
         do {
            try modelCore.saveTopic(topicModel: topicModel)
-            print("SSSSSS")
+            self.performSegue(withIdentifier: "recordScreen", sender: self)
         }
         catch {
             print("AAAAAA")
