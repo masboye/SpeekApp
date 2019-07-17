@@ -959,7 +959,6 @@ extension CameraController{
         } catch {
             print(error)
         }
-        print("\(videoOutputUrl)")
         return videoOutputUrl
     }
     
@@ -972,6 +971,8 @@ extension CameraController{
         
         guard let timer = self.timerForRecording else {return}
         timer.fire()
+        
+        faceCharacteristicCounter = FaceCharacteristicCounter()
        
     }
     
@@ -984,8 +985,8 @@ extension CameraController{
         isRecording = false
         videoWriter.finishWriting { [weak self] in
             self?.sessionAtSourceTime = nil
-            guard let url = self?.videoWriter.outputURL else { return }
-            let asset = AVURLAsset(url: url)
+            //guard let url = self?.videoWriter.outputURL else { return }
+            //let asset = AVURLAsset(url: url)
             //Do whatever you want with your asset here
             
             //UISaveVideoAtPathToSavedPhotosAlbum(asset.url.path, nil, nil, nil)
