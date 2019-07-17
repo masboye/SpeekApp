@@ -15,6 +15,7 @@ class ResultViewController: UIViewController {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var discardButton: UIButton!
     @IBOutlet weak var videoPlayer: UIView!
+    @IBOutlet weak var previewVideo: UIImageView!
     
     var url:URL!
     
@@ -29,6 +30,8 @@ class ResultViewController: UIViewController {
         let playVideoTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.videoTap(_:)))
         videoPlayer.addGestureRecognizer(playVideoTapGesture)
         
+        
+        
     }
 
     @objc func videoTap( _ recognizer : UITapGestureRecognizer){
@@ -41,4 +44,23 @@ class ResultViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        guard let previewImage = videoPreviewImage(url: url) else {return}
+        
+        self.previewVideo.image = previewImage
+    }
+    
+    func videoPreviewImage(url: URL) -> UIImage? {
+        let asset = AVURLAsset(url: url)
+        let generator = AVAssetImageGenerator(asset: asset)
+        //generator.appliesPreferredTrackTransform = true
+        if let cgImage = try? generator.copyCGImage(at: CMTime(seconds: 2, preferredTimescale: 60), actualTime: nil) {
+            
+            return UIImage(cgImage: cgImage)
+        }
+        else {
+            
+            return nil
+        }
+    }
 }

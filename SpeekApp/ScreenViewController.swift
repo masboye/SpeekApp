@@ -47,7 +47,6 @@ class ScreenViewController: UIViewController {
     @objc func screenTap( _ recognizer : UITapGestureRecognizer){
         
         self.stackButton.isHidden = self.showStackStatus
-        //self.navigationController?.isNavigationBarHidden = self.showStackStatus
         self.showStackStatus.toggle()
         self.stackButton.layer.zPosition = 1.0
         
@@ -256,5 +255,6 @@ class ScreenViewController: UIViewController {
        
         resultView.url = url
     }
+    
     
 }

@@ -175,17 +175,38 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OpT-0d-vuK">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="156.5"/>
                                                 <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rVc-l3-xZe">
+                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="156.5"/>
+                                                    </imageView>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play" translatesAutoresizingMaskIntoConstraints="NO" id="Ccs-1r-4U6">
                                                         <rect key="frame" x="157" y="48" width="60" height="60"/>
                                                     </imageView>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="rVc-l3-xZe" secondAttribute="bottom" id="0iF-Nf-Dzm"/>
+                                                    <constraint firstAttribute="trailing" secondItem="rVc-l3-xZe" secondAttribute="trailing" id="1C0-ye-qZq"/>
+                                                    <constraint firstItem="rVc-l3-xZe" firstAttribute="top" secondItem="OpT-0d-vuK" secondAttribute="top" id="1fd-jc-4fN"/>
+                                                    <constraint firstAttribute="bottom" secondItem="rVc-l3-xZe" secondAttribute="bottom" id="7Ww-VV-I1P"/>
+                                                    <constraint firstItem="rVc-l3-xZe" firstAttribute="top" secondItem="OpT-0d-vuK" secondAttribute="top" id="JIK-CR-TiN"/>
+                                                    <constraint firstItem="rVc-l3-xZe" firstAttribute="leading" secondItem="OpT-0d-vuK" secondAttribute="leading" id="Pd3-Sl-xOZ"/>
+                                                    <constraint firstItem="rVc-l3-xZe" firstAttribute="leading" secondItem="OpT-0d-vuK" secondAttribute="leading" id="S5Z-eU-gE8"/>
+                                                    <constraint firstAttribute="trailing" secondItem="rVc-l3-xZe" secondAttribute="trailing" id="Wdb-k6-tNP"/>
                                                     <constraint firstItem="Ccs-1r-4U6" firstAttribute="centerY" secondItem="OpT-0d-vuK" secondAttribute="centerY" id="Wh6-b5-y0d"/>
+                                                    <constraint firstItem="rVc-l3-xZe" firstAttribute="top" secondItem="OpT-0d-vuK" secondAttribute="top" id="YIc-wm-I8X"/>
+                                                    <constraint firstItem="rVc-l3-xZe" firstAttribute="leading" secondItem="OpT-0d-vuK" secondAttribute="leading" id="bG5-eI-KH3"/>
+                                                    <constraint firstAttribute="bottom" secondItem="rVc-l3-xZe" secondAttribute="bottom" id="mfI-Zc-8rz"/>
+                                                    <constraint firstAttribute="trailing" secondItem="rVc-l3-xZe" secondAttribute="trailing" id="nsk-cG-6FJ"/>
                                                     <constraint firstItem="Ccs-1r-4U6" firstAttribute="centerX" secondItem="OpT-0d-vuK" secondAttribute="centerX" id="y0A-zA-8tA"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="OpT-0d-vuK" secondAttribute="trailing" id="3wz-AP-5gg"/>
+                                            <constraint firstItem="OpT-0d-vuK" firstAttribute="top" secondItem="Wt4-LJ-FyJ" secondAttribute="top" id="Doj-Bm-zxf"/>
+                                            <constraint firstItem="OpT-0d-vuK" firstAttribute="leading" secondItem="Wt4-LJ-FyJ" secondAttribute="leading" id="rLt-g3-Wrz"/>
+                                            <constraint firstAttribute="bottom" secondItem="OpT-0d-vuK" secondAttribute="bottom" id="wAL-K7-upD"/>
+                                        </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="c78-n6-Ohy">
                                         <rect key="frame" x="0.0" y="529" width="374" height="156"/>
@@ -249,6 +270,7 @@
                     </view>
                     <connections>
                         <outlet property="discardButton" destination="Et3-pC-B9v" id="hup-JD-aaD"/>
+                        <outlet property="previewVideo" destination="rVc-l3-xZe" id="u2Z-Sq-96A"/>
                         <outlet property="saveButton" destination="R6G-U4-JRk" id="sgD-XV-EqV"/>
                         <outlet property="videoPlayer" destination="OpT-0d-vuK" id="KVW-7D-AIc"/>
                     </connections>

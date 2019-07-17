@@ -991,7 +991,7 @@ extension CameraController{
         isRecording = false
         videoWriter.finishWriting { [weak self] in
             self?.sessionAtSourceTime = nil
-            guard let url = self?.videoWriter.outputURL else { return }
+            //guard let url = self?.videoWriter.outputURL else { return }
             //let asset = AVURLAsset(url: url)
             //Do whatever you want with your asset here
             

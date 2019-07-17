@@ -73,7 +73,7 @@ class OnBoardViewController: UIViewController {
         }
         
 
-       
+       self.performSegue(withIdentifier: "recordScreen", sender: self)
 
     }
     
