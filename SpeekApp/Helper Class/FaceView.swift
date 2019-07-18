@@ -44,6 +44,8 @@ class FaceView: UIView {
     var boundingBox = CGRect.zero
     var isInitBoxShow = true
     var isShowingFace = true
+    var textNotification:CATextLayer = CATextLayer()
+    var blockLayer:CALayer!
     
     func clear() {
         leftEye = []
@@ -67,7 +69,7 @@ class FaceView: UIView {
         }
     }
     
-    func isAllFaceLandmarksAvaialable() -> Bool{
+    func isAllFaceLandmarksAvailable() -> Bool{
         
         if leftEye.isEmpty, rightEye.isEmpty, nose.isEmpty, leftEyebrow.isEmpty
             ,rightEyebrow.isEmpty, outerLips.isEmpty, innerLips.isEmpty, faceContour.isEmpty{
@@ -106,14 +108,37 @@ class FaceView: UIView {
             
             let xPosition = self.frame.width
             let yPosition = self.frame.height
+   
+            blockLayer = CALayer()
+            blockLayer.frame = self.frame
+            blockLayer.rasterizationScale = UIScreen.main.scale
+            self.layer.addSublayer(blockLayer)
             
-            let initUserFace = CGRect(x: xPosition / 4, y: yPosition / 4, width: xPosition / 3, height: yPosition / 2)
-            context.addRect(initUserFace)
-            UIColor.red.setStroke()
-            context.setLineWidth(10.0)
-            context.strokePath()
+            let radius: CGFloat = blockLayer.frame.width
+            let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: blockLayer.frame.width, height: blockLayer.frame.height), cornerRadius: 0)
+            let circlePath = UIBezierPath(roundedRect: CGRect(x: xPosition / 3, y: yPosition / 4, width: xPosition / 4, height: yPosition / 2 + yPosition / 6), cornerRadius: radius )
+            path.append(circlePath)
+            path.usesEvenOddFillRule = true
+            
+            let faceArea = CAShapeLayer()
+            faceArea.frame = blockLayer.bounds
+            faceArea.path = path.cgPath
+            faceArea.fillRule = .evenOdd
+            faceArea.fillColor = UIColor.black.cgColor
+            faceArea.strokeColor = UIColor.red.cgColor
+            //faceArea.lineWidth = 5
+            blockLayer.addSublayer(faceArea)
+            
+            textNotification.frame = CGRect(x: 0, y: 0, width: blockLayer.frame.width, height: 50)
+            textNotification.font = CTFontCreateWithName("TimesNewRomanPSMT" as CFString, 150.0, nil)
+            textNotification.foregroundColor = UIColor.white.cgColor
+            textNotification.isWrapped = true
+            textNotification.alignmentMode = .center
+            textNotification.contentsScale = UIScreen.main.scale
+            blockLayer.addSublayer(textNotification)
             
         }
+        
         // 1
         UIColor.white.setStroke()
         context.setLineWidth(2.0)

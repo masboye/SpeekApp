@@ -180,6 +180,7 @@ class ScreenViewController: UIViewController {
         cameraController.textTimer?.frame = cameraController.previewLayer!.frame
         cameraController.textNotification?.frame = cameraController.previewLayer!.frame
         
+        
     }
     
     private func updatePreviewLayer(layer: AVCaptureConnection, orientation: AVCaptureVideoOrientation) {
