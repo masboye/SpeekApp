@@ -18,6 +18,7 @@
 		92AE665922DC355500D64C66 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE665822DC355500D64C66 /* HistoryTableViewController.swift */; };
 		EF33934F22D339520055C989 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF33934E22D339520055C989 /* UIViewExtension.swift */; };
 		EF3C744F22DEDB77009363B2 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C744E22DEDB77009363B2 /* ResultViewController.swift */; };
+		EF587CFE22E06AE6009A7ECD /* SpeekAppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = EF587CFD22E06AE6009A7ECD /* SpeekAppIcon.png */; };
 		EF90986A22D6E6EB00B526DF /* CountDownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF90986922D6E6EB00B526DF /* CountDownTimer.swift */; };
 		EF91F6D122D7368600C3F5E8 /* FaceCharacteristicCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF91F6D022D7368600C3F5E8 /* FaceCharacteristicCounter.swift */; };
 		EF9F66A722D2EF31009711AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9F66A622D2EF31009711AF /* AppDelegate.swift */; };
@@ -47,6 +48,7 @@
 		92AE665822DC355500D64C66 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		EF33934E22D339520055C989 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		EF3C744E22DEDB77009363B2 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
+		EF587CFD22E06AE6009A7ECD /* SpeekAppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpeekAppIcon.png; sourceTree = "<group>"; };
 		EF90986922D6E6EB00B526DF /* CountDownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownTimer.swift; sourceTree = "<group>"; };
 		EF91F6D022D7368600C3F5E8 /* FaceCharacteristicCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceCharacteristicCounter.swift; sourceTree = "<group>"; };
 		EF9F66A322D2EF31009711AF /* SpeekApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeekApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,6 +115,7 @@
 		EF9F66A522D2EF31009711AF /* SpeekApp */ = {
 			isa = PBXGroup;
 			children = (
+				EF587CFD22E06AE6009A7ECD /* SpeekAppIcon.png */,
 				EF9F66BC22D3091D009711AF /* Helper Class */,
 				EF9F66A622D2EF31009711AF /* AppDelegate.swift */,
 				EF9F66A822D2EF31009711AF /* OnBoardViewController.swift */,
@@ -208,6 +211,7 @@
 			files = (
 				EF9F66B322D2EF33009711AF /* LaunchScreen.storyboard in Resources */,
 				EF9F66B022D2EF33009711AF /* Assets.xcassets in Resources */,
+				EF587CFE22E06AE6009A7ECD /* SpeekAppIcon.png in Resources */,
 				EF9F66AE22D2EF31009711AF /* Main.storyboard in Resources */,
 				10975DCA22DC210D00EBC64A /* Onboarding.storyboard in Resources */,
 			);
