@@ -246,7 +246,7 @@ class CameraController:NSObject{
         textNotification = CATextLayer()
         textNotification.frame = CGRect(x: 0, y: 30, width: 400, height: 50)
         textNotification.font = CTFontCreateWithName("TimesNewRomanPSMT" as CFString, 300.0, nil)
-        textNotification.foregroundColor = UIColor.white.cgColor
+        textNotification.foregroundColor = UIColor.black.cgColor
         textNotification.isWrapped = true
         textNotification.alignmentMode = .center
         textNotification.contentsScale = UIScreen.main.scale

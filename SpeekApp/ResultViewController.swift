@@ -37,6 +37,8 @@ class ResultViewController: UIViewController {
     @objc func videoTap( _ recognizer : UITapGestureRecognizer){
         
         let player = AVPlayer(url: url)
+        player.allowsExternalPlayback = true
+        player.usesExternalPlaybackWhileExternalScreenIsActive = true
         let playerViewController = AVPlayerViewController()
         playerViewController.player = player
         present(playerViewController, animated: true) {
