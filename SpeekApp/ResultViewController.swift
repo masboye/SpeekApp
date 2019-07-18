@@ -64,11 +64,29 @@ class ResultViewController: UIViewController {
         } catch {
             print(error)
         }
-        self.performSegue(withIdentifier: "backToBeginning", sender: self)
+        
+        let alertController = UIAlertController(title: "SpeekApp", message:
+            "Discarding the recording successful", preferredStyle: .alert)
+       
+        alertController.addAction(UIAlertAction(title: "Discard", style: .default, handler: { (alert) in
+            self.performSegue(withIdentifier: "backToBeginning", sender: self)
+        }))
+        self.present(alertController, animated: true, completion: nil)
+        
+        
     }
     
     @IBAction func savePractice(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "backToBeginning", sender: self)
+        
+        let alertController = UIAlertController(title: "SpeekApp", message:
+            "Saving the recording successful", preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "Save", style: .default, handler: { (alert) in
+            self.performSegue(withIdentifier: "backToBeginning", sender: self)
+        }))
+        self.present(alertController, animated: true, completion: nil)
+        
+        
     }
     
     func videoPreviewImage(url: URL) -> UIImage? {
