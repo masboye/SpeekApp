@@ -89,5 +89,12 @@ class OnBoardViewController: UIViewController {
         
     }
     
+    @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+         self.tabBarController?.tabBar.isHidden = false
+    }
 }
 

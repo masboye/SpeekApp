@@ -50,6 +50,25 @@ class ResultViewController: UIViewController {
         self.previewVideo.image = previewImage
     }
     
+    @IBAction func discardPractice(_ sender: UIButton) {
+        
+        //delete the video file
+        do {
+            if FileManager.default.fileExists(atPath: url.path) {
+                
+                try FileManager.default.removeItem(at: url)
+                
+            }
+        } catch {
+            print(error)
+        }
+        self.performSegue(withIdentifier: "backToBeginning", sender: self)
+    }
+    
+    @IBAction func savePractice(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "backToBeginning", sender: self)
+    }
+    
     func videoPreviewImage(url: URL) -> UIImage? {
         let asset = AVURLAsset(url: url)
         let generator = AVAssetImageGenerator(asset: asset)

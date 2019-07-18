@@ -904,8 +904,8 @@ extension CameraController{
     
     fileprivate func setupWriter() {
         do {
-            let url = videoFileLocation()
-            videoWriter = try AVAssetWriter(url: url, fileType: AVFileType.mp4)
+            videoURL = videoFileLocation()
+            videoWriter = try AVAssetWriter(url: videoURL, fileType: AVFileType.mp4)
             
             //Add video input
             videoWriterInput = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: [
@@ -964,7 +964,7 @@ extension CameraController{
         } catch {
             print(error)
         }
-        self.videoURL = videoOutputUrl
+        
         return videoOutputUrl
     }
     

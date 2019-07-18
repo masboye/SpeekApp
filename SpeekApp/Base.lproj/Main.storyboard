@@ -235,6 +235,9 @@
                                                         <state key="normal" title="Discard">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="discardPractice:" destination="aOA-xO-9GF" eventType="touchUpInside" id="nvn-np-Kz2"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R6G-U4-JRk">
                                                         <rect key="frame" x="197" y="0.0" width="177" height="50"/>
@@ -245,6 +248,9 @@
                                                         <state key="normal" title="Save">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="savePractice:" destination="aOA-xO-9GF" eventType="touchUpInside" id="N0D-YZ-TvL"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -279,9 +285,11 @@
                         <outlet property="previewVideo" destination="rVc-l3-xZe" id="u2Z-Sq-96A"/>
                         <outlet property="saveButton" destination="R6G-U4-JRk" id="sgD-XV-EqV"/>
                         <outlet property="videoPlayer" destination="OpT-0d-vuK" id="KVW-7D-AIc"/>
+                        <segue destination="PQN-oJ-9yu" kind="unwind" identifier="backToBeginning" unwindAction="prepareForUnwindWithSegue:" id="gy1-mi-sfX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F2f-bM-pEr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="PQN-oJ-9yu" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2877" y="-220"/>
         </scene>
