@@ -72,6 +72,12 @@ class ResultViewController: UIViewController {
         self.facingCenter.text = "Focus On Center \t\t\t\t:\t\(practiceResult.focusOnCenterSide) seconds"
         self.facingRight.text = "Focus On Right \t\t\t\t\t:\t\(practiceResult.focusOnRightSide) seconds"
         self.facingLeft.text = "Focus On Left \t\t\t\t\t:\t\(practiceResult.focusOnLeftSide) seconds"
+//
+//        self.smileResult.text = "Smile Maintaned \t\t:\t\(practiceResult.smile) seconds"
+//        self.lostEyeContactResult.text = "Lost Eye Contact \t\t:\t\(practiceResult.eyeClosedAccumulation) seconds"
+//        self.facingCenter.text = "Focus On Center \t\t:\t\(practiceResult.focusOnCenterSide) seconds"
+//        self.facingRight.text = "Focus On Right \t\t\t:\t\(practiceResult.focusOnRightSide) seconds"
+//        self.facingLeft.text = "Focus On Left \t\t\t:\t\(practiceResult.focusOnLeftSide) seconds"
     }
     
     @objc func videoTap( _ recognizer : UITapGestureRecognizer){

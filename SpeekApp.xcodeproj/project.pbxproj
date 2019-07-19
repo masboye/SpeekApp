@@ -19,6 +19,7 @@
 		EF33934F22D339520055C989 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF33934E22D339520055C989 /* UIViewExtension.swift */; };
 		EF3C744F22DEDB77009363B2 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C744E22DEDB77009363B2 /* ResultViewController.swift */; };
 		EF574BD922E157D500DC0503 /* PracticeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF574BD822E157D500DC0503 /* PracticeResult.swift */; };
+		EF574BDB22E175CE00DC0503 /* CalculationWaitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF574BDA22E175CE00DC0503 /* CalculationWaitViewController.swift */; };
 		EF587CFE22E06AE6009A7ECD /* SpeekAppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = EF587CFD22E06AE6009A7ECD /* SpeekAppIcon.png */; };
 		EF90986A22D6E6EB00B526DF /* CountDownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF90986922D6E6EB00B526DF /* CountDownTimer.swift */; };
 		EF91F6D122D7368600C3F5E8 /* FaceCharacteristicCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF91F6D022D7368600C3F5E8 /* FaceCharacteristicCounter.swift */; };
@@ -50,6 +51,7 @@
 		EF33934E22D339520055C989 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		EF3C744E22DEDB77009363B2 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		EF574BD822E157D500DC0503 /* PracticeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeResult.swift; sourceTree = "<group>"; };
+		EF574BDA22E175CE00DC0503 /* CalculationWaitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationWaitViewController.swift; sourceTree = "<group>"; };
 		EF587CFD22E06AE6009A7ECD /* SpeekAppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpeekAppIcon.png; sourceTree = "<group>"; };
 		EF90986922D6E6EB00B526DF /* CountDownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownTimer.swift; sourceTree = "<group>"; };
 		EF91F6D022D7368600C3F5E8 /* FaceCharacteristicCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceCharacteristicCounter.swift; sourceTree = "<group>"; };
@@ -131,6 +133,9 @@
 				EF9F66AF22D2EF33009711AF /* Assets.xcassets */,
 				EF9F66B122D2EF33009711AF /* LaunchScreen.storyboard */,
 				EF9F66B422D2EF33009711AF /* Info.plist */,
+				EF9F66BA22D2F5D2009711AF /* ScreenViewController.swift */,
+				EF3C744E22DEDB77009363B2 /* ResultViewController.swift */,
+				EF574BDA22E175CE00DC0503 /* CalculationWaitViewController.swift */,
 			);
 			path = SpeekApp;
 			sourceTree = "<group>";
@@ -238,6 +243,7 @@
 				EF9F66C222D309CA009711AF /* RecordTimer.swift in Sources */,
 				EF90986A22D6E6EB00B526DF /* CountDownTimer.swift in Sources */,
 				EF9F66A722D2EF31009711AF /* AppDelegate.swift in Sources */,
+				EF574BDB22E175CE00DC0503 /* CalculationWaitViewController.swift in Sources */,
 				10AB5FAF22DD766E00CC6729 /* TopicModel.swift in Sources */,
 				92AE665722DB995C00D64C66 /* SpeekApp.xcdatamodeld in Sources */,
 				10AB5FB322DD790D00CC6729 /* VideoModel.swift in Sources */,

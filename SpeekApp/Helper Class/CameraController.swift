@@ -69,6 +69,7 @@ class CameraController:NSObject{
     private var faceCharacteristicCounter = FaceCharacteristicCounter()
     
     var practiceResult:PracticeResult!
+    var delegate:VideoIsFinished?
     
     func prepare(completionHandler:@escaping (Error?) -> Void){
         func createCaptureSession(){
@@ -994,21 +995,24 @@ extension CameraController{
         isRecording = false
         videoWriter.finishWriting { [weak self] in
             self?.sessionAtSourceTime = nil
-            //guard let url = self?.videoWriter.outputURL else { return }
-            //let asset = AVURLAsset(url: url)
+            guard let url = self?.videoWriter.outputURL else { return }
+            let asset = AVURLAsset(url: url)
             //Do whatever you want with your asset here
             
             //UISaveVideoAtPathToSavedPhotosAlbum(asset.url.path, nil, nil, nil)
             //self!.saveVideoInDirectory(from: asset.url)
             
+            self!.practiceResult = PracticeResult(duration: Float(asset.duration.seconds), smile: self!.faceCharacteristicCounter.smileTime, notSmileAccumulation: self!.faceCharacteristicCounter.noSmileTime, eyeClosedAccumulation: self!.faceCharacteristicCounter.lostEyeContactTime, focusOnLeftSide: self!.faceCharacteristicCounter.focusOnLeftTime, focusOnRightSide: self!.faceCharacteristicCounter.focusOnRightTime, focusOnCenterSide: self!.faceCharacteristicCounter.focusOnCenterTime, url: url)
             
+            self!.delegate?.finishSavingVideo(self!.practiceResult)
             
         }
+        
+       
         self.isReadyToRecord = false
         self.recordTimer.resetTimer()
         self.timerForRecording?.invalidate()
         self.labelCountDown?.isHidden = false
-        
         let url = self.videoWriter.outputURL
         let asset = AVURLAsset(url: url)
         
@@ -1027,3 +1031,10 @@ extension CameraController{
         isRecording = true
     }
 }
+
+
+
+protocol VideoIsFinished {
+        func finishSavingVideo(_ practiceResult: PracticeResult)
+    }
+
