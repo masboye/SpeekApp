@@ -29,7 +29,9 @@ class CoreDataHelper{
         
         let video = Video(context: managedContext)
         video.title = topicModel.recording.video.title
-        video.attention = topicModel.recording.video.attention
+        video.attentionleft = topicModel.recording.video.attentionLeft
+        video.attentionright = topicModel.recording.video.attentionRight
+        video.attentioncenter = topicModel.recording.video.attentionCenter
         video.eyecontactlost = topicModel.recording.video.eyeContactLost
         video.smileduration = topicModel.recording.video.smileDuration
         video.filepath = topicModel.recording.video.filePath

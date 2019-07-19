@@ -48,10 +48,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Mr.Speek" translatesAutoresizingMaskIntoConstraints="NO" id="r64-ft-eOs">
-                                <rect key="frame" x="133" y="174" width="146" height="193"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your Topic" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Uiq-dh-4Tu">
                                 <rect key="frame" x="36" y="448" width="343" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -59,6 +55,10 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Group 5" translatesAutoresizingMaskIntoConstraints="NO" id="r64-ft-eOs">
+                                <rect key="frame" x="133" y="174" width="146" height="193"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
@@ -358,7 +358,7 @@
                     <connections>
                         <outlet property="historyTable" destination="Hv8-eH-7uE" id="0uT-zV-KOy"/>
                         <outlet property="searchBar" destination="xtS-0u-Crd" id="h8w-vg-6qG"/>
-                        <segue destination="UUB-LN-TLf" kind="show" id="wIR-6X-aG0"/>
+                        <segue destination="mIn-Jy-l4P" kind="show" identifier="historyToRec" id="28M-XU-uEU"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vKi-rf-pjS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -510,7 +510,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7HA-nA-xV8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2876.811594202899" y="780.80357142857144"/>
+            <point key="canvasLocation" x="2020" y="781"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -549,27 +549,9 @@
             </objects>
             <point key="canvasLocation" x="-775.36231884057975" y="-253.125"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="ANB-AY-XHn">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UUB-LN-TLf" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UcV-TY-ZhF">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="mIn-Jy-l4P" kind="relationship" relationship="rootViewController" id="RFD-ae-7Mm"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6EJ-6e-XTl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1966.6666666666667" y="780.80357142857144"/>
-        </scene>
     </scenes>
     <resources>
-        <image name="Mr.Speek" width="519" height="519"/>
+        <image name="Group 5" width="387" height="543"/>
         <image name="RecordTabBarBaruDisable" width="22" height="22"/>
         <image name="play" width="60" height="60"/>
         <image name="practiceTabBarDisable" width="23" height="22"/>

@@ -19,7 +19,6 @@ class HistoryTableViewController: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.HideKeyboard()
         mainData = getData()
         filteredData = mainData
         searchBar.delegate = self
@@ -78,7 +77,7 @@ class HistoryTableViewController: UITableViewController, UISearchBarDelegate {
             for recording in recordings {
                 
                 //print(recording.title)
-                let topicModel = TopicModel(title: topic.title!, recording: RecordingModel(title: recording.title!, date: recording.date!, video: VideoModel(title: recording.recToVid!.title!, filePath: recording.recToVid!.filepath!, eyeContactLost: recording.recToVid!.eyecontactlost, attention: recording.recToVid!.attention, smileDuration: recording.recToVid!.smileduration)))
+                let topicModel = TopicModel(title: topic.title!, recording: RecordingModel(title: recording.title!, date: recording.date!, video: VideoModel(title: recording.recToVid!.title!, filePath: recording.recToVid!.filepath!, eyeContactLost: recording.recToVid!.eyecontactlost, attentionLeft: recording.recToVid!.attentionleft, attentionRight: recording.recToVid!.attentionright, attentionCenter: recording.recToVid!.attentioncenter, smileDuration: recording.recToVid!.smileduration)))
                 
                 topicModels.append(topicModel)
             }
@@ -87,7 +86,18 @@ class HistoryTableViewController: UITableViewController, UISearchBarDelegate {
         return topicModels
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let controller = segue.destination as! ShowResultViewController
+        controller.topicModel = passedData
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        passedData = filteredData[indexPath.row]
+        performSegue(withIdentifier: "historyToRec", sender: self)
+    }
+    
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        view.endEditing(true)
         searchBar.showsCancelButton = true
     }
     

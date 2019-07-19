@@ -47,31 +47,7 @@ class OnBoardViewController: UIViewController {
 //        else{
 //            self.performSegue(withIdentifier: "recordScreen", sender: self)
 //        }
-        
-        
-        
-        let date = Date()
-        let dateformatter = DateFormatter()
-        dateformatter.dateFormat = "dd.MM.yyyy"
-        let a =  dateformatter.string(from: date)
-        print(a)
-
-
-        let modelCore = CoreDataHelper()
-        let topicModel = TopicModel(title: "cc", recording: RecordingModel(title: "pro", date: dateformatter.date(from: a)!, video: VideoModel(title: "ing", filePath: "ba", eyeContactLost: 2, attention: 3, smileDuration: 3)))
-
-        modelCore.saveTopic(topicModel: topicModel)
-        let asd:[Topic] = modelCore.fetch(entityName: "Topic")
-        
-        for waw in asd {
-            let aaa = waw.topicToRec?.allObjects
-            print(waw.title)
-            let arrayy:[Recording] = aaa as! [Recording]
-            for asw in arrayy {
-                print(asw.title)
-            }
-        }
-        
+               
 
        self.performSegue(withIdentifier: "recordScreen", sender: self)
 

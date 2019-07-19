@@ -81,10 +81,23 @@ class ResultViewController: UIViewController {
         let alertController = UIAlertController(title: "SpeekApp", message:
             "Saving the recording successful", preferredStyle: .alert)
         
-        alertController.addAction(UIAlertAction(title: "Save", style: .default, handler: { (alert) in
-            self.performSegue(withIdentifier: "backToBeginning", sender: self)
-        }))
-        self.present(alertController, animated: true, completion: nil)
+//        let date = Date()
+//        let dateformatter = DateFormatter()
+//        dateformatter.dateFormat = "dd.MM.yyyy"
+//        let a =  dateformatter.string(from: date)
+//        print(a)
+//        
+//        
+//        let modelCore = CoreDataHelper()
+//        let topicModel = TopicModel(title: "cc", recording: RecordingModel(title: "pro", date: dateformatter.date(from: a)!, video: VideoModel(title: "ing", filePath: "ba", eyeContactLost: 2, attention: 3, smileDuration: 3)))
+//        
+//        modelCore.saveTopic(topicModel: topicModel)
+//        let asd:[Topic] = modelCore.fetch(entityName: "Topic")
+//        
+//        alertController.addAction(UIAlertAction(title: "Save", style: .default, handler: { (alert) in
+//            self.performSegue(withIdentifier: "backToBeginning", sender: self)
+//        }))
+//        self.present(alertController, animated: true, completion: nil)
         
         
     }

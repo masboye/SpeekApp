@@ -12,7 +12,9 @@
         <relationship name="topicToRec" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Recording" syncable="YES"/>
     </entity>
     <entity name="Video" representedClassName="Video" syncable="YES" codeGenerationType="class">
-        <attribute name="attention" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="attentioncenter" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="attentionleft" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="attentionright" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="eyecontactlost" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="filepath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
@@ -22,6 +24,6 @@
     <elements>
         <element name="Recording" positionX="-63" positionY="-18" width="128" height="105"/>
         <element name="Topic" positionX="-63" positionY="18" width="128" height="90"/>
-        <element name="Video" positionX="-45" positionY="45" width="128" height="135"/>
+        <element name="Video" positionX="-45" positionY="45" width="128" height="165"/>
     </elements>
 </model>
