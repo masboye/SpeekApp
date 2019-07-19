@@ -10,8 +10,14 @@ import UIKit
 import AVKit
 
 
-class ResultViewController: UIViewController {
 
+class ResultViewController: UIViewController {
+    var textTemp: String?
+    
+    @IBAction func txtField(_ sender: UITextField) {
+        textTemp = sender.text
+    }
+    
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var discardButton: UIButton!
     @IBOutlet weak var videoPlayer: UIView!
@@ -23,26 +29,51 @@ class ResultViewController: UIViewController {
     @IBOutlet weak var facingCenter: UILabel!
     
     @IBOutlet weak var facingLeft: UILabel!
+    
+    @IBOutlet weak var titleSave: UITextField!
+    
     var practiceResult: PracticeResult!
+    var dataHelper: CoreDataHelper!
+    var topicModel: TopicModel!
+    var topicTemp: String = ""
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        self.HideKeyboard()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.saveButton.layer.cornerRadius = 10
         self.discardButton.layer.cornerRadius = 10
-        self.HideKeyboard()
         
         // Do any additional setup after loading the view.
         let playVideoTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.videoTap(_:)))
         videoPlayer.addGestureRecognizer(playVideoTapGesture)
         
-        self.smileResult.text = "Smile Maintaned \t\t:\t\(practiceResult.smile) seconds"
-        self.lostEyeContactResult.text = "Lost Eye Contact \t\t:\t\(practiceResult.eyeClosedAccumulation) seconds"
-        self.facingCenter.text = "Focus On Center \t\t:\t\(practiceResult.focusOnCenterSide) seconds"
-        self.facingRight.text = "Focus On Right \t\t:\t\(practiceResult.focusOnRightSide) seconds"
-        self.facingLeft.text = "Focus On Left \t\t:\t\(practiceResult.focusOnLeftSide) seconds"
+        print(practiceResult.smile)
+        print(practiceResult.duration)
+        
+        let resultOfSmile = (Float(practiceResult.smile) / practiceResult.duration) * 100
+        print(resultOfSmile)
+        let resultOfContact = (Float(practiceResult.eyeClosedAccumulation) / practiceResult.duration) * 100
+        print(resultOfContact)
+        let resultOfFacingLeft = (Float(practiceResult.focusOnLeftSide) / practiceResult.duration) * 100
+        print(resultOfFacingLeft)
+        let resultOfFacingRight = (Float(practiceResult.focusOnRightSide) / practiceResult.duration) * 100
+        print(resultOfFacingRight)
+        let resultOfFacingCenter = (Float(practiceResult.focusOnCenterSide) / practiceResult.duration) * 100
+        print(resultOfFacingCenter)
+        
+        self.smileResult.text = "Smile Maintaned \t\t\t\t:\t\(practiceResult.smile) seconds"
+        self.lostEyeContactResult.text = "Lost Eye Contact \t\t\t\t:\t\(practiceResult.eyeClosedAccumulation) seconds"
+        self.facingCenter.text = "Focus On Center \t\t\t\t:\t\(practiceResult.focusOnCenterSide) seconds"
+        self.facingRight.text = "Focus On Right \t\t\t\t\t:\t\(practiceResult.focusOnRightSide) seconds"
+        self.facingLeft.text = "Focus On Left \t\t\t\t\t:\t\(practiceResult.focusOnLeftSide) seconds"
     }
-
+    
     @objc func videoTap( _ recognizer : UITapGestureRecognizer){
         
         let player = AVPlayer(url: practiceResult.videoURL)
@@ -76,7 +107,7 @@ class ResultViewController: UIViewController {
         
         let alertController = UIAlertController(title: "SpeekApp", message:
             "Discarding the recording successful", preferredStyle: .alert)
-       
+        
         alertController.addAction(UIAlertAction(title: "Discard", style: .default, handler: { (alert) in
             self.performSegue(withIdentifier: "backToBeginning", sender: self)
         }))
@@ -87,26 +118,37 @@ class ResultViewController: UIViewController {
     
     @IBAction func savePractice(_ sender: UIButton) {
         
+        
         let alertController = UIAlertController(title: "SpeekApp", message:
             "Saving the recording successful", preferredStyle: .alert)
+        print(textTemp!)
+        print(topicTemp)
+        print(Int64(practiceResult.smile))
+        print(Int64(practiceResult.eyeClosedAccumulation))
+        print(Int64(practiceResult.focusOnLeftSide))
+        print(Int64(practiceResult.focusOnRightSide))
+        print(Int64(practiceResult.focusOnCenterSide))
+        topicModel.recording.title = textTemp!
+        topicTemp = topicModel.title
         
-//        let date = Date()
-//        let dateformatter = DateFormatter()
-//        dateformatter.dateFormat = "dd.MM.yyyy"
-//        let a =  dateformatter.string(from: date)
-//        print(a)
-//        
-//        
-//        let modelCore = CoreDataHelper()
-//        let topicModel = TopicModel(title: "cc", recording: RecordingModel(title: "pro", date: dateformatter.date(from: a)!, video: VideoModel(title: "ing", filePath: "ba", eyeContactLost: 2, attention: 3, smileDuration: 3)))
-//        
-//        modelCore.saveTopic(topicModel: topicModel)
-//        let asd:[Topic] = modelCore.fetch(entityName: "Topic")
-//        
-//        alertController.addAction(UIAlertAction(title: "Save", style: .default, handler: { (alert) in
-//            self.performSegue(withIdentifier: "backToBeginning", sender: self)
-//        }))
-//        self.present(alertController, animated: true, completion: nil)
+        topicModel.recording.date = Date()
+        topicModel.recording.video.title = textTemp!
+        topicModel.recording.video.smileDuration = Int64(practiceResult.smile)
+        
+        topicModel.recording.video.eyeContactLost = Int64(practiceResult.eyeClosedAccumulation)
+        
+        topicModel.recording.video.attentionLeft = Int64(practiceResult.focusOnLeftSide)
+        
+        topicModel.recording.video.attentionRight = Int64(practiceResult.focusOnRightSide)
+        
+        topicModel.recording.video.attentionCenter = Int64(practiceResult.focusOnCenterSide)
+        
+        dataHelper.saveTopic(topicModel: topicModel)
+        
+        alertController.addAction(UIAlertAction(title: "Save", style: .default, handler: { (alert) in
+            self.performSegue(withIdentifier: "backToBeginning", sender: self)
+        }))
+        self.present(alertController, animated: true, completion: nil)
         
         
     }

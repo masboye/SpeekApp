@@ -29,13 +29,14 @@ class OnBoardViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
         self.startButton.layer.cornerRadius = 10
-        self.HideKeyboard()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         //self.becomeFirstResponder()
+        self.topicFld.text = ""
+        HideKeyboard()
     }
     @IBAction func startAction(_ sender: UIButton) {
         
@@ -57,9 +58,11 @@ class OnBoardViewController: UIViewController {
         
         guard (sender as? String) != nil else {return}
         let topic = sender as? String
-        
         let controller = segue.destination
         let screenRecorder = controller as! ScreenViewController
+        let result = controller as! ResultViewController
+        
+        result.topicTemp = topicFld.text!
         screenRecorder.topic = topic!
         
         

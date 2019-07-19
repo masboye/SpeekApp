@@ -1014,6 +1014,7 @@ extension CameraController{
         
         practiceResult = PracticeResult(duration: Float(asset.duration.seconds), smile: faceCharacteristicCounter.smileTime, notSmileAccumulation: faceCharacteristicCounter.noSmileTime, eyeClosedAccumulation: faceCharacteristicCounter.lostEyeContactTime, focusOnLeftSide: faceCharacteristicCounter.focusOnLeftTime, focusOnRightSide: faceCharacteristicCounter.focusOnRightTime, focusOnCenterSide: faceCharacteristicCounter.focusOnCenterTime, url: url)
         
+        print(asset.duration.seconds)
     }
     
     

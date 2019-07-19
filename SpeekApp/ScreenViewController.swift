@@ -41,7 +41,7 @@ class ScreenViewController: UIViewController {
             
             
             performSegue(withIdentifier: "showResult", sender: self.cameraController.practiceResult )
-           
+            
         }
         
     }
@@ -153,7 +153,7 @@ class ScreenViewController: UIViewController {
     
     
     func configureAuxilliaryInterface(with: UIWindow){
-       
+        
         // You must show the window explicitly.
         with.isHidden = false
         // Save a reference to the window in a local array.
@@ -163,7 +163,7 @@ class ScreenViewController: UIViewController {
         
         with.rootViewController = viewController
         with.addSubview(self.preview)
-       
+        
     }
     
     func resetAuxilliaryInterface(window: UIWindow){
@@ -174,7 +174,7 @@ class ScreenViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-       
+        
         //set the previewlayer and faceView so always the same size in any orinetation
         
         cameraController.faceView?.frame = cameraController.previewLayer!.frame
@@ -255,7 +255,7 @@ class ScreenViewController: UIViewController {
         
         let controller = segue.destination
         let resultView = controller as! ResultViewController
-       
+        
         resultView.practiceResult = result
     }
     

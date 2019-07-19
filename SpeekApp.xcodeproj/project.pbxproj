@@ -123,14 +123,14 @@
 				EF9F66A822D2EF31009711AF /* OnBoardViewController.swift */,
 				EF9F66AC22D2EF31009711AF /* Main.storyboard */,
 				10AB5FB422DF6F6D00CC6729 /* ShowResultViewController.swift */,
+				EF3C744E22DEDB77009363B2 /* ResultViewController.swift */,
+				EF9F66BA22D2F5D2009711AF /* ScreenViewController.swift */,
 				92AE665822DC355500D64C66 /* HistoryTableViewController.swift */,
 				10975DCD22DC213100EBC64A /* Onboarding */,
 				92AE665522DB995C00D64C66 /* SpeekApp.xcdatamodeld */,
 				EF9F66AF22D2EF33009711AF /* Assets.xcassets */,
 				EF9F66B122D2EF33009711AF /* LaunchScreen.storyboard */,
 				EF9F66B422D2EF33009711AF /* Info.plist */,
-				EF9F66BA22D2F5D2009711AF /* ScreenViewController.swift */,
-				EF3C744E22DEDB77009363B2 /* ResultViewController.swift */,
 			);
 			path = SpeekApp;
 			sourceTree = "<group>";
@@ -393,7 +393,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NP7PUX36AY;
+				DEVELOPMENT_TEAM = YL8QB5EG34;
 				INFOPLIST_FILE = SpeekApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -411,7 +411,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NP7PUX36AY;
+				DEVELOPMENT_TEAM = YL8QB5EG34;
 				INFOPLIST_FILE = SpeekApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
