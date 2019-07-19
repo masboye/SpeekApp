@@ -37,11 +37,9 @@ class ResultViewController: UIViewController {
     var topicModel = TopicModel()
     var topicTemp: String = ""
     
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         self.HideKeyboard()
-        print(topicTemp)
     }
     
     override func viewDidLoad() {
@@ -49,27 +47,26 @@ class ResultViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.saveButton.layer.cornerRadius = 10
         self.discardButton.layer.cornerRadius = 10
-        
+        print(topicTemp)
         // Do any additional setup after loading the view.
         let playVideoTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.videoTap(_:)))
         videoPlayer.addGestureRecognizer(playVideoTapGesture)
         
-        let resultOfSmile = (Float(practiceResult.smile) / practiceResult.duration) * 100
+        let resultOfSmile = (Float(practiceResult.smile) / practiceResult.duration) * 100.0
         
-        let resultOfContact = (Float(practiceResult.eyeClosedAccumulation) / practiceResult.duration) * 100
+        let resultOfContact = (Float(practiceResult.eyeClosedAccumulation) / practiceResult.duration) * 100.0
         
-        let resultOfFacingLeft = (Float(practiceResult.focusOnLeftSide) / practiceResult.duration) * 100
+        let resultOfFacingLeft = (Float(practiceResult.focusOnLeftSide) / practiceResult.duration) * 100.0
         
-        let resultOfFacingRight = (Float(practiceResult.focusOnRightSide) / practiceResult.duration) * 100
+        let resultOfFacingRight = (Float(practiceResult.focusOnRightSide) / practiceResult.duration) * 100.0
         
-        let resultOfFacingCenter = (Float(practiceResult.focusOnCenterSide) / practiceResult.duration) * 100
+        let resultOfFacingCenter = (Float(practiceResult.focusOnCenterSide) / practiceResult.duration) * 100.0
         
-        
-        self.smileResult.text = "Smile Maintaned \t\t\t\t:\t\(resultOfSmile) %"
-        self.lostEyeContactResult.text = "Lost Eye Contact \t\t\t\t:\t\(resultOfContact) %"
-        self.facingCenter.text = "Focus On Center \t\t\t\t:\t\(resultOfFacingCenter) %"
-        self.facingRight.text = "Focus On Right \t\t\t\t\t:\t\(resultOfFacingRight) %"
-        self.facingLeft.text = "Focus On Left \t\t\t\t\t:\t\(resultOfFacingLeft) %"
+        self.smileResult.text = "Smile Maintaned \t\t\t\t:\t\(String(format: "%.1f", resultOfSmile)) %"
+        self.lostEyeContactResult.text = "Lost Eye Contact \t\t\t\t:\t\(String(format: "%.1f", resultOfContact)) %"
+        self.facingCenter.text = "Focus On Center \t\t\t\t:\t\(String(format: "%.1f", resultOfFacingCenter)) %"
+        self.facingRight.text = "Focus On Right \t\t\t\t\t:\t\(String(format: "%.1f", resultOfFacingRight)) %"
+        self.facingLeft.text = "Focus On Left \t\t\t\t\t:\t\(String(format: "%.1f", resultOfFacingLeft)) %"
     }
     
     @objc func videoTap( _ recognizer : UITapGestureRecognizer){
@@ -119,6 +116,7 @@ class ResultViewController: UIViewController {
         
         let alertController = UIAlertController(title: "SpeekApp", message:
             "Saving the recording successful", preferredStyle: .alert)
+        
         print(textTemp!)
         print(topicModel.title)
         

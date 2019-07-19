@@ -123,10 +123,9 @@
 				EF9F66BC22D3091D009711AF /* Helper Class */,
 				EF9F66A622D2EF31009711AF /* AppDelegate.swift */,
 				EF9F66A822D2EF31009711AF /* OnBoardViewController.swift */,
+				EF3C744E22DEDB77009363B2 /* ResultViewController.swift */,
 				EF9F66AC22D2EF31009711AF /* Main.storyboard */,
 				10AB5FB422DF6F6D00CC6729 /* ShowResultViewController.swift */,
-				EF3C744E22DEDB77009363B2 /* ResultViewController.swift */,
-				EF9F66BA22D2F5D2009711AF /* ScreenViewController.swift */,
 				92AE665822DC355500D64C66 /* HistoryTableViewController.swift */,
 				10975DCD22DC213100EBC64A /* Onboarding */,
 				92AE665522DB995C00D64C66 /* SpeekApp.xcdatamodeld */,
@@ -134,7 +133,6 @@
 				EF9F66B122D2EF33009711AF /* LaunchScreen.storyboard */,
 				EF9F66B422D2EF33009711AF /* Info.plist */,
 				EF9F66BA22D2F5D2009711AF /* ScreenViewController.swift */,
-				EF3C744E22DEDB77009363B2 /* ResultViewController.swift */,
 				EF574BDA22E175CE00DC0503 /* CalculationWaitViewController.swift */,
 			);
 			path = SpeekApp;
