@@ -21,50 +21,41 @@ extension UIViewController{
     }
 }
 
-class OnBoardViewController: UIViewController {
+class OnBoardViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var topicFld: UITextField!
-    
-    var topicTemp: String = ""
 
+    @IBAction func topicEdit(_ sender: UITextField) {
+        topicTemp = sender.text!
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        topicFld.delegate = self
         self.startButton.layer.cornerRadius = 10
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //self.becomeFirstResponder()
         topicFld.text = ""
         HideKeyboard()
     }
     
-    @IBAction func startAction(_ sender: UIButton) {
-        
-        //        if topicFld.text! ==  "" {
-        //            let alert = UIAlertController(title: "Fill your topic please", message: nil, preferredStyle: .alert)
-        //            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        //            self.present(alert, animated: true)
-        //        }
-        //        else{
-        //            self.performSegue(withIdentifier: "recordScreen", sender: self)
-        //        }
-        
-        self.performSegue(withIdentifier: "recordScreen", sender: self)
-        
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    @IBAction func startAction(_ sender: UIButton) {
         
-//        print("test")
-//        let topic = sender as? String
-//        let controller = segue.destination
-//        let screenRecorder = controller as! ScreenViewController
-//
-//        let result = controller as! ResultViewController
-//        result.topicTemp = topicFld.text!
-//        print(result.topicTemp)
-//        screenRecorder.topic = topic!
+                if topicFld.text! ==  "" {
+                    let alert = UIAlertController(title: "Fill your topic please", message: nil, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                    self.present(alert, animated: true)
+                }
+                else{
+                    self.performSegue(withIdentifier: "recordScreen", sender: self)
+                }
+        
     }
     
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {

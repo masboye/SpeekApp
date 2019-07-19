@@ -85,7 +85,7 @@ class ScreenViewController: UIViewController,VideoIsFinished {
         
         //init camera controller
         self.cameraController = CameraController(topic: topic)
-        
+        print(topic)
         self.cameraController.delegate = self
         // Do any additional setup after loading the view.
         let screenTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.screenTap(_:)))

@@ -11,9 +11,10 @@ import AVKit
 
 
 
-class ResultViewController: UIViewController {
+class ResultViewController: UIViewController, UITextFieldDelegate {
     var textTemp: String?
     
+    @IBOutlet weak var recTitleTextField: UITextField!
     @IBAction func txtField(_ sender: UITextField) {
         textTemp = sender.text
     }
@@ -35,15 +36,21 @@ class ResultViewController: UIViewController {
     var practiceResult: PracticeResult!
     var dataHelper = CoreDataHelper()
     var topicModel = TopicModel()
-    var topicTemp: String = ""
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         self.HideKeyboard()
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        recTitleTextField.delegate = self
+        print("Topic : \(topicTemp)")
         // Do any additional setup after loading the view.
         self.saveButton.layer.cornerRadius = 10
         self.discardButton.layer.cornerRadius = 10
