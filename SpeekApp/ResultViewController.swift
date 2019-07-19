@@ -17,7 +17,13 @@ class ResultViewController: UIViewController {
     @IBOutlet weak var videoPlayer: UIView!
     @IBOutlet weak var previewVideo: UIImageView!
     
-    var url:URL!
+    @IBOutlet weak var lostEyeContactResult: UILabel!
+    @IBOutlet weak var smileResult: UILabel!
+    @IBOutlet weak var facingRight: UILabel!
+    @IBOutlet weak var facingCenter: UILabel!
+    
+    @IBOutlet weak var facingLeft: UILabel!
+    var practiceResult: PracticeResult!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,13 +36,16 @@ class ResultViewController: UIViewController {
         let playVideoTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.videoTap(_:)))
         videoPlayer.addGestureRecognizer(playVideoTapGesture)
         
-        
-        
+        self.smileResult.text = "Smile Maintaned \t\t:\t\(practiceResult.smile) seconds"
+        self.lostEyeContactResult.text = "Lost Eye Contact \t\t:\t\(practiceResult.eyeClosedAccumulation) seconds"
+        self.facingCenter.text = "Focus On Center \t\t:\t\(practiceResult.focusOnCenterSide) seconds"
+        self.facingRight.text = "Focus On Right \t\t:\t\(practiceResult.focusOnRightSide) seconds"
+        self.facingLeft.text = "Focus On Left \t\t:\t\(practiceResult.focusOnLeftSide) seconds"
     }
 
     @objc func videoTap( _ recognizer : UITapGestureRecognizer){
         
-        let player = AVPlayer(url: url)
+        let player = AVPlayer(url: practiceResult.videoURL)
         player.allowsExternalPlayback = true
         player.usesExternalPlaybackWhileExternalScreenIsActive = true
         let playerViewController = AVPlayerViewController()
@@ -47,7 +56,7 @@ class ResultViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        guard let previewImage = videoPreviewImage(url: url) else {return}
+        guard let previewImage = videoPreviewImage(url: practiceResult.videoURL) else {return}
         
         self.previewVideo.image = previewImage
     }
@@ -56,9 +65,9 @@ class ResultViewController: UIViewController {
         
         //delete the video file
         do {
-            if FileManager.default.fileExists(atPath: url.path) {
+            if FileManager.default.fileExists(atPath: practiceResult.videoURL.path) {
                 
-                try FileManager.default.removeItem(at: url)
+                try FileManager.default.removeItem(at: practiceResult.videoURL)
                 
             }
         } catch {

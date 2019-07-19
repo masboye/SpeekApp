@@ -38,7 +38,9 @@ class ScreenViewController: UIViewController {
             self.recordButtonStatus = false
             self.recordButton.setImage(UIImage(named: "start record"), for: .normal)
             self.cameraController.stop()
-            performSegue(withIdentifier: "showResult", sender: self.cameraController.videoURL )
+            
+            
+            performSegue(withIdentifier: "showResult", sender: self.cameraController.practiceResult )
            
         }
         
@@ -249,12 +251,12 @@ class ScreenViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //guard (sender as? URL) != nil else {return}
-        guard let url = sender as? URL else {return}
+        guard let result = sender as? PracticeResult else {return}
         
         let controller = segue.destination
         let resultView = controller as! ResultViewController
        
-        resultView.url = url
+        resultView.practiceResult = result
     }
     
     
