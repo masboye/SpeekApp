@@ -21,6 +21,11 @@ struct FaceCharacteristicCounter {
     private var smileStatus = FaceCharacteristic.notSmilling
     var isFirstTimeSmile = true
     
+    var smileTime: Int{
+        get{
+            return smileAccumulation
+        }
+    }
     var smilePerimeter: FaceCharacteristic {
         get {
             return smileStatus
@@ -63,6 +68,12 @@ struct FaceCharacteristicCounter {
     private var notSmileStatus = FaceCharacteristic.smilling
     var isFirstTimeNotSmile = true
     private var lastNotSmileAccumulation = 0
+    
+    var noSmileTime: Int{
+        get{
+            return notSmileAccumulation
+        }
+    }
     
     var notSmilePerimeter: FaceCharacteristic {
         get {
@@ -176,11 +187,23 @@ struct FaceCharacteristicCounter {
         }
     }
     
+    var lostEyeContactTime: Int{
+        get{
+            return eyeClosedAccumulation
+        }
+    }
+    
     private var lastTurnLeftTime = Date()
     private var turnLeftAccumulation = 0
     private var turnLeftStatus = FaceCharacteristic.straight
     var isFirstTurnLeft = true
     private var lastTurnLeftAccumulation = 0
+    
+    var focusOnLeftTime: Int{
+        get{
+            return turnLeftAccumulation
+        }
+    }
     
     var lastTurnLeft: Int {
         get {
@@ -230,6 +253,11 @@ struct FaceCharacteristicCounter {
     var isFirstTurnRight = true
     private var lastTurnRightAccumulation = 0
     
+    var focusOnRightTime: Int{
+        get{
+            return turnRightAccumulation
+        }
+    }
     var lastTurnRight: Int {
         get {
             return lastTurnRightAccumulation
@@ -322,6 +350,12 @@ struct FaceCharacteristicCounter {
                     
                 }
             }
+        }
+    }
+    
+    var focusOnCenterTime: Int{
+        get{
+            return straightAccumulation
         }
     }
     

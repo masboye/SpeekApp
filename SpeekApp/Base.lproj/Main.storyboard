@@ -282,8 +282,13 @@
                     </view>
                     <connections>
                         <outlet property="discardButton" destination="Et3-pC-B9v" id="hup-JD-aaD"/>
+                        <outlet property="facingCenter" destination="mEn-DS-4Do" id="NE9-1n-b7K"/>
+                        <outlet property="facingLeft" destination="Txc-mV-1sv" id="pyL-mO-snk"/>
+                        <outlet property="facingRight" destination="uCF-fk-7ar" id="Qfr-UG-8w3"/>
+                        <outlet property="lostEyeContactResult" destination="CUr-jD-N3p" id="KvE-4d-TI7"/>
                         <outlet property="previewVideo" destination="rVc-l3-xZe" id="u2Z-Sq-96A"/>
                         <outlet property="saveButton" destination="R6G-U4-JRk" id="sgD-XV-EqV"/>
+                        <outlet property="smileResult" destination="x09-8u-9zb" id="bat-rV-CIV"/>
                         <outlet property="videoPlayer" destination="OpT-0d-vuK" id="KVW-7D-AIc"/>
                         <segue destination="PQN-oJ-9yu" kind="unwind" identifier="backToBeginning" unwindAction="prepareForUnwindWithSegue:" id="gy1-mi-sfX"/>
                     </connections>

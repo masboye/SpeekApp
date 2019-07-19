@@ -67,7 +67,8 @@ class CameraController:NSObject{
     
     //set face characteristic counter
     private var faceCharacteristicCounter = FaceCharacteristicCounter()
-    var videoURL:URL!
+    
+    var practiceResult:PracticeResult!
     
     func prepare(completionHandler:@escaping (Error?) -> Void){
         func createCaptureSession(){
@@ -903,8 +904,8 @@ extension CameraController{
     
     fileprivate func setupWriter() {
         do {
-            videoURL = videoFileLocation()
-            videoWriter = try AVAssetWriter(url: videoURL, fileType: AVFileType.mp4)
+            let url = videoFileLocation()
+            videoWriter = try AVAssetWriter(url: url, fileType: AVFileType.mp4)
             
             //Add video input
             videoWriterInput = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: [
@@ -1001,11 +1002,17 @@ extension CameraController{
             //self!.saveVideoInDirectory(from: asset.url)
             
             
+            
         }
         self.isReadyToRecord = false
         self.recordTimer.resetTimer()
         self.timerForRecording?.invalidate()
         self.labelCountDown?.isHidden = false
+        
+        let url = self.videoWriter.outputURL
+        let asset = AVURLAsset(url: url)
+        
+        practiceResult = PracticeResult(duration: Float(asset.duration.seconds), smile: faceCharacteristicCounter.smileTime, notSmileAccumulation: faceCharacteristicCounter.noSmileTime, eyeClosedAccumulation: faceCharacteristicCounter.lostEyeContactTime, focusOnLeftSide: faceCharacteristicCounter.focusOnLeftTime, focusOnRightSide: faceCharacteristicCounter.focusOnRightTime, focusOnCenterSide: faceCharacteristicCounter.focusOnCenterTime, url: url)
         
     }
     
