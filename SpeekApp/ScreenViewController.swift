@@ -9,7 +9,7 @@
 import UIKit
 import AVKit
 
-class ScreenViewController: UIViewController {
+class ScreenViewController: UIViewController,VideoIsFinished {
     
     @IBOutlet weak var stackButton: UIStackView!
     @IBOutlet weak var preview: UIView!
@@ -21,6 +21,13 @@ class ScreenViewController: UIViewController {
     var cameraController :CameraController!
     var additionalWindows: [UIWindow] = []
     
+    func finishSavingVideo(_ practiceResult: PracticeResult) {
+        
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "showResult", sender: practiceResult )
+        }
+        
+    }
     
     @IBAction func recordButtonPressed(_ sender: UIButton) {
         
@@ -40,7 +47,7 @@ class ScreenViewController: UIViewController {
             self.cameraController.stop()
             
             
-            performSegue(withIdentifier: "showResult", sender: self.cameraController.practiceResult )
+            //performSegue(withIdentifier: "showResult", sender: self.cameraController.practiceResult )
            
         }
         
@@ -69,12 +76,14 @@ class ScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.isNavigationBarHidden = true
         
         //init camera controller
         self.cameraController = CameraController(topic: topic)
         
+        self.cameraController.delegate = self
         // Do any additional setup after loading the view.
         let screenTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.screenTap(_:)))
         view.addGestureRecognizer(screenTapGesture)
@@ -254,7 +263,7 @@ class ScreenViewController: UIViewController {
         guard let result = sender as? PracticeResult else {return}
         
         let controller = segue.destination
-        let resultView = controller as! ResultViewController
+        let resultView = controller as! CalculationWaitViewController
        
         resultView.practiceResult = result
     }
