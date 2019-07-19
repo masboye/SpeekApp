@@ -23,6 +23,7 @@ class ShowResultViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.title = topicModel?.recording.title
+        
         if let converterSmile = topicModel?.recording.video.smileDuration {
             let smile = String(converterSmile)
             smileResultPercentage.text = smile

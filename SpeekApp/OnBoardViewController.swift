@@ -21,7 +21,6 @@ extension UIViewController{
     }
 }
 
-
 class OnBoardViewController: UIViewController {
     
     @IBOutlet weak var startButton: UIButton!
@@ -35,7 +34,7 @@ class OnBoardViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         //self.becomeFirstResponder()
-        self.topicFld.text = ""
+        topicFld.text = ""
         HideKeyboard()
     }
     @IBAction func startAction(_ sender: UIButton) {
@@ -48,24 +47,24 @@ class OnBoardViewController: UIViewController {
 //        else{
 //            self.performSegue(withIdentifier: "recordScreen", sender: self)
 //        }
-               
-
+        
        self.performSegue(withIdentifier: "recordScreen", sender: self)
 
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        guard (sender as? String) != nil else {return}
-        let topic = sender as? String
-        let controller = segue.destination
-        let screenRecorder = controller as! ScreenViewController
-        let result = controller as! ResultViewController
-        
-        result.topicTemp = topicFld.text!
-        screenRecorder.topic = topic!
-        
-        
+
+        if (segue.identifier == "historyToRec") {
+            let topic = sender as? String
+            let controller = segue.destination
+            let screenRecorder = controller as! ScreenViewController
+            
+            let result = controller as! ResultViewController
+            result.topicTemp = topicFld.text!
+            
+            screenRecorder.topic = topic!
+
+        }
     }
     
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {

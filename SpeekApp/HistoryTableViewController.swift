@@ -13,9 +13,9 @@ class HistoryTableViewController: UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet var historyTable: UITableView!
     
-    var filteredData:[TopicModel]!
-    var passedData:TopicModel!
-    var mainData:[TopicModel]!
+    var filteredData: [TopicModel]!
+    var passedData: TopicModel!
+    var mainData: [TopicModel]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,8 +97,8 @@ class HistoryTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        view.endEditing(true)
         searchBar.showsCancelButton = true
+        view.endEditing(true)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

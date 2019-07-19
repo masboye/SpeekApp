@@ -33,14 +33,15 @@ class ResultViewController: UIViewController {
     @IBOutlet weak var titleSave: UITextField!
     
     var practiceResult: PracticeResult!
-    var dataHelper: CoreDataHelper!
-    var topicModel: TopicModel!
+    var dataHelper = CoreDataHelper()
+    var topicModel = TopicModel()
     var topicTemp: String = ""
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         self.HideKeyboard()
+        print(topicTemp)
     }
     
     override func viewDidLoad() {
@@ -53,31 +54,22 @@ class ResultViewController: UIViewController {
         let playVideoTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.videoTap(_:)))
         videoPlayer.addGestureRecognizer(playVideoTapGesture)
         
-        print(practiceResult.smile)
-        print(practiceResult.duration)
-        
         let resultOfSmile = (Float(practiceResult.smile) / practiceResult.duration) * 100
-        print(resultOfSmile)
-        let resultOfContact = (Float(practiceResult.eyeClosedAccumulation) / practiceResult.duration) * 100
-        print(resultOfContact)
-        let resultOfFacingLeft = (Float(practiceResult.focusOnLeftSide) / practiceResult.duration) * 100
-        print(resultOfFacingLeft)
-        let resultOfFacingRight = (Float(practiceResult.focusOnRightSide) / practiceResult.duration) * 100
-        print(resultOfFacingRight)
-        let resultOfFacingCenter = (Float(practiceResult.focusOnCenterSide) / practiceResult.duration) * 100
-        print(resultOfFacingCenter)
         
-        self.smileResult.text = "Smile Maintaned \t\t\t\t:\t\(practiceResult.smile) seconds"
-        self.lostEyeContactResult.text = "Lost Eye Contact \t\t\t\t:\t\(practiceResult.eyeClosedAccumulation) seconds"
-        self.facingCenter.text = "Focus On Center \t\t\t\t:\t\(practiceResult.focusOnCenterSide) seconds"
-        self.facingRight.text = "Focus On Right \t\t\t\t\t:\t\(practiceResult.focusOnRightSide) seconds"
-        self.facingLeft.text = "Focus On Left \t\t\t\t\t:\t\(practiceResult.focusOnLeftSide) seconds"
-//
-//        self.smileResult.text = "Smile Maintaned \t\t:\t\(practiceResult.smile) seconds"
-//        self.lostEyeContactResult.text = "Lost Eye Contact \t\t:\t\(practiceResult.eyeClosedAccumulation) seconds"
-//        self.facingCenter.text = "Focus On Center \t\t:\t\(practiceResult.focusOnCenterSide) seconds"
-//        self.facingRight.text = "Focus On Right \t\t\t:\t\(practiceResult.focusOnRightSide) seconds"
-//        self.facingLeft.text = "Focus On Left \t\t\t:\t\(practiceResult.focusOnLeftSide) seconds"
+        let resultOfContact = (Float(practiceResult.eyeClosedAccumulation) / practiceResult.duration) * 100
+        
+        let resultOfFacingLeft = (Float(practiceResult.focusOnLeftSide) / practiceResult.duration) * 100
+        
+        let resultOfFacingRight = (Float(practiceResult.focusOnRightSide) / practiceResult.duration) * 100
+        
+        let resultOfFacingCenter = (Float(practiceResult.focusOnCenterSide) / practiceResult.duration) * 100
+        
+        
+        self.smileResult.text = "Smile Maintaned \t\t\t\t:\t\(resultOfSmile) %"
+        self.lostEyeContactResult.text = "Lost Eye Contact \t\t\t\t:\t\(resultOfContact) %"
+        self.facingCenter.text = "Focus On Center \t\t\t\t:\t\(resultOfFacingCenter) %"
+        self.facingRight.text = "Focus On Right \t\t\t\t\t:\t\(resultOfFacingRight) %"
+        self.facingLeft.text = "Focus On Left \t\t\t\t\t:\t\(resultOfFacingLeft) %"
     }
     
     @objc func videoTap( _ recognizer : UITapGestureRecognizer){
@@ -128,19 +120,13 @@ class ResultViewController: UIViewController {
         let alertController = UIAlertController(title: "SpeekApp", message:
             "Saving the recording successful", preferredStyle: .alert)
         print(textTemp!)
-        print(topicTemp)
-        print(Int64(practiceResult.smile))
-        print(Int64(practiceResult.eyeClosedAccumulation))
-        print(Int64(practiceResult.focusOnLeftSide))
-        print(Int64(practiceResult.focusOnRightSide))
-        print(Int64(practiceResult.focusOnCenterSide))
-        topicModel.recording.title = textTemp!
-        topicTemp = topicModel.title
+        print(topicModel.title)
         
+        topicModel.recording.title = textTemp!
+        topicModel.title = topicTemp
         topicModel.recording.date = Date()
         topicModel.recording.video.title = textTemp!
         topicModel.recording.video.smileDuration = Int64(practiceResult.smile)
-        
         topicModel.recording.video.eyeContactLost = Int64(practiceResult.eyeClosedAccumulation)
         
         topicModel.recording.video.attentionLeft = Int64(practiceResult.focusOnLeftSide)
@@ -173,3 +159,4 @@ class ResultViewController: UIViewController {
         }
     }
 }
+
