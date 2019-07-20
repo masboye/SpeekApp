@@ -50,11 +50,9 @@ class ResultViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         recTitleTextField.delegate = self
-        print("Topic : \(topicTemp)")
         // Do any additional setup after loading the view.
         self.saveButton.layer.cornerRadius = 10
         self.discardButton.layer.cornerRadius = 10
-        print(topicTemp)
         // Do any additional setup after loading the view.
         let playVideoTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.videoTap(_:)))
         videoPlayer.addGestureRecognizer(playVideoTapGesture)
@@ -77,7 +75,6 @@ class ResultViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func videoTap( _ recognizer : UITapGestureRecognizer){
-        
         let player = AVPlayer(url: practiceResult.videoURL)
         player.allowsExternalPlayback = true
         player.usesExternalPlaybackWhileExternalScreenIsActive = true
@@ -90,7 +87,7 @@ class ResultViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         guard let previewImage = videoPreviewImage(url: practiceResult.videoURL) else {return}
-        
+        print(practiceResult.videoURL)
         self.previewVideo.image = previewImage
     }
     
@@ -121,32 +118,40 @@ class ResultViewController: UIViewController, UITextFieldDelegate {
     @IBAction func savePractice(_ sender: UIButton) {
         
         
-        let alertController = UIAlertController(title: "SpeekApp", message:
-            "Saving the recording successful", preferredStyle: .alert)
-        
-        print(textTemp!)
-        print(topicModel.title)
-        
-        topicModel.recording.title = textTemp!
-        topicModel.title = topicTemp
-        topicModel.recording.date = Date()
-        topicModel.recording.video.title = textTemp!
-        topicModel.recording.video.smileDuration = Int64(practiceResult.smile)
-        topicModel.recording.video.eyeContactLost = Int64(practiceResult.eyeClosedAccumulation)
-        
-        topicModel.recording.video.attentionLeft = Int64(practiceResult.focusOnLeftSide)
-        
-        topicModel.recording.video.attentionRight = Int64(practiceResult.focusOnRightSide)
-        
-        topicModel.recording.video.attentionCenter = Int64(practiceResult.focusOnCenterSide)
-        
-        dataHelper.saveTopic(topicModel: topicModel)
-        
-        alertController.addAction(UIAlertAction(title: "Save", style: .default, handler: { (alert) in
-            self.performSegue(withIdentifier: "backToBeginning", sender: self)
-        }))
-        self.present(alertController, animated: true, completion: nil)
-        
+        if titleSave.text ==  "" {
+            let alert = UIAlertController(title: "Fill your recording title please", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+        }
+        else {
+            let alertController = UIAlertController(title: "SpeekApp", message:
+                "Saving the recording successful", preferredStyle: .alert)
+            
+            
+            topicModel.recording.title = textTemp!
+            topicModel.title = topicTemp
+            topicModel.recording.date = Date()
+            topicModel.recording.video.title = textTemp!
+            topicModel.recording.video.smileDuration = Int64(practiceResult.smile)
+            topicModel.recording.video.eyeContactLost = Int64(practiceResult.eyeClosedAccumulation)
+            
+            topicModel.recording.video.attentionLeft = Int64(practiceResult.focusOnLeftSide)
+            
+            topicModel.recording.video.attentionRight = Int64(practiceResult.focusOnRightSide)
+            
+            topicModel.recording.video.attentionCenter = Int64(practiceResult.focusOnCenterSide)
+            
+            topicModel.recording.video.filePath = practiceResult.videoURL.path
+            print("AA \(practiceResult.videoURL.absoluteString)")
+            print("BB \(topicModel.recording.video.filePath)")
+            dataHelper.saveTopic(topicModel: topicModel)
+            
+            alertController.addAction(UIAlertAction(title: "Save", style: .default, handler: { (alert) in
+                self.performSegue(withIdentifier: "backToBeginning", sender: self)
+            }))
+            self.present(alertController, animated: true, completion: nil)
+            
+        }
         
     }
     

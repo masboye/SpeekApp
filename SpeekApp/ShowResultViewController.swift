@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVKit
 
 class ShowResultViewController: UIViewController {
     @IBOutlet weak var smileResultPercentage: UILabel!
@@ -14,43 +15,82 @@ class ShowResultViewController: UIViewController {
     @IBOutlet weak var facingCenterPercentage: UILabel!
     @IBOutlet weak var facingRightPercentage: UILabel!
     @IBOutlet weak var facingLeftPercentage: UILabel!
-    @IBOutlet weak var videoPlayer: UIImageView!
-    @IBOutlet weak var videoPlayBtn: UIImageView!
     
-    var topicModel: TopicModel?
+    @IBOutlet weak var videoPlayer: UIView!
+    @IBOutlet weak var videoPlayerPreview: UIImageView!
+    
+    var topicModel: TopicModel!
+    
+    @objc func playVideo( _ recognizer : UITapGestureRecognizer){
+        let fileURL:URL = URL(fileURLWithPath: topicModel.recording.video.filePath)
+        let player = AVPlayer(url: fileURL)
+        player.allowsExternalPlayback = true
+        player.usesExternalPlaybackWhileExternalScreenIsActive = true
+        let playerViewController = AVPlayerViewController()
+        playerViewController.player = player
+        present(playerViewController, animated: true) {
+            player.play()
+        }
+    }
+    
+    func videoPreviewImage(url: URL) -> UIImage? {
+        let asset = AVURLAsset(url: url)
+        let generator = AVAssetImageGenerator(asset: asset)
+        //generator.appliesPreferredTrackTransform = true
+        print("a")
+        if let cgImage = try? generator.copyCGImage(at: CMTime(seconds: 2, preferredTimescale: 60), actualTime: nil) {
+            print("v")
+            return UIImage(cgImage: cgImage)
+        }
+        else {
+            print("s")
+            return nil
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let fileURL:URL = URL(fileURLWithPath: topicModel.recording.video.filePath)
+        print(fileURL.absoluteString)
+        guard let previewImage = videoPreviewImage(url: fileURL) else {return}
+        print("here")
+        self.videoPlayerPreview.image = previewImage
+
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let playVideoTapGesture = UITapGestureRecognizer(target: self, action: #selector(playVideo(_:)))
+        videoPlayer.addGestureRecognizer(playVideoTapGesture)
         
         navigationItem.title = topicModel?.recording.title
         
         if let converterSmile = topicModel?.recording.video.smileDuration {
             let smile = String(converterSmile)
-            smileResultPercentage.text = smile
+            smileResultPercentage.text = "\(smileResultPercentage.text!) \(smile)"
         }
         
         if let converterContact = topicModel?.recording.video.eyeContactLost {
             let eye = String(converterContact)
-            lostContactPercentage.text = eye
+            lostContactPercentage.text = "\(lostContactPercentage.text!) \(eye)"
         }
         
         if let converterLeft = topicModel?.recording.video.attentionLeft {
             let left = String(converterLeft)
-            facingLeftPercentage.text = left
+            facingLeftPercentage.text = "\(facingLeftPercentage.text!) \(left)"
         }
         
         if let converterRight = topicModel?.recording.video.attentionRight {
             let right = String(converterRight)
-            facingRightPercentage.text = right
+            facingRightPercentage.text = "\(facingRightPercentage.text!) \(right)"
         }
         
         if let converterCenter = topicModel?.recording.video.attentionCenter {
             let center = String(converterCenter)
-            facingCenterPercentage.text = center
+            facingCenterPercentage.text = "\(facingCenterPercentage.text!) \(center)"
         }
         
-        
-        
+        //print(topicModel.recording.video.filePath)
 
         // Do any additional setup after loading the view.
     }
