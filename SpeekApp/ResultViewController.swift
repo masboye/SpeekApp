@@ -26,10 +26,7 @@ class ResultViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var lostEyeContactResult: UILabel!
     @IBOutlet weak var smileResult: UILabel!
-    @IBOutlet weak var facingRight: UILabel!
-    @IBOutlet weak var facingCenter: UILabel!
-    
-    @IBOutlet weak var facingLeft: UILabel!
+    @IBOutlet weak var attention: UILabel!
     
     @IBOutlet weak var titleSave: UITextField!
     
@@ -61,17 +58,11 @@ class ResultViewController: UIViewController, UITextFieldDelegate {
         
         let resultOfContact = (Float(practiceResult.eyeClosedAccumulation) / practiceResult.duration) * 100.0
         
-        let resultOfFacingLeft = (Float(practiceResult.focusOnLeftSide) / practiceResult.duration) * 100.0
-        
-        let resultOfFacingRight = (Float(practiceResult.focusOnRightSide) / practiceResult.duration) * 100.0
-        
-        let resultOfFacingCenter = (Float(practiceResult.focusOnCenterSide) / practiceResult.duration) * 100.0
-        
+        let resultOfAttention = ((Float((practiceResult.focusOnCenterSide + practiceResult.focusOnLeftSide + practiceResult.focusOnRightSide)) / 3.0) / practiceResult.duration) * 100.0
+
         self.smileResult.text = "Smile Maintaned \t\t\t\t:\t\(String(format: "%.1f", resultOfSmile)) %"
         self.lostEyeContactResult.text = "Lost Eye Contact \t\t\t\t:\t\(String(format: "%.1f", resultOfContact)) %"
-        self.facingCenter.text = "Focus On Center \t\t\t\t:\t\(String(format: "%.1f", resultOfFacingCenter)) %"
-        self.facingRight.text = "Focus On Right \t\t\t\t\t:\t\(String(format: "%.1f", resultOfFacingRight)) %"
-        self.facingLeft.text = "Focus On Left \t\t\t\t\t:\t\(String(format: "%.1f", resultOfFacingLeft)) %"
+        self.attention.text = "Attention \t\t\t\t\t\t:\t\(String(format: "%.1f", resultOfAttention)) %"
     }
     
     @objc func videoTap( _ recognizer : UITapGestureRecognizer){

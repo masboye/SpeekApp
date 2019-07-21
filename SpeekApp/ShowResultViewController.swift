@@ -13,8 +13,6 @@ class ShowResultViewController: UIViewController {
     @IBOutlet weak var smileResultPercentage: UILabel!
     @IBOutlet weak var lostContactPercentage: UILabel!
     @IBOutlet weak var facingCenterPercentage: UILabel!
-    @IBOutlet weak var facingRightPercentage: UILabel!
-    @IBOutlet weak var facingLeftPercentage: UILabel!
     
     @IBOutlet weak var videoPlayer: UIView!
     @IBOutlet weak var videoPlayerPreview: UIImageView!
@@ -67,27 +65,33 @@ class ShowResultViewController: UIViewController {
         
         if let converterSmile = topicModel?.recording.video.smileDuration {
             let smile = String(converterSmile)
-            smileResultPercentage.text = "\(smileResultPercentage.text!) \(smile)"
+            //smileResultPercentage.text = "\(smileResultPercentage.text!) \(smile)"
+            //not fixed
+            smileResultPercentage.text = "Smile Maintaned \t\t\t\t:\t\(smile) %"
         }
         
         if let converterContact = topicModel?.recording.video.eyeContactLost {
             let eye = String(converterContact)
-            lostContactPercentage.text = "\(lostContactPercentage.text!) \(eye)"
+//            lostContactPercentage.text = "\(lostContactPercentage.text!) \(eye)"
+            //not fixed
+            lostContactPercentage.text = "Lost Eye Contact \t\t\t\t:\t\(eye) %"
         }
         
-        if let converterLeft = topicModel?.recording.video.attentionLeft {
-            let left = String(converterLeft)
-            facingLeftPercentage.text = "\(facingLeftPercentage.text!) \(left)"
-        }
-        
-        if let converterRight = topicModel?.recording.video.attentionRight {
-            let right = String(converterRight)
-            facingRightPercentage.text = "\(facingRightPercentage.text!) \(right)"
-        }
+//        if let converterLeft = topicModel?.recording.video.attentionLeft {
+//            let left = String(converterLeft)
+//            facingLeftPercentage.text = "\(facingLeftPercentage.text!) \(left)"
+//        }
+//
+//        if let converterRight = topicModel?.recording.video.attentionRight {
+//            let right = String(converterRight)
+//            facingRightPercentage.text = "\(facingRightPercentage.text!) \(right)"
+//        }
         
         if let converterCenter = topicModel?.recording.video.attentionCenter {
             let center = String(converterCenter)
-            facingCenterPercentage.text = "\(facingCenterPercentage.text!) \(center)"
+//            facingCenterPercentage.text = "\(facingCenterPercentage.text!) \(center)"
+            //not fixed
+            facingCenterPercentage.text = "Attention \t\t\t\t\t\t:\t\(center) %"
         }
         
         //print(topicModel.recording.video.filePath)
