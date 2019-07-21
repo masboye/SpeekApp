@@ -61,17 +61,20 @@ class ShowResultViewController: UIViewController {
         let playVideoTapGesture = UITapGestureRecognizer(target: self, action: #selector(playVideo(_:)))
         videoPlayer.addGestureRecognizer(playVideoTapGesture)
         
+        let url = topicModel.recording.video.filePath
+        let asset = AVURLAsset(url: URL(fileURLWithPath: url))
+        
         navigationItem.title = topicModel?.recording.title
         
         if let converterSmile = topicModel?.recording.video.smileDuration {
-            let smile = String(converterSmile)
+            let smile = String(Float(Float(converterSmile) / Float(asset.duration.seconds)) * 100)
             //smileResultPercentage.text = "\(smileResultPercentage.text!) \(smile)"
             //not fixed
             smileResultPercentage.text = "Smile Maintaned \t\t\t\t:\t\(smile) %"
         }
         
         if let converterContact = topicModel?.recording.video.eyeContactLost {
-            let eye = String(converterContact)
+            let eye = String(Float(Float(converterContact) / Float(asset.duration.seconds)) * 100)
 //            lostContactPercentage.text = "\(lostContactPercentage.text!) \(eye)"
             //not fixed
             lostContactPercentage.text = "Lost Eye Contact \t\t\t\t:\t\(eye) %"
@@ -88,7 +91,10 @@ class ShowResultViewController: UIViewController {
 //        }
         
         if let converterCenter = topicModel?.recording.video.attentionCenter {
-            let center = String(converterCenter)
+            let left = topicModel.recording.video.attentionLeft
+            let right = topicModel.recording.video.attentionRight
+            
+            let center = String(Float(((Float(converterCenter) + Float(left) + Float(right)) / 3 )  / Float(asset.duration.seconds)) * 100)
 //            facingCenterPercentage.text = "\(facingCenterPercentage.text!) \(center)"
             //not fixed
             facingCenterPercentage.text = "Attention \t\t\t\t\t\t:\t\(center) %"
