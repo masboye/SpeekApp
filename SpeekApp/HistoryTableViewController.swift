@@ -24,6 +24,11 @@ class HistoryTableViewController: UITableViewController, UISearchBarDelegate {
         searchBar.delegate = self
         historyTable.delegate = self
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        mainData = getData()
+        filteredData = mainData
+    }
 
     // MARK: - Table view data source
 
