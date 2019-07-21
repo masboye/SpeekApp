@@ -16,6 +16,7 @@ class VideoModel {
     var attentionRight: Int64
     var attentionCenter: Int64
     var smileDuration: Int64
+    var duration: Float
     
     init() {
         self.title = ""
@@ -25,6 +26,7 @@ class VideoModel {
         self.attentionRight = 0
         self.attentionCenter = 0
         self.smileDuration = 0
+        self.duration = 0.0
     }
     init(title: String, filePath: String, eyeContactLost: Int64, attentionLeft: Int64, attentionRight: Int64, attentionCenter: Int64, smileDuration: Int64) {
         self.title = title
