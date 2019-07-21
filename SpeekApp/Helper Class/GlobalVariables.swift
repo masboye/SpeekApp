@@ -9,3 +9,4 @@
 import Foundation
 
 var topicTemp = ""
+var isGreen:Bool = false

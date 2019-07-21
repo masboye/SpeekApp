@@ -457,7 +457,6 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
             self.isReadyToRecord = true
             
             //start the count down
-            
         let countDownTimer = CountDownTimer(initValue: 3)
            
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -610,6 +609,7 @@ extension CameraController:AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptur
         if faceView != nil, self.faceView.isAllFaceLandmarksAvailable(){
             
             DispatchQueue.main.async {
+                isGreen = true
                 self.faceView.textNotification.string = "Face Feature Detected"
                 
             }
