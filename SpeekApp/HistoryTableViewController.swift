@@ -28,6 +28,7 @@ class HistoryTableViewController: UITableViewController, UISearchBarDelegate {
     override func viewDidAppear(_ animated: Bool) {
         mainData = getData()
         filteredData = mainData
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source

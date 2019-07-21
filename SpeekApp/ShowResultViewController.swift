@@ -67,17 +67,17 @@ class ShowResultViewController: UIViewController {
         navigationItem.title = topicModel?.recording.title
         
         if let converterSmile = topicModel?.recording.video.smileDuration {
-            let smile = String(Float(Float(converterSmile) / Float(asset.duration.seconds)) * 100)
+            let smile = Float(Float(converterSmile) / Float(asset.duration.seconds)) * 100
             //smileResultPercentage.text = "\(smileResultPercentage.text!) \(smile)"
             //not fixed
-            smileResultPercentage.text = "Smile Maintaned \t\t\t\t:\t\(String(format: "%.1f", smile)) %"
+            smileResultPercentage.text = "Smile Maintaned \t\t\t\t:\t\(String(format: "%.1f",smile)) %"
         }
         
         if let converterContact = topicModel?.recording.video.eyeContactLost {
-            let eye = String(Float(Float(converterContact) / Float(asset.duration.seconds)) * 100)
+            let eye = Float(Float(converterContact) / Float(asset.duration.seconds)) * 100
 //            lostContactPercentage.text = "\(lostContactPercentage.text!) \(eye)"
             //not fixed
-            lostContactPercentage.text = "Lost Eye Contact \t\t\t\t:\t\(String(format: "%.1f", eye)) %"
+            lostContactPercentage.text = "Lost Eye Contact \t\t\t\t:\t\(String(format: "%.1f",eye)) %"
         }
         
 //        if let converterLeft = topicModel?.recording.video.attentionLeft {
@@ -94,10 +94,10 @@ class ShowResultViewController: UIViewController {
             let left = topicModel.recording.video.attentionLeft
             let right = topicModel.recording.video.attentionRight
             
-            let center = String(Float(((Float(converterCenter) + Float(left) + Float(right)) / 3 )  / Float(asset.duration.seconds)) * 100)
+            let center = Float(((Float(converterCenter) + Float(left) + Float(right)) / 3 )  / Float(asset.duration.seconds)) * 100
 //            facingCenterPercentage.text = "\(facingCenterPercentage.text!) \(center)"
             //not fixed
-            facingCenterPercentage.text = "Attention \t\t\t\t\t\t:\t\(String(format: "%.1f", center)) %"
+            facingCenterPercentage.text = "Attention \t\t\t\t\t\t:\t\(String(format: "%.1f",center)) %"
         }
         
         //print(topicModel.recording.video.filePath)

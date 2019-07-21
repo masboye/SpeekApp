@@ -37,6 +37,7 @@ class OnBoardViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         topicFld.text = ""
+        isGreen = false
         HideKeyboard()
     }
     
