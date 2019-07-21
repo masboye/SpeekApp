@@ -125,7 +125,12 @@ class FaceView: UIView {
             faceArea.path = path.cgPath
             faceArea.fillRule = .evenOdd
             faceArea.fillColor = UIColor.black.cgColor
-            faceArea.strokeColor = UIColor.red.cgColor
+            if !isGreen {
+                faceArea.strokeColor = UIColor.red.cgColor
+            }
+            else {
+                faceArea.strokeColor = UIColor.green.cgColor
+            }
             //faceArea.lineWidth = 5
             blockLayer.addSublayer(faceArea)
             
